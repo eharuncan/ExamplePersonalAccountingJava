@@ -1,4 +1,4 @@
-# Charm - Simple Tasks
+# Personal Accounting
 Built with my new preferred stack: CHARM (Chakra-UI, React, Meteor).
 
 ## What and why this stack?
