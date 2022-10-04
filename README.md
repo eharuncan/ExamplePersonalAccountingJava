@@ -1,5 +1,5 @@
 # Personal Accounting
-Built with my new preferred stack: CHARM (Chakra-UI, React, Meteor).
+Built with the stack: CHARM (Chakra-UI, React, Meteor).
 
 ## What and why this stack?
 The main goal is to make development as quick and efficient as possible. To achieve this have selected these technologies:
@@ -12,9 +12,9 @@ The main goal is to make development as quick and efficient as possible. To achi
 -   [Meteor Cloud ](https://cloud.meteor.com/)- Cloud provider that makes Deploying a Server with, Database included painless
 
 
-Demo: https://simpletasks.meteorapp.com/
+Demo: https://xxx.meteorapp.com/
 
-Author: [@fredmaiaarantes](https://twitter.com/fredmaiaarantes)
+Author: Harun Can Yıldırım
 
 Features:
 - Sign In / Sign Up
@@ -23,9 +23,6 @@ Features:
 - Remove Task
 - Mark Task as Done
 - Filter Tasks by Status
-
-Video demo:
-https://www.loom.com/share/50b9e1a513904b138fb772a332facbfb
 
 ## Running the template
 
