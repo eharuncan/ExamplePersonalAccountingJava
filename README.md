@@ -18,11 +18,11 @@ Author: Harun Can Yıldırım
 
 Features:
 - Sign In / Sign Up
-- List Tasks by logged user
-- Add Task
-- Remove Task
-- Mark Task as Done
-- Filter Tasks by Status
+- List Expenses by logged user
+- Add Expense
+- Remove Expense
+- Mark Expense as Done
+- Filter Expenses by Status
 
 ## Running the template
 
@@ -102,8 +102,8 @@ This is the kind of feature that sometimes comes in handy. Whenever the server s
 import { Meteor } from "meteor/meteor";
 import { Migrations } from "meteor/percolate:migrations";
 import "./db/migrations";
-import "./tasks/tasks.methods";
-import "./tasks/tasks.publications";
+import "./expenses/expenses.methods";
+import "./expenses/expenses.publications";
 
 /**
  * This is the server-side entry point
@@ -123,7 +123,7 @@ For more details, you can check [the package docs](https://github.com/percolates
 
 Schemas are a manner to be sure that the data that comes from the front end is the way we expect it to be and also it is sanitized.
 
-We have decided to use simpl-schema attaching it to our collection as you can see in `api/tasks/tasks.collection.js` by doing this, all data that goes to our Database is validated and follow the structure we defined, you can see how a Task is structured, and having that schema, we can start doing methods and publications.
+We have decided to use simpl-schema attaching it to our collection as you can see in `api/expenses/expenses.collection.js` by doing this, all data that goes to our Database is validated and follow the structure we defined, you can see how a Expense is structured, and having that schema, we can start doing methods and publications.
 
 Don't forget to check [simpl-schema docs](https://www.npmjs.com/package/simpl-schema) in case of doubts on how to use it.
 
@@ -131,45 +131,45 @@ Don't forget to check [simpl-schema docs](https://www.npmjs.com/package/simpl-sc
 
 Following the idea of having a folder for each feature and if it connects to the front end, we need to provide a way to connect.
 
-Meteor works similarly to[ tRPC](https://trpc.io/) and [Blitz.js](https://blitzjs.com/). This model has server functions that get called through a Remote Procedure Call (RPC). In this template, calls that are related to tasks are in the `api/tasks/tasks.methods.js` folder.
+Meteor works similarly to[ tRPC](https://trpc.io/) and [Blitz.js](https://blitzjs.com/). This model has server functions that get called through a Remote Procedure Call (RPC). In this template, calls that are related to expenses are in the `api/expenses/expenses.methods.js` folder.
 
 ```javascript
 /**
- * Remove a task.
- * @param {{ taskId: String }}
- * @throws Will throw an error if user is not logged in or is not the task owner.
+ * Remove a expense.
+ * @param {{ expenseId: String }}
+ * @throws Will throw an error if user is not logged in or is not the expense owner.
  */
-export const removeTask = ({ taskId }) => {
-  checkTaskOwner({ taskId });
-  TasksCollection.remove(taskId);
+export const removeExpense = ({ expenseId }) => {
+  checkExpenseOwner({ expenseId });
+  ExpensesCollection.remove(expenseId);
 };
 ...
 Meteor.methods({
-  insertTask,
-  removeTask,
-  toggleTaskDone,
+  insertExpense,
+  removeExpense,
+  toggleExpenseDone,
 });
 ```
 
 So in order to call this server method, we need to do a call for its name. It would look like this:
 
 ```javascript
- onDelete={taskId => Meteor.call('removeTask', { taskId })}
+ onDelete={expenseId => Meteor.call('removeExpense', { expenseId })}
 ```
 
-This sample comes from `ui/tasks/TaskItems.jsx:`
+This sample comes from `ui/expenses/ExpenseItems.jsx:`
 
 #### Subscriptions
 
-MeteorJS supports subscriptions out of the box that can be seen in `api/tasks/tasks.publications.js` these publications are called in a similar way to RPC methods, but their values are reactive. For more details on how to deal and think in reactive programming, [Andre Stalz ](http://andre.staltz.com)has [this gist introducing Reactive Programming, ](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)and [Kris Kowal](https://github.com/kriskowal) has [this Repo](https://github.com/kriskowal/gtor) that discusses the theory of reactivity in-depth.
+MeteorJS supports subscriptions out of the box that can be seen in `api/expenses/expenses.publications.js` these publications are called in a similar way to RPC methods, but their values are reactive. For more details on how to deal and think in reactive programming, [Andre Stalz ](http://andre.staltz.com)has [this gist introducing Reactive Programming, ](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)and [Kris Kowal](https://github.com/kriskowal) has [this Repo](https://github.com/kriskowal/gtor) that discusses the theory of reactivity in-depth.
 
 > For using subscripiton as you can see in our docs, is similar to using methods. In React we use meteor/react-meteor-data for having a react-way of calling those methods
 
-For a good example of Subscriptions, you can look in `ui/tasks/TasksPage.jsx`
+For a good example of Subscriptions, you can look in `ui/expenses/ExpensesPage.jsx`
 
 ### Frontend decisions
 
-![Task Form](README-Assets/task_example.png)
+![Expense Form](README-Assets/expense_example.png)
 
 #### React with Meteor is &lt;3
 
@@ -179,7 +179,7 @@ For more information, you can check [react-meteor-data repo](https://github.com/
 
 #### Forms
 
-As one of the key parts of the front end, we have chosen a library to help us deal with this piece. Formik is one of the most expressive ways of writing forms in React, a good template for creating this kind of form is located in `ui/tasks/TaskForm.jsx` it is also integrated with Meteor by its call method.
+As one of the key parts of the front end, we have chosen a library to help us deal with this piece. Formik is one of the most expressive ways of writing forms in React, a good template for creating this kind of form is located in `ui/expenses/ExpenseForm.jsx` it is also integrated with Meteor by its call method.
 
 Want to know more and how to create many things with Formik? [their documentation](https://formik.org/docs/overview).
 

@@ -7,12 +7,12 @@ import {
   Text,
   useColorModeValue,
 } from '@chakra-ui/react';
-import { TaskItem } from './TaskItem';
+import { ExpenseItem } from './ExpenseItem';
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 
-export const TaskItems = ({
-  tasks,
+export const ExpenseItems = ({
+  expenses,
   pendingCount,
   hideDone,
   setHideDone,
@@ -35,7 +35,7 @@ export const TaskItems = ({
           color={useColorModeValue('gray.600', 'gray.400')}
           fontSize="xs"
         >
-          You have {tasks.length} {tasks.length === 1 ? 'task ' : 'tasks '}
+          You have {expenses.length} {expenses.length === 1 ? 'expense ' : 'expenses '}
           and {pendingCount || 0} pending.
         </Text>
       </Box>
@@ -47,7 +47,7 @@ export const TaskItems = ({
           size="xs"
           onClick={() => setHideDone(!hideDone)}
         >
-          {hideDone ? 'Show All Tasks' : 'Show Pending'}
+          {hideDone ? 'Show All Expenses' : 'Show Pending'}
         </Button>
       </Stack>
     </HStack>
@@ -55,12 +55,12 @@ export const TaskItems = ({
       <Spinner />
     ) : (
       <>
-        {tasks.map(task => (
-          <TaskItem
-            key={task._id}
-            task={task}
-            onMarkAsDone={taskId => Meteor.call('toggleTaskDone', { taskId })}
-            onDelete={taskId => Meteor.call('removeTask', { taskId })}
+        {expenses.map(expense => (
+          <ExpenseItem
+            key={expense._id}
+            expense={expense}
+            onMarkAsDone={expenseId => Meteor.call('toggleExpenseDone', { expenseId })}
+            onDelete={expenseId => Meteor.call('removeExpense', { expenseId })}
           />
         ))}
       </>

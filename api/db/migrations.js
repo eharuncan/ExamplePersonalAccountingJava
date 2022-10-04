@@ -1,6 +1,6 @@
 import { Migrations } from 'meteor/percolate:migrations';
 import { Accounts } from 'meteor/accounts-base';
-import { TasksCollection } from '../tasks/tasks.collection';
+import { ExpensesCollection } from '../expenses/expenses.collection';
 
 Migrations.add({
   version: 1,
@@ -15,21 +15,21 @@ Migrations.add({
 
 Migrations.add({
   version: 2,
-  name: 'Add a few sample tasks.',
+  name: 'Add a few sample expenses.',
   up() {
     const createdAt = new Date();
     const { _id: userId } = Accounts.findUserByUsername('fredmaia');
-    TasksCollection.insert({
+    ExpensesCollection.insert({
       description: 'Install Node@14',
       userId,
       createdAt,
     });
-    TasksCollection.insert({
+    ExpensesCollection.insert({
       description: 'Install MeteorJS',
       userId,
       createdAt,
     });
-    TasksCollection.insert({
+    ExpensesCollection.insert({
       description: 'Clone this repository',
       userId,
       createdAt,

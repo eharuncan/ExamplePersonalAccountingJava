@@ -17,7 +17,7 @@ export const SignedIn = () => {
             You are already signed in
           </Heading>
           <Text fontSize="lg" color="gray.400">
-            to start creating your simple tasks
+            to start creating your simple expenses
           </Text>
         </Stack>
         <Stack spacing={10}>
@@ -29,7 +29,7 @@ export const SignedIn = () => {
               bg: 'blue.500',
             }}
           >
-            Go to your tasks
+            Go to your expenses
           </Button>
         </Stack>
       </Stack>

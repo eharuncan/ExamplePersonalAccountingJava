@@ -3,12 +3,12 @@ import React from 'react';
 import { App } from './App';
 
 const LoginPage = React.lazy(() => import('./auth/LoginPage'));
-const TasksPage = React.lazy(() => import('./tasks/TasksPage'));
+const ExpensesPage = React.lazy(() => import('./expenses/ExpensesPage'));
 const NotFoundPage = React.lazy(() => import('./common/NotFoundPage'));
 
 export const RoutePaths = {
   ROOT: '/',
-  TASKS: '/tasks',
+  TASKS: '/expenses',
 };
 
 export const Routes = () => (
@@ -16,7 +16,7 @@ export const Routes = () => (
     <ReactRoutes>
       <Route path={RoutePaths.ROOT} element={<App />}>
         <Route element={<LoginPage />} index />
-        <Route element={<TasksPage />} path={RoutePaths.TASKS} />
+        <Route element={<ExpensesPage />} path={RoutePaths.TASKS} />
         <Route element={<NotFoundPage />} path="*" />
       </Route>
     </ReactRoutes>

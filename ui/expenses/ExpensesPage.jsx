@@ -1,33 +1,33 @@
 import { Meteor } from 'meteor/meteor';
 import React, { useState } from 'react';
-import { TaskForm } from './TaskForm';
+import { ExpenseForm } from './ExpenseForm';
 import { useTracker, useFind, useSubscribe } from 'meteor/react-meteor-data';
-import { TasksHeader } from './TasksHeader';
-import { TaskItems } from './TaskItems';
-import { TasksCollection } from '../../api/tasks/tasks.collection';
+import { ExpensesHeader } from './ExpensesHeader';
+import { ExpenseItems } from './ExpenseItems';
+import { ExpensesCollection } from '../../api/expenses/expenses.collection';
 
 /* eslint-disable import/no-default-export */
-export default function TasksPage() {
+export default function ExpensesPage() {
   const [hideDone, setHideDone] = useState(false);
-  const isLoading = useSubscribe('tasksByLoggedUser');
+  const isLoading = useSubscribe('expensesByLoggedUser');
   const userId = useTracker(() => Meteor.userId());
   const filter = hideDone ? { done: { $ne: true }, userId } : { userId };
-  const tasks = useFind(
-    () => TasksCollection.find(filter, { sort: { createdAt: -1 } }),
+  const expenses = useFind(
+    () => ExpensesCollection.find(filter, { sort: { createdAt: -1 } }),
     [hideDone]
   );
-  const pendingCount = TasksCollection.find({
+  const pendingCount = ExpensesCollection.find({
     done: { $ne: true },
     userId,
   }).count();
 
   return (
     <>
-      <TasksHeader />
-      <TaskForm />
-      <TaskItems
+      <ExpensesHeader />
+      <ExpenseForm />
+      <ExpenseItems
         isLoading={isLoading}
-        tasks={tasks}
+        expenses={expenses}
         pendingCount={pendingCount}
         hideDone={hideDone}
         setHideDone={setHideDone}

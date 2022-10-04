@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';
 import { Spinner } from '@chakra-ui/react';
 
-import '../api/tasks/tasks.methods';
+import '../api/expenses/expenses.methods';
 import { Routes } from './Routes';
 
 /**

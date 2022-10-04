@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Migrations } from 'meteor/percolate:migrations';
 import './db/migrations';
-import './tasks/tasks.methods';
-import './tasks/tasks.publications';
+import './expenses/expenses.methods';
+import './expenses/expenses.publications';
 
 /**
  * This is the server-side entry point

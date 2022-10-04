@@ -30,7 +30,7 @@ export const Footer = () => (
           <IconButton
             as="a"
             target="_blank"
-            href="https://github.com/fredmaiaarantes/simpletasks"
+            href="https://github.com/fredmaiaarantes/simpleexpenses"
             aria-label="GitHub"
             icon={<FaGithub fontSize="20px" />}
           />

@@ -13,16 +13,16 @@ import { object, string } from 'yup';
 import { useFormik } from 'formik';
 import { ErrorStatus } from '../common/ErrorStatus';
 
-export const TaskForm = () => {
+export const ExpenseForm = () => {
   const validationSchema = object({
-    description: string('Enter task description').required(
-      'Task description is required'
+    description: string('Enter expense description').required(
+      'Expense description is required'
     ),
   });
 
   const onSubmit = (values, actions) => {
     const description = values.description.trim();
-    Meteor.call('insertTask', { description }, err => {
+    Meteor.call('insertExpense', { description }, err => {
       if (err) {
         const errorMessage = err?.reason || 'Sorry, please try again.';
         actions.setStatus(errorMessage);
@@ -54,7 +54,7 @@ export const TaskForm = () => {
               name="description"
               onChange={formik.handleChange}
               value={formik.values.description}
-              placeholder="Type to add new tasks"
+              placeholder="Type to add new expenses"
             />
             <FormErrorMessage>{formik.errors.description}</FormErrorMessage>
           </FormControl>
@@ -68,7 +68,7 @@ export const TaskForm = () => {
               isLoading={formik.isSubmitting}
               colorScheme="blue"
             >
-              Add Task
+              Add Expense
             </Button>
           </InputRightElement>
         </InputGroup>

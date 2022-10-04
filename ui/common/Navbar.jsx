@@ -47,7 +47,7 @@ export const Navbar = () => {
             fontFamily="heading"
             textAlign="left"
           >
-            Simple Tasks
+            Simple Expenses
           </Text>
         </Flex>
 

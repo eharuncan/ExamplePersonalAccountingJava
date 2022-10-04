@@ -1,9 +1,9 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 
-export const TasksCollection = new Mongo.Collection('tasks');
+export const ExpensesCollection = new Mongo.Collection('expenses');
 
-const TasksSchema = new SimpleSchema({
+const ExpensesSchema = new SimpleSchema({
   description: String,
   done: {
     type: Boolean,
@@ -16,4 +16,4 @@ const TasksSchema = new SimpleSchema({
   createdAt: Date,
 });
 
-TasksCollection.attachSchema(TasksSchema);
+ExpensesCollection.attachSchema(ExpensesSchema);

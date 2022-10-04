@@ -1,5 +1,5 @@
 {
-  "name": "simpletasks",
+  "name": "simpleexpenses",
   "author": "@fredmaiaarantes",
   "version": "1.0.1",
   "private": true,
@@ -62,7 +62,10 @@
     "settings": {
       "import/resolver": {
         "meteor": {
-          "extensions": [".js", ".jsx"]
+          "extensions": [
+            ".js",
+            ".jsx"
+          ]
         }
       }
     }

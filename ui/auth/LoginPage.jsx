@@ -78,7 +78,7 @@ export default function LoginPage() {
             Sign in to your account
           </Heading>
           <Text fontSize="lg" color={useColorModeValue('gray.600', 'gray.400')}>
-            to start creating your simple tasks
+            to start creating your simple expenses
           </Text>
         </Stack>
         <Box
