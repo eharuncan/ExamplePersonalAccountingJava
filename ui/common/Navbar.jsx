@@ -65,7 +65,7 @@ export const Navbar = () => {
           </Button>
           {user && (
             <Button fontSize="sm" fontWeight={400} onClick={logout}>
-              Sign Out
+              Oturumu Kapat
             </Button>
           )}
         </Stack>

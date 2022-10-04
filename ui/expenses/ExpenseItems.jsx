@@ -35,8 +35,8 @@ export const ExpenseItems = ({
           color={useColorModeValue('gray.600', 'gray.400')}
           fontSize="xs"
         >
-          You have {expenses.length} {expenses.length === 1 ? 'expense ' : 'expenses '}
-          and {pendingCount || 0} pending.
+          {expenses.length} adet harcamanız
+          ve {pendingCount || 0} adet onay bekleyen harcamanız var.
         </Text>
       </Box>
       <Stack w="30%" justify="flex-end" direction="row">
@@ -47,7 +47,7 @@ export const ExpenseItems = ({
           size="xs"
           onClick={() => setHideDone(!hideDone)}
         >
-          {hideDone ? 'Show All Expenses' : 'Show Pending'}
+          {hideDone ? 'Hepsini göster' : 'Onay bekleyenleri göster'}
         </Button>
       </Stack>
     </HStack>

@@ -75,10 +75,10 @@ export default function LoginPage() {
             bgGradient="linear(to-l, #675AAA,#4399E1)"
             bgClip="text"
           >
-            Sign in to your account
+            Hesabınıza giriş yapınız
           </Heading>
           <Text fontSize="lg" color={useColorModeValue('gray.600', 'gray.400')}>
-            to start creating your simple expenses
+            Harcamalarınızı takip etmek için
           </Text>
         </Stack>
         <Box
@@ -119,7 +119,7 @@ export default function LoginPage() {
                       size="sm"
                       onClick={() => setShowPassword(!showPassword)}
                     >
-                      {showPassword ? 'Hide' : 'Show'}
+                      {showPassword ? 'Gizle' : 'Göster'}
                     </Button>
                   </InputRightElement>
                 </InputGroup>
@@ -137,12 +137,12 @@ export default function LoginPage() {
                       }}
                       isLoading={formik.isSubmitting}
                     >
-                      Sign in
+                      Oturum Aç
                     </Button>
                   </Stack>
                   <Stack spacing={10}>
                     <Button onClick={() => setIsSignup(true)}>
-                      Create a new account
+                      Yeni Üyelik Oluştur
                     </Button>
                   </Stack>
                 </>

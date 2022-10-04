@@ -19,7 +19,7 @@ export const ExpenseItem = memo(({ expense, onMarkAsDone, onDelete }) => (
         size="xs"
         onClick={() => onDelete(expense._id)}
       >
-        Remove
+        Sil
       </Button>
     </Stack>
   </HStack>

@@ -54,7 +54,7 @@ export const ExpenseForm = () => {
               name="description"
               onChange={formik.handleChange}
               value={formik.values.description}
-              placeholder="Type to add new expenses"
+              placeholder="Harcama adınızı buraya yazabilirsiniz."
             />
             <FormErrorMessage>{formik.errors.description}</FormErrorMessage>
           </FormControl>
@@ -68,7 +68,7 @@ export const ExpenseForm = () => {
               isLoading={formik.isSubmitting}
               colorScheme="blue"
             >
-              Add Expense
+              Harcama Ekle
             </Button>
           </InputRightElement>
         </InputGroup>
