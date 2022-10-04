@@ -10,7 +10,7 @@ import { Routes } from './Routes';
  * This is the client-side entry point
  */
 Meteor.startup(() => {
-  document.documentElement.setAttribute('lang', 'en');
+  document.documentElement.setAttribute('lang', 'tr');
   const rootElement = document.getElementById('react-target');
   render(
     <Suspense fallback={<Spinner />}>
