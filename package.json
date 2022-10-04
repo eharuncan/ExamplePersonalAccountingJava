@@ -1,7 +1,7 @@
 {
-  "name": "simpleexpenses",
-  "author": "@fredmaiaarantes",
-  "version": "1.0.1",
+  "name": "sahsimuhasebem",
+  "author": "Harun Can Yıldırım",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "meteor run --exclude-archs web.browser.legacy,web.cordova",
