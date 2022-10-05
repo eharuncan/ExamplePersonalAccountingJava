@@ -34,7 +34,7 @@ export const ExpenseForm = () => {
     const category = values.category;
     Meteor.call('insertExpense', { description, amount, date, category }, err => {
       if (err) {
-        const errorMessage = err?.reason || 'Hata, Lütfen yeniden deneyin...';
+        const errorMessage = err?.reason || 'Hata, Lütfen yeniden deneyiniz...';
         actions.setStatus(errorMessage);
       } else {
         actions.resetForm();

@@ -98,7 +98,7 @@ export default function LoginPage() {
                   name="username"
                   onChange={formik.handleChange}
                   value={formik.values.username}
-                  placeholder="Enter your username"
+                  placeholder="Kullanıcı adınızı giriniz."
                 />
                 <FormErrorMessage>{formik.errors.username}</FormErrorMessage>
               </FormControl>
@@ -111,7 +111,7 @@ export default function LoginPage() {
                     onChange={formik.handleChange}
                     value={formik.values.password}
                     type={showPassword ? 'text' : 'password'}
-                    placeholder="Enter your password"
+                    placeholder="Şifrenizi giriniz."
                   />
                   <InputRightElement width="4.5rem">
                     <Button
