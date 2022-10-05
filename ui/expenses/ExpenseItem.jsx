@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { Box, Button, HStack, Stack, Checkbox } from '@chakra-ui/react';
 
+
 export const ExpenseItem = memo(({ expense, onMarkAsDone, onDelete }) => (
   <HStack mt={4}>
     <Box w="80%">
@@ -9,7 +10,10 @@ export const ExpenseItem = memo(({ expense, onMarkAsDone, onDelete }) => (
         isChecked={expense.done}
         onChange={() => onMarkAsDone(expense._id)}
       >
-        {expense.description}
+        {expense.description},
+          {expense.amount},
+          {expense.date},
+          {expense.category}
       </Checkbox>
     </Box>
     <Stack w="20%" justify="flex-end" direction="row">

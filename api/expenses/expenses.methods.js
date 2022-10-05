@@ -2,17 +2,24 @@ import { check } from 'meteor/check';
 import { ExpensesCollection } from './expenses.collection';
 import { Meteor } from 'meteor/meteor';
 import { checkLoggedIn } from '../common/auth';
+import {isInteger} from "formik";
 
 /**
  * Insert a expense for the logged user.
- * @param {{ description: String }}
+ * @param {{ description: String, amount: String, date: Date, category: String }}
  * @throws Will throw an error if user is not logged in.
  */
-const insertExpense = ({ description }) => {
+const insertExpense = ({ description, amount, date, category }) => {
   check(description, String);
+  // check(amount, String);
+  // check(date, Date );
+  // check(category, String );
   checkLoggedIn();
   ExpensesCollection.insert({
     description,
+    amount,
+    date,
+    category,
     userId: Meteor.userId(),
     createdAt: new Date(),
   });
