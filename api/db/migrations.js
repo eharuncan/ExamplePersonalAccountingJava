@@ -20,17 +20,23 @@ Migrations.add({
     const createdAt = new Date();
     const { _id: userId } = Accounts.findUserByUsername('fredmaia');
     ExpensesCollection.insert({
-      description: 'Install Node@14',
+      description: 'Meteor Hakkında Kitap',
+      amount: "100",
+      date: new Date(),
       userId,
       createdAt,
     });
     ExpensesCollection.insert({
-      description: 'Install MeteorJS',
+      description: 'Telefona Kontör',
+      amount: "150",
+      date: new Date(),
       userId,
       createdAt,
     });
     ExpensesCollection.insert({
-      description: 'Clone this repository',
+      description: 'Çanta',
+      amount: "200",
+      date: new Date(),
       userId,
       createdAt,
     });
