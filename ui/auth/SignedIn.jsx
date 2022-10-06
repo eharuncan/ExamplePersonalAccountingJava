@@ -14,11 +14,9 @@ export const SignedIn = () => {
             bgGradient="linear(to-l, #675AAA,#4399E1)"
             bgClip="text"
           >
-            You are already signed in
+            Kullanıcı girişi yapmıştın.
           </Heading>
-          <Text fontSize="lg" color="gray.400">
-            to start creating your simple expenses
-          </Text>
+          <br></br>
         </Stack>
         <Stack spacing={10}>
           <Button
@@ -29,7 +27,7 @@ export const SignedIn = () => {
               bg: 'blue.500',
             }}
           >
-            Go to your expenses
+            Harcamalarına gitmek için tıkla
           </Button>
         </Stack>
       </Stack>

@@ -2,7 +2,6 @@ import { check } from 'meteor/check';
 import { ExpensesCollection } from './expenses.collection';
 import { Meteor } from 'meteor/meteor';
 import { checkLoggedIn } from '../common/auth';
-import {isInteger} from "formik";
 
 /**
  * Insert a expense for the logged user.
@@ -38,7 +37,7 @@ const checkExpenseOwner = ({ expenseId }) => {
     userId: Meteor.userId(),
   });
   if (!expense) {
-    throw new Meteor.Error('Error', 'Access denied.');
+    throw new Meteor.Error('Error', 'Erişim reddedildi.');
   }
 };
 

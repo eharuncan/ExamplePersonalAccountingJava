@@ -1,6 +1,6 @@
 import {
   Box,
-  Button,
+  Button, Checkbox, Grid, GridItem,
   HStack,
   Spinner,
   Stack,
@@ -55,6 +55,28 @@ export const ExpenseItems = ({
       <Spinner />
     ) : (
       <>
+
+        <Grid templateColumns='repeat(6, 1fr)' gap={6} mt={4}>
+          <GridItem w="100%">
+            Durum:
+          </GridItem>
+          <GridItem w="100%">
+            Harcama adı:
+          </GridItem>
+          <GridItem w="100%">
+            Miktarı:
+          </GridItem>
+          <GridItem w="100%">
+            Tarihi:
+          </GridItem>
+          <GridItem w="100%">
+            Kategori
+          </GridItem>
+          <GridItem w="100%">
+            İşlem:
+          </GridItem>
+        </Grid>
+
         {expenses.map(expense => (
           <ExpenseItem
             key={expense._id}
