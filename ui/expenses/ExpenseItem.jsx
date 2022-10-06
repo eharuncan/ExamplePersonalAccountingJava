@@ -4,15 +4,7 @@ import {Grid, GridItem} from '@chakra-ui/react'
 
 export const ExpenseItem = memo(({expense, onMarkAsDone, onDelete}) => (
     <HStack mt={4}>
-        <Grid templateColumns='repeat(6, 1fr)' gap={6}>
-            <GridItem w="100%">
-                <Checkbox
-                    colorScheme="green"
-                    isChecked={expense.done}
-                    onChange={() => onMarkAsDone(expense._id)}
-                >
-                </Checkbox>
-            </GridItem>
+        <Grid templateColumns='repeat(5, 1fr)' gap={6}>
             <GridItem w="100%">
                 {expense.description}
             </GridItem>

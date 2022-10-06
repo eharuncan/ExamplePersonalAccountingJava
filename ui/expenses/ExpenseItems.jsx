@@ -29,37 +29,22 @@ export const ExpenseItems = ({
     borderColor={useColorModeValue('gray.400', 'gray.700')}
   >
     <HStack mt={2}>
-      <Box w="70%">
+      <Box w="100%">
         <Text
           as="span"
           color={useColorModeValue('gray.600', 'gray.400')}
           fontSize="xs"
         >
-          {expenses.length} adet harcamanız
-          ve {pendingCount || 0} adet onay bekleyen harcamanız var.
+          Toplamda {expenses.length} adet harcamanız harcamanız var.
         </Text>
       </Box>
-      <Stack w="30%" justify="flex-end" direction="row">
-        <Button
-          bg="teal.600"
-          color="white"
-          colorScheme="teal"
-          size="xs"
-          onClick={() => setHideDone(!hideDone)}
-        >
-          {hideDone ? 'Hepsini göster' : 'Onay bekleyenleri göster'}
-        </Button>
-      </Stack>
     </HStack>
     {isLoading() ? (
       <Spinner />
     ) : (
       <>
 
-        <Grid templateColumns='repeat(6, 1fr)' gap={6} mt={4}>
-          <GridItem w="100%">
-            Durum:
-          </GridItem>
+        <Grid templateColumns='repeat(5, 1fr)' gap={6} mt={4}>
           <GridItem w="100%">
             Harcama adı:
           </GridItem>
