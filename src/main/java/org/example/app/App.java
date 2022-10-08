@@ -160,7 +160,7 @@ public class App {
                 showAllUsers();
 
                 System.out.println("\nSilmek istediğiniz kullanıcı ID yi giriniz: ");
-                if (userService.deleteUser(Integer.parseInt(scanner.nextLine()) - 1)) {
+                if (userService.deleteUser(Integer.parseInt(scanner.nextLine()))) {
                     System.out.println("\nKullanıcı başarıyla silindi.");
                     showAllUsers();
                 } else {
@@ -311,7 +311,7 @@ public class App {
         List<User> allUsersList = userService.getAllUsers();
         int i;
         for (i = 0; i < allUsersList.size(); i++) {
-            System.out.println("Kullanıcı ID: " + allUsersList.get(i).getId()+1);
+            System.out.println("Kullanıcı ID: " + allUsersList.get(i).getId());
             System.out.println("Kullanıcı adı: " + allUsersList.get(i).getName());
             System.out.println("Kullanıcı soyadı: " + allUsersList.get(i).getSurname());
             System.out.println("Kullanıcı email adresi: " + allUsersList.get(i).getEmail());
@@ -327,8 +327,7 @@ public class App {
         List<Expense> allExpensesList = expenseService.getAllExpensesOfCurrentUser();
         int i;
         for (i = 0; i < allExpensesList.size(); i++) {
-            System.out.println(i + 1 + ")");
-            System.out.println("Harcama ID: " + allExpensesList.get(i).getId()+1);
+            System.out.println("Harcama ID: " + (allExpensesList.get(i).getId()+1));
             System.out.println("Harcama miktarı: " + allExpensesList.get(i).getAmount());
             System.out.println("Harcama tarihi: " + Dates.formatter.format(allExpensesList.get(i).getDate()));
             System.out.println("Harcama kategorisi: " + allExpensesList.get(i).getCategory());
