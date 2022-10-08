@@ -195,7 +195,7 @@ public class App {
         System.out.println("2- Harcama Ekle");
         System.out.println("3- Harcama Düzenle");
         System.out.println("4- Harcama Sil");
-        System.out.println("5- Harcama Kategorileri");
+        System.out.println("5- Harcama Kategorilerim");
         System.out.println("6- Oturumu Kapat");
         menuFooter();
 
@@ -262,8 +262,11 @@ public class App {
                     System.out.println("\nYeni Harcama Tarihini giriniz: (" + Dates.formatter.format(selectedExpense.getDate()) + ")");
                     editedExpense.setDate(Dates.formatter.parse(scanner.nextLine()));
 
-                    System.out.println("\nYeni Harcama Kategorisi giriniz: (" + selectedExpense.getCategory() + ")");
-                    editedExpense.setCategory(scanner.nextLine());
+                    System.out.println("\nYeni Harcama Kategorisi seçiniz: (" + selectedExpense.getCategory() + ")");
+                    showUserExpenseCategories();
+                    System.out.print("\nSeçiminiz: ");
+                    int index = (Integer.parseInt(scanner.nextLine()) -1);
+                    editedExpense.setCategory(userService.getExpenseCategoryByIndex(index));
 
                     if (expenseService.editExpense(selectedExpense.getId(), editedExpense)) {
                         System.out.println("\nHarcama başarıyla düzenlendi.");
