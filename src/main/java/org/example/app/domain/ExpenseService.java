@@ -43,6 +43,8 @@ public class ExpenseService {
 
     public boolean editExpense(Integer expenseId, Expense editedExpense) {
 
+        System.out.println("buraya girdi. ExpenseId: " + expenseId + " editedExpense.name: " + editedExpense.getName() );
+
         if (validateExpense(editedExpense)) {
             int index = getAllExpenses().indexOf(getExpenseById(expenseId));
             database.getExpenseList().set(index, editedExpense);

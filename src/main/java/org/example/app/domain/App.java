@@ -244,10 +244,12 @@ public class App {
 
                     showAllExpenses();
 
-                    Expense editedExpense = new Expense();
-
                     System.out.println("\nDüzenlemek istediğiniz harcama ID yi giriniz: ");
                     Expense selectedExpense = expenseService.getExpenseById(Integer.parseInt(scanner.nextLine())-1);
+
+                    Expense editedExpense;
+
+                    editedExpense  = selectedExpense;
 
                     System.out.println("\nYeni Harcama Adını giriniz: (" + selectedExpense.getName() + ")");
                     editedExpense.setName(scanner.nextLine());
@@ -261,7 +263,7 @@ public class App {
                     System.out.println("\nYeni Harcama Kategorisi giriniz: (" + selectedExpense.getCategory() + ")");
                     editedExpense.setCategory(scanner.nextLine());
 
-                    if (expenseService.editExpense((Integer.parseInt(scanner.nextLine())-1), editedExpense)) {
+                    if (expenseService.editExpense(Integer.parseInt(scanner.nextLine())-1, editedExpense)) {
                         System.out.println("\nHarcama başarıyla düzenlendi.");
                         showAllExpenses();
                         break;
