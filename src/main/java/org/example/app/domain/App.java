@@ -226,6 +226,7 @@ public class App {
 
                     System.out.println("\nHarcama Kategorisini seçiniz: (İsteğe bağlı) ");
                     showUserExpenseCategories();
+                    System.out.print("\nSeçiminiz: ");
                     int index = (Integer.parseInt(scanner.nextLine()) -1);
                     newExpense.setCategory(userService.getExpenseCategoryByIndex(index));
 
@@ -332,22 +333,26 @@ public class App {
 
     }
 
+    private static void recordNotFound(){
+        System.out.println("\nHerhangi bir kayıt bulunamadı");
+    }
+
     private static void showUsers() {
 
         System.out.println("\nTüm Kullanıcıların Listesi:");
 
-        List<User> usersList = userService.getUsers();
-        if (usersList.size() == 0)
+        List<User> userList = userService.getUsers();
+        if (userList.size() == 0)
         {
             recordNotFound();
         }else {
             int i;
-            for (i = 0; i < usersList.size(); i++) {
-                System.out.println("\nKullanıcı ID: " + usersList.get(i).getId());
-                System.out.println("Kullanıcı tipi: " + usersList.get(i).getType());
-                System.out.println("Kullanıcı adı: " + usersList.get(i).getName());
-                System.out.println("Kullanıcı soyadı: " + usersList.get(i).getSurname());
-                System.out.println("Kullanıcı eposta adresi: " + usersList.get(i).getEmail());
+            for (i = 0; i < userList.size(); i++) {
+                System.out.println("\nKullanıcı ID: " + userList.get(i).getId());
+                System.out.println("Kullanıcı tipi: " + userList.get(i).getType());
+                System.out.println("Kullanıcı adı: " + userList.get(i).getName());
+                System.out.println("Kullanıcı soyadı: " + userList.get(i).getSurname());
+                System.out.println("Kullanıcı eposta adresi: " + userList.get(i).getEmail());
             }
         }
 
@@ -357,39 +362,37 @@ public class App {
 
         System.out.println("\nTüm Harcamalarının Listesi:");
 
-        List<Expense> expensesList = expenseService.getExpensesOfCurrentUser();
-        if (expensesList.size() == 0)
+        List<Expense> expenseList = expenseService.getExpensesOfCurrentUser();
+        if (expenseList.size() == 0)
         {
             recordNotFound();
         }else {
             int i;
-            for (i = 0; i < expensesList.size(); i++) {
-                System.out.println("\nHarcama ID: " + (expensesList.get(i).getId() + 1));
-                System.out.println("Harcama adı: " + expensesList.get(i).getName());
-                System.out.println("Harcama miktarı: " + expensesList.get(i).getAmount());
-                System.out.println("Harcama tarihi: " + Dates.formatter.format(expensesList.get(i).getDate()));
-                System.out.println("Harcama kategorisi: " + expensesList.get(i).getCategory());
+            for (i = 0; i < expenseList.size(); i++) {
+                System.out.println("\nHarcama ID: " + (expenseList.get(i).getId() + 1));
+                System.out.println("Harcama adı: " + expenseList.get(i).getName());
+                System.out.println("Harcama miktarı: " + expenseList.get(i).getAmount());
+                System.out.println("Harcama tarihi: " + Dates.formatter.format(expenseList.get(i).getDate()));
+                System.out.println("Harcama kategorisi: " + expenseList.get(i).getCategory());
             }
         }
 
-    }
-
-    private static void recordNotFound(){
-        System.out.println("\nHerhangi bir kayıt bulunamadı");
     }
 
     private static void showUserExpenseCategories(){
-        System.out.println("\n");
-        List<String> expenseCategoriesList = userService.getExpenseCategoryList(userService.getCurrentUser());
-        if (expenseCategoriesList.size() == 0)
+
+        System.out.print("\n");
+        List<String> expenseCategoryList = userService.getExpenseCategoryListByUser(userService.getCurrentUser());
+        if (expenseCategoryList.size() == 0)
         {
             recordNotFound();
         }else {
             int i;
-            for (i = 0; i < expenseCategoriesList.size(); i++) {
-                System.out.println(i+1 + expenseCategoriesList.get(i));
+            for (i = 0; i < expenseCategoryList.size(); i++) {
+                System.out.println("" + (i+1) + "- " + expenseCategoryList.get(i));
             }
         }
+
     }
 
 }

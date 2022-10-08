@@ -3,16 +3,17 @@ package org.example.app.domain;
 import java.util.*;
 
 import org.example.db.Database;
-import org.example.app.enums.ExpenseCategories;
 
 public class UserService {
 
     private final Database database;
     private static User currentUser;
-    private final List<String> defaultExpenseCategoryList = List.of(Arrays.toString(ExpenseCategories.values()));
+    private final List<String> defaultExpenseCategoryList = Arrays.asList("Sağlık", "Güvenlik", "Kitap", "Çocuk");
 
     public UserService(Database database) {
+
         this.database = database;
+
     }
 
     public boolean register(User user, String secondPassword) {
@@ -33,12 +34,16 @@ public class UserService {
 
     }
 
-    public List <String> getExpenseCategoryList (User user){
+    public List <String> getExpenseCategoryListByUser(User user){
+
         return user.getExpenseCategoryList();
+
     }
 
     public String getExpenseCategoryByIndex (Integer index){
+
         return currentUser.getExpenseCategoryList().get(index);
+
     }
 
     public boolean checkPasswords(String firstPassword, String secondPassword) {
@@ -85,7 +90,7 @@ public class UserService {
 
     public boolean logout() {
 
-        // Burada user adına olan oturum açma bilgileri silinir.
+        // Burada user adına tutulan oturum açma bilgileri silinir.
         currentUser = null;
         return true;
 
