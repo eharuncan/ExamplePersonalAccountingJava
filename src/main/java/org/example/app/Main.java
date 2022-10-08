@@ -133,7 +133,7 @@ public class Main {
             case 2:
                 showAllUsers();
                 System.out.println("\nSilmek istediğiniz kullanıcı numarasını giriniz: ");
-                if (userService.deleteUser(Integer.parseInt(scanner.nextLine()))) {
+                if (userService.deleteUser(Integer.parseInt(scanner.nextLine())-1)) {
                     System.out.println("\nKullanıcı başarıyla silindi.");
                 } else {
                     System.out.println("\nHata: Kullanıcı silinemedi.");
@@ -211,7 +211,7 @@ public class Main {
         List<User> allUsersList = userService.getAllUsers();
         int i;
         for (i = 0; i < allUsersList.size(); i++) {
-            System.out.println(i + "- " + allUsersList.get(i).getName() + ", " + allUsersList.get(i).getSurname() + ", " + allUsersList.get(i).getEmail());
+            System.out.println(i+1 + "- " + allUsersList.get(i).getName() + ", " + allUsersList.get(i).getSurname() + ", " + allUsersList.get(i).getEmail());
         }
 
     }
