@@ -1,7 +1,7 @@
 package org.example.db;
 
-import org.example.app.Expense;
-import org.example.app.User;
+import org.example.app.domain.Expense;
+import org.example.app.domain.User;
 
 import java.util.ArrayList;
 import java.util.List;

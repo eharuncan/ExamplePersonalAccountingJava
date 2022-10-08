@@ -1,9 +1,8 @@
-package org.example.app;
+package org.example.app.domain;
 
 import java.util.*;
 
 import org.example.db.Database;
-import org.example.app.enums.UserTypes;
 
 public class UserService {
 

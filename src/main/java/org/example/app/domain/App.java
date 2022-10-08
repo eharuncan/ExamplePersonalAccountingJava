@@ -1,4 +1,4 @@
-package org.example.app;
+package org.example.app.domain;
 
 import org.example.app.enums.UserTypes;
 import org.example.app.utils.Dates;
@@ -170,7 +170,7 @@ public class App {
             case 2:
                 showAllUsers();
 
-                System.out.println("\nSilmek istediğiniz kullanıcı ID yi giriniz: ");
+                System.out.println("\nSilmek istediğiniz Kullanıcı ID yi giriniz: ");
                 if (userService.deleteUser(Integer.parseInt(scanner.nextLine()))) {
                     System.out.println("\nKullanıcı başarıyla silindi.");
                     showAllUsers();
@@ -215,7 +215,7 @@ public class App {
 
                     newExpense.setUserId(userService.getCurrentUser().getId());
 
-                    System.out.println("\nHarcama adını giriniz: ");
+                    System.out.println("\nHarcama Adını giriniz: ");
                     newExpense.setName(scanner.nextLine());
 
                     System.out.println("\nHarcama Miktarını giriniz: Örneğin: " + 100.0);
@@ -242,31 +242,26 @@ public class App {
 
                 while (true) {
 
-                    Expense editedExpense = null;
-
                     showAllExpenses();
 
-                    System.out.println("\nDüzenlemek istediğiniz harcama numarasını giriniz: ");
+                    Expense editedExpense = new Expense();
+
+                    System.out.println("\nDüzenlemek istediğiniz harcama ID yi giriniz: ");
                     Expense selectedExpense = expenseService.getExpenseById(Integer.parseInt(scanner.nextLine())-1);
 
-                    System.out.println("\nHarcama adını giriniz: ");
-                    System.out.print(selectedExpense.getName());
+                    System.out.println("\nYeni Harcama Adını giriniz: (" + selectedExpense.getName() + ")");
                     editedExpense.setName(scanner.nextLine());
 
-                    System.out.println("\nHarcama Miktarını giriniz: ");
-                    System.out.print(selectedExpense.getAmount());
+                    System.out.println("\nYeni Harcama Miktarını giriniz: (" + selectedExpense.getAmount() + ")");
                     editedExpense.setAmount(Double.parseDouble(scanner.nextLine()));
 
-                    String formattedDate = Dates.formatter.format(new Date());
-                    System.out.println("\nHarcama Tarihini giriniz: Örneğin: " + formattedDate);
-                    System.out.print(selectedExpense.getDate());
-                    editedExpense.setDate(new Date(scanner.nextLine()));
+                    System.out.println("\nYeni Harcama Tarihini giriniz: (" + Dates.formatter.format(selectedExpense.getDate()) + ")");
+                    editedExpense.setDate(Dates.formatter.parse(scanner.nextLine()));
 
-                    System.out.println("\nHarcama Kategorisi giriniz: (İsteğe bağlı) ");
-                    System.out.print(selectedExpense.getCategory());
+                    System.out.println("\nYeni Harcama Kategorisi giriniz: (" + selectedExpense.getCategory() + ")");
                     editedExpense.setCategory(scanner.nextLine());
 
-                    if (expenseService.editExpense(Integer.parseInt(scanner.nextLine())-1, editedExpense)) {
+                    if (expenseService.editExpense((Integer.parseInt(scanner.nextLine())-1), editedExpense)) {
                         System.out.println("\nHarcama başarıyla düzenlendi.");
                         showAllExpenses();
                         break;
@@ -277,7 +272,7 @@ public class App {
                 break;
             case 4:
                 showAllExpenses();
-                System.out.println("\nSilmek istediğiniz harcama ID yi giriniz: ");
+                System.out.println("\nSilmek istediğiniz Harcama ID yi giriniz: ");
                 if (expenseService.deleteExpense(Integer.parseInt(scanner.nextLine()) - 1)) {
                     System.out.println("\nHarcama başarıyla silindi.");
                     showAllExpenses();
@@ -323,6 +318,7 @@ public class App {
         int i;
         for (i = 0; i < allUsersList.size(); i++) {
             System.out.println("Kullanıcı ID: " + allUsersList.get(i).getId());
+            System.out.println("Kullanıcı tipi: " + allUsersList.get(i).getType());
             System.out.println("Kullanıcı adı: " + allUsersList.get(i).getName());
             System.out.println("Kullanıcı soyadı: " + allUsersList.get(i).getSurname());
             System.out.println("Kullanıcı email adresi: " + allUsersList.get(i).getEmail());
@@ -339,6 +335,7 @@ public class App {
         int i;
         for (i = 0; i < allExpensesList.size(); i++) {
             System.out.println("Harcama ID: " + (allExpensesList.get(i).getId()+1));
+            System.out.println("Harcama adı: " + allExpensesList.get(i).getName());
             System.out.println("Harcama miktarı: " + allExpensesList.get(i).getAmount());
             System.out.println("Harcama tarihi: " + Dates.formatter.format(allExpensesList.get(i).getDate()));
             System.out.println("Harcama kategorisi: " + allExpensesList.get(i).getCategory());

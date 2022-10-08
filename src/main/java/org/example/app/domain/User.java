@@ -1,4 +1,4 @@
-package org.example.app;
+package org.example.app.domain;
 
 import org.example.app.enums.UserTypes;
 
