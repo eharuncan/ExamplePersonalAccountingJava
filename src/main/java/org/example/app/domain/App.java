@@ -192,6 +192,8 @@ public class App {
 
         System.out.println("\nHoşgeldiniz, " + userService.getCurrentUser().getName());
 
+        System.out.println("\nBugünkü toplam harcamanız: " + expenseService.getSumOfExpensesOfDate(new Date()) + " TL");
+
         menuHeader();
         System.out.println("1- Harcamalarım");
         System.out.println("2- Harcama Ekle");

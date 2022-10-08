@@ -51,14 +51,18 @@ public class UserService {
 
         List<User> userList = database.getUserList();
 
-        return userList.stream().anyMatch(x -> Objects.equals(x.getEmail(), email) && Objects.equals(x.getPassword(), password));
+        return userList.stream()
+                .anyMatch(x -> Objects.equals(x.getEmail(), email) && Objects.equals(x.getPassword(), password));
 
     }
 
     public User getUserByEmailAndPassword(String email, String password) {
 
         List<User> userList = database.getUserList();
-        return userList.stream().filter(x -> Objects.equals(x.getEmail(), email) && Objects.equals(x.getPassword(), password)).findFirst().get();
+        return userList.stream()
+                .filter(x -> Objects.equals(x.getEmail(), email) && Objects.equals(x.getPassword(), password))
+                .findFirst()
+                .get();
 
     }
 

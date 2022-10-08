@@ -1,7 +1,9 @@
 package org.example.app.domain;
 
+import org.example.app.utils.Dates;
 import org.example.db.Database;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -24,7 +26,9 @@ public class ExpenseService {
 
     public List<Expense> getAllExpensesOfCurrentUser() {
 
-        return database.getExpenseList().stream().filter(expense -> Objects.equals(expense.getUserId(), userService.getCurrentUser().getId())).collect(Collectors.toList());
+        return database.getExpenseList().stream()
+                .filter(expense -> Objects.equals(expense.getUserId(), userService.getCurrentUser().getId()))
+                .collect(Collectors.toList());
 
     }
 
@@ -57,7 +61,10 @@ public class ExpenseService {
 
         List<Expense> expenseList = database.getExpenseList();
 
-        return expenseList.stream().filter(expense -> Objects.equals(expense.getUserId(), userService.getCurrentUser().getId()) && Objects.equals(expense.getId(), expenseId)).findFirst().get();
+        return expenseList.stream()
+                .filter(expense -> Objects.equals(expense.getUserId(), userService.getCurrentUser().getId()) && Objects.equals(expense.getId(), expenseId))
+                .findFirst()
+                .get();
 
     }
 
@@ -75,5 +82,18 @@ public class ExpenseService {
         return true;
 
     }
+
+    public Double getSumOfExpensesOfDate(Date date) {
+
+        List <Expense> currentUsersExpenseList = getAllExpensesOfCurrentUser();
+        List <Expense> resultList = currentUsersExpenseList.stream()
+                .filter(expense -> Objects.equals(Dates.formatter.format(expense.getDate()), Dates.formatter.format(date)))
+                .collect(Collectors.toList());
+        return resultList.stream()
+                .mapToDouble(Expense::getAmount)
+                .sum();
+
+    }
+
 }
 
