@@ -34,6 +34,7 @@ public class App {
     }
 
     public static void setInitialValues(Database database){
+
         User adminUser = new User();
         adminUser.setId(0);
         adminUser.setType(UserTypes.ADMIN);
@@ -42,6 +43,16 @@ public class App {
         adminUser.setEmail("admin@admin.com");
         adminUser.setPassword("admin");
         database.getUserList().add(adminUser);
+
+        User customerUser = new User();
+        customerUser.setId(1);
+        customerUser.setType(UserTypes.CUSTOMER);
+        customerUser.setName("customer1");
+        customerUser.setSurname("customer");
+        customerUser.setEmail("123");
+        customerUser.setPassword("123");
+        database.getUserList().add(customerUser);
+
     }
 
     public static void menuSelector() throws ParseException {

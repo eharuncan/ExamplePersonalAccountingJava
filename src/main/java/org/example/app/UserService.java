@@ -8,7 +8,7 @@ import org.example.app.enums.UserTypes;
 public class UserService {
 
     private final Database database;
-    private User currentUser;
+    private static User currentUser;
 
     public UserService(Database database) {
         this.database = database;

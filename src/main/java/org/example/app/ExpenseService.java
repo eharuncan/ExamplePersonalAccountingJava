@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class ExpenseService {
 
     private final Database database;
-    private static UserService userService;
+    private final UserService userService;
 
     public ExpenseService(Database database) {
         this.database = database;
