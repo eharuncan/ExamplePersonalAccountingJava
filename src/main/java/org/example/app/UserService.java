@@ -12,45 +12,14 @@ public class UserService {
         this.database = database;
     }
 
-    public User register() {
+    public boolean register(User user, String secondPassword) {
 
-        User newUser = new User();
-
-        Scanner readScreen = new Scanner(System.in);
-
-        System.out.println("Adınızı giriniz:");
-        newUser.setName(readScreen.nextLine());
-
-        System.out.println("Soyadınızı giriniz:");
-        newUser.setSurname(readScreen.nextLine());
-
-        System.out.println("Eposta adresinizi giriniz:");
-        newUser.setEmail(readScreen.nextLine());
-
-        boolean check = false;
-        String firstPassword = null;
-
-        while (!check) {
-
-            System.out.println("Şifrenizi giriniz:");
-            firstPassword = readScreen.nextLine();
-
-            System.out.println("Şifrenizi tekrar giriniz:");
-            String secondPassword = readScreen.nextLine();
-
-            if (checkPasswords(firstPassword, secondPassword)) {
-                check = true;
-            }
-
+        if (checkPasswords(user.getPassword(), secondPassword)) {
+            database.getUserList().add(user);
+            return true;
+        } else {
+            return false;
         }
-
-        newUser.setPassword(firstPassword);
-
-        newUser.setType(UserTypes.CUSTOMER);
-
-        database.getUserList().add(newUser);
-
-        return newUser;
 
     }
 
@@ -59,7 +28,7 @@ public class UserService {
         if (Objects.equals(firstPassword, secondPassword)) {
             return true;
         } else {
-            System.out.println("Hata: Şifreler Uyuşmuyor. Lütfen tekrar giriniz:");
+            System.out.println("\nHata: Şifreler Uyuşmuyor. Lütfen tekrar giriniz:");
             return false;
         }
 
@@ -83,7 +52,13 @@ public class UserService {
         }
         else {
             List<User> userList = database.getUserList();
-            return userList.stream().anyMatch(x -> Objects.equals(x.getEmail(), email) && Objects.equals(x.getPassword(), password));
+            if (userList.stream().anyMatch(x -> Objects.equals(x.getEmail(), email) && Objects.equals(x.getPassword(), password))){
+                return true;
+            }
+            else  {
+                System.out.println("\nHata: Sistemde böyle bir kullanıcı bulunmuyor.");
+                return false;
+            }
         }
 
     }

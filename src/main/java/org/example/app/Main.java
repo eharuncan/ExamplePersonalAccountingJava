@@ -39,8 +39,7 @@ public class Main {
                 selectedMenu = UserMenus.CUSTOMER_MENU;
             }
             System.out.println("\nHoşgeldiniz, " + user.getName());
-        }
-        else {
+        } else {
             selectedMenu = UserMenus.MAIN_MENU;
         }
 
@@ -50,14 +49,14 @@ public class Main {
             System.out.println("1- Giriş Yap");
             System.out.println("2- Kaydol");
             menuFooter();
+            boolean check = false;
 
             switch (readScreen.nextInt()) {
                 case 1:
                     User currentUser = null;
                     String email;
                     String password;
-                    
-                    boolean check = false;
+
                     while (!check) {
 
                         System.out.println("Epostanızı giriniz:");
@@ -68,18 +67,50 @@ public class Main {
 
                         currentUser = userService.login(email, password);
 
-                        if (currentUser!= null) {
+                        if (currentUser != null) {
                             check = true;
+                            System.out.println("\nBaşarıyla kullanıcı girişi yapıldı.");
                         } else {
-                            System.out.println("Hata: Sistemde böyle bir kullanıcı bulunmuyor.");
+                            System.out.println("\nHata: Kullanıcı girişi yapılamadı.");
                         }
 
                     }
                     showMenu(currentUser);
                     break;
                 case 2:
-                    user = userService.register();
-                    showMenu(user);
+
+                    User newUser = null;
+                    String secondPassword;
+
+                    while (!check) {
+
+                        newUser = new User();
+
+                        System.out.println("Adınızı giriniz:");
+                        newUser.setName(readScreen.nextLine());
+
+                        System.out.println("Soyadınızı giriniz:");
+                        newUser.setSurname(readScreen.nextLine());
+
+                        System.out.println("Eposta adresinizi giriniz:");
+                        newUser.setEmail(readScreen.nextLine());
+
+                        System.out.println("Şifrenizi giriniz:");
+                        newUser.setPassword(readScreen.nextLine());
+
+                        System.out.println("Şifrenizi tekrar giriniz:");
+                        secondPassword = readScreen.nextLine();
+
+                        if (userService.register(newUser, secondPassword)) {
+                            System.out.println("\nKullanıcı kaydı başarıyla gerçekleşti.");
+                            check = true;
+
+                        } else {
+                            System.out.println("\nHata kullanıcı kaydı oluşturulamadı.");
+                        }
+
+                    }
+                    showMenu(newUser);
                     break;
             }
 
@@ -99,9 +130,9 @@ public class Main {
                 case 2:
                     showAllUsers();
                     System.out.println("\nSilmek istediğiniz kullanıcı numarasını giriniz: ");
-                    if (userService.deleteUser(readScreen.nextInt())){
+                    if (userService.deleteUser(readScreen.nextInt())) {
                         System.out.println("\nKullanıcı başarıyla silindi.");
-                    }else {
+                    } else {
                         System.out.println("\nHata: Kullanıcı silinemedi.");
                     }
                     showMenu(user);
@@ -160,21 +191,20 @@ public class Main {
 
     public static void logoutUser(User user) {
 
-        if (userService.logout(user)){
+        if (userService.logout(user)) {
             showMenu(null);
             System.out.println("\nOturum başarıyla kapatılmıştır.");
-        }
-        else {
+        } else {
             System.out.println("\nHata: Oturum kapatılamadı.");
         }
 
     }
 
-    public static void showAllUsers(){
+    public static void showAllUsers() {
 
         List<User> allUsersList = userService.getAllUsers();
         int i;
-        for (i=0; i< allUsersList.size(); i++){
+        for (i = 0; i < allUsersList.size(); i++) {
             System.out.println(i + "- " + allUsersList.get(i).getName() + ", " + allUsersList.get(i).getSurname() + ", " + allUsersList.get(i).getEmail());
         }
 
