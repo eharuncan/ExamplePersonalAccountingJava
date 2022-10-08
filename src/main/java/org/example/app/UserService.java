@@ -18,6 +18,7 @@ public class UserService {
 
         if (checkPasswords(user.getPassword(), secondPassword)) {
             database.getUserList().add(user);
+            currentUser = user;
             return true;
         } else {
             return false;

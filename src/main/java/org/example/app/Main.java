@@ -42,7 +42,6 @@ public class Main {
 
     }
 
-
     public static void showMainMenu() {
 
         Scanner scanner = new Scanner(System.in);
@@ -109,7 +108,6 @@ public class Main {
                     }
 
                 }
-                userService.setCurrentUser(newUser);
                 menuSelector();
                 break;
         }
@@ -178,7 +176,6 @@ public class Main {
                 break;
             case 6:
                 logoutUser();
-                menuSelector();
                 break;
         }
     }
