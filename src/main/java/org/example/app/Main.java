@@ -76,6 +76,7 @@ public class Main {
 
                 }
                 user = currentUser;
+                menuSelector(user);
                 break;
             case 2:
 
@@ -112,10 +113,9 @@ public class Main {
 
                 }
                 user = newUser;
-                showMainMenu(user);
+                menuSelector(user);
                 break;
         }
-
 
     }
 
@@ -177,8 +177,7 @@ public class Main {
                 break;
             case 6:
                 logoutUser(user);
-                user = null;
-                showMainMenu(user);
+                menuSelector(null);
                 break;
         }
     }
@@ -200,6 +199,7 @@ public class Main {
 
         if (userService.logout(user)) {
             System.out.println("\nOturum başarıyla kapatılmıştır.");
+            menuSelector(null);
         } else {
             System.out.println("\nHata: Oturum kapatılamadı.");
         }
