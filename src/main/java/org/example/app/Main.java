@@ -20,6 +20,8 @@ public class Main {
         userService = new UserService(database);
         expenseService = new ExpenseService(database);
 
+        System.out.println("\nŞAHSİ MUHASEBEM - HARCAMALARINIZI TAKİP EDİN !");
+
         showMenu(null);
 
     }
@@ -27,8 +29,6 @@ public class Main {
     public static void showMenu(User user) {
 
         Scanner readScreen = new Scanner(System.in);
-
-        System.out.println("\nŞAHSİ MUHASEBEM - HARCAMALARINIZI TAKİP EDİN !");
 
         Enum selectedMenu = null;
 
