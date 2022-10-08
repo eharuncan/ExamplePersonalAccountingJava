@@ -18,6 +18,8 @@ public class App {
     public static void main(String[] args) throws ParseException {
 
         Database database = new Database();
+        setInitialValues(database);
+
         userService = new UserService(database);
         expenseService = new ExpenseService(database);
 
@@ -29,6 +31,17 @@ public class App {
 
         System.out.println("\nUygulama başarıyla kapatıldı.");
 
+    }
+
+    public static void setInitialValues(Database database){
+        User adminUser = new User();
+        adminUser.setId(0);
+        adminUser.setType(UserTypes.ADMIN);
+        adminUser.setName("admin");
+        adminUser.setSurname("admin");
+        adminUser.setEmail("admin@admin.com");
+        adminUser.setPassword("admin");
+        database.getUserList().add(adminUser);
     }
 
     public static void menuSelector() throws ParseException {
@@ -146,7 +159,7 @@ public class App {
             case 2:
                 showAllUsers();
 
-                System.out.println("\nSilmek istediğiniz kullanıcı numarasını giriniz: ");
+                System.out.println("\nSilmek istediğiniz kullanıcı ID yi giriniz: ");
                 if (userService.deleteUser(Integer.parseInt(scanner.nextLine()) - 1)) {
                     System.out.println("\nKullanıcı başarıyla silindi.");
                     showAllUsers();
@@ -223,7 +236,7 @@ public class App {
                     showAllExpenses();
 
                     System.out.println("\nDüzenlemek istediğiniz harcama numarasını giriniz: ");
-                    Expense selectedExpense = expenseService.getExpenseByIndex(Integer.parseInt(scanner.nextLine())-1);
+                    Expense selectedExpense = expenseService.getExpenseById(Integer.parseInt(scanner.nextLine())-1);
 
                     System.out.println("\nHarcama adını giriniz: ");
                     System.out.print(selectedExpense.getName());
@@ -253,7 +266,7 @@ public class App {
                 break;
             case 4:
                 showAllExpenses();
-                System.out.println("\nSilmek istediğiniz harcama numarasını giriniz: ");
+                System.out.println("\nSilmek istediğiniz harcama ID yi giriniz: ");
                 if (expenseService.deleteExpense(Integer.parseInt(scanner.nextLine()) - 1)) {
                     System.out.println("\nHarcama başarıyla silindi.");
                     showAllExpenses();
@@ -298,7 +311,7 @@ public class App {
         List<User> allUsersList = userService.getAllUsers();
         int i;
         for (i = 0; i < allUsersList.size(); i++) {
-            System.out.println(i + 1 + ")");
+            System.out.println("Kullanıcı ID: " + allUsersList.get(i).getId()+1);
             System.out.println("Kullanıcı adı: " + allUsersList.get(i).getName());
             System.out.println("Kullanıcı soyadı: " + allUsersList.get(i).getSurname());
             System.out.println("Kullanıcı email adresi: " + allUsersList.get(i).getEmail());
@@ -311,11 +324,11 @@ public class App {
 
         System.out.println("\nTüm Harcama Listesi:");
 
-        List<Expense> allExpensesList = expenseService.getAllExpenses();
+        List<Expense> allExpensesList = expenseService.getAllExpensesOfCurrentUser();
         int i;
         for (i = 0; i < allExpensesList.size(); i++) {
             System.out.println(i + 1 + ")");
-            System.out.println("Harcama adı: " + allExpensesList.get(i).getName());
+            System.out.println("Harcama ID: " + allExpensesList.get(i).getId()+1);
             System.out.println("Harcama miktarı: " + allExpensesList.get(i).getAmount());
             System.out.println("Harcama tarihi: " + Dates.formatter.format(allExpensesList.get(i).getDate()));
             System.out.println("Harcama kategorisi: " + allExpensesList.get(i).getCategory());

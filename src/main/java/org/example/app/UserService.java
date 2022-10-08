@@ -12,16 +12,6 @@ public class UserService {
 
     public UserService(Database database) {
         this.database = database;
-
-        User adminUser = new User();
-        adminUser.setId(0);
-        adminUser.setType(UserTypes.ADMIN);
-        adminUser.setName("admin");
-        adminUser.setSurname("admin");
-        adminUser.setEmail("admin@admin.com");
-        adminUser.setPassword("admin");
-        database.getUserList().add(adminUser);
-
     }
 
     public boolean register(User user, String secondPassword) {
