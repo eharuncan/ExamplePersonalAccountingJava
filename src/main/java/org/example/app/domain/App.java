@@ -84,7 +84,7 @@ public class App {
 
                 while (true) {
 
-                    System.out.println("\nEpostanızı giriniz:");
+                    System.out.println("\nEposta adresinizi giriniz:");
                     email = scanner.nextLine();
 
                     System.out.println("\nŞifrenizi giriniz:");
@@ -341,7 +341,7 @@ public class App {
             System.out.println("Kullanıcı tipi: " + allUsersList.get(i).getType());
             System.out.println("Kullanıcı adı: " + allUsersList.get(i).getName());
             System.out.println("Kullanıcı soyadı: " + allUsersList.get(i).getSurname());
-            System.out.println("Kullanıcı email adresi: " + allUsersList.get(i).getEmail());
+            System.out.println("Kullanıcı eposta adresi: " + allUsersList.get(i).getEmail());
         }
 
     }
