@@ -3,11 +3,13 @@ package org.example.app.domain;
 import java.util.*;
 
 import org.example.db.Database;
+import org.example.app.enums.ExpenseCategories;
 
 public class UserService {
 
     private final Database database;
     private static User currentUser;
+    private final List<String> defaultExpenseCategoryList = List.of(Arrays.toString(ExpenseCategories.values()));
 
     public UserService(Database database) {
         this.database = database;
@@ -18,6 +20,7 @@ public class UserService {
         if (checkPasswords(user.getPassword(), secondPassword)) {
             if (validateUser(user)) {
                 user.setId(database.getUserList().size());
+                user.setExpenseCategoryList(defaultExpenseCategoryList);
                 database.getUserList().add(user);
                 currentUser = user;
                 return true;
@@ -28,6 +31,14 @@ public class UserService {
             return false;
         }
 
+    }
+
+    public List <String> getExpenseCategoryList (User user){
+        return user.getExpenseCategoryList();
+    }
+
+    public String getExpenseCategoryByIndex (Integer index){
+        return currentUser.getExpenseCategoryList().get(index);
     }
 
     public boolean checkPasswords(String firstPassword, String secondPassword) {
@@ -80,7 +91,7 @@ public class UserService {
 
     }
 
-    public List<User> getAllUsers() {
+    public List<User> getUsers() {
 
         return database.getUserList();
 

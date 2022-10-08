@@ -2,6 +2,8 @@ package org.example.app.domain;
 
 import org.example.app.enums.UserTypes;
 
+import java.util.List;
+
 public class User {
 
     public User() {
@@ -15,6 +17,7 @@ public class User {
     private String surname;
     private String email;
     private String password;
+    private List<String> expenseCategoryList;
 
     public Integer getId() {
         return id;
@@ -62,6 +65,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<String> getExpenseCategoryList() {
+        return expenseCategoryList;
+    }
+
+    public void setExpenseCategoryList(List<String> expenseCategoryList) {
+        this.expenseCategoryList = expenseCategoryList;
     }
 
     public User(String name, String surname, String email, String password) {

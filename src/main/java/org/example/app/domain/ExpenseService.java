@@ -18,13 +18,13 @@ public class ExpenseService {
         userService = new UserService(database);
     }
 
-    public List<Expense> getAllExpenses() {
+    public List<Expense> getExpenses() {
 
         return database.getExpenseList();
 
     }
 
-    public List<Expense> getAllExpensesOfCurrentUser() {
+    public List<Expense> getExpensesOfCurrentUser() {
 
         return database.getExpenseList().stream()
                 .filter(expense -> Objects.equals(expense.getUserId(), userService.getCurrentUser().getId()))
@@ -36,7 +36,7 @@ public class ExpenseService {
 
         if (validateExpense(newExpense)) {
             newExpense.setUserId(userService.getCurrentUser().getId());
-            newExpense.setId(getAllExpensesOfCurrentUser().size());
+            newExpense.setId(getExpensesOfCurrentUser().size());
             database.getExpenseList().add(newExpense);
             return true;
         } else {
@@ -48,7 +48,7 @@ public class ExpenseService {
     public boolean editExpense(Integer expenseId, Expense editedExpense) {
 
         if (validateExpense(editedExpense)) {
-            int index = getAllExpenses().indexOf(getExpenseById(expenseId));
+            int index = getExpenses().indexOf(getExpenseById(expenseId));
             database.getExpenseList().set(index, editedExpense);
             return true;
         } else {
@@ -85,7 +85,7 @@ public class ExpenseService {
 
     public Double getSumOfExpensesOfDate(Date date) {
 
-        List <Expense> currentUsersExpenseList = getAllExpensesOfCurrentUser();
+        List <Expense> currentUsersExpenseList = getExpensesOfCurrentUser();
         List <Expense> resultList = currentUsersExpenseList.stream()
                 .filter(expense -> Objects.equals(Dates.formatter.format(expense.getDate()), Dates.formatter.format(date)))
                 .collect(Collectors.toList());

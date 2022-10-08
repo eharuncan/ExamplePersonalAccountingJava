@@ -162,11 +162,11 @@ public class App {
 
         switch (Integer.parseInt(scanner.nextLine())) {
             case 1:
-                showAllUsers();
+                showUsers();
                 backwardMenu();
                 break;
             case 2:
-                showAllUsers();
+                showUsers();
 
                 System.out.println("\nSilmek istediğiniz Kullanıcı ID yi giriniz: ");
                 if (userService.deleteUser(Integer.parseInt(scanner.nextLine()))) {
@@ -201,7 +201,7 @@ public class App {
 
         switch (Integer.parseInt(scanner.nextLine())) {
             case 1:
-                showAllExpenses();
+                showExpenses();
                 backwardMenu();
                 break;
             case 2:
@@ -224,8 +224,10 @@ public class App {
                     System.out.println("\nHarcama Tarihini giriniz: Örneğin: " + formattedDate);
                     newExpense.setDate(Dates.formatter.parse(scanner.nextLine()));
 
-                    System.out.println("\nHarcama Kategorisi giriniz: (İsteğe bağlı) ");
-                    newExpense.setCategory(scanner.nextLine());
+                    System.out.println("\nHarcama Kategorisini seçiniz: (İsteğe bağlı) ");
+                    showUserExpenseCategories();
+                    int index = (Integer.parseInt(scanner.nextLine()) -1);
+                    newExpense.setCategory(userService.getExpenseCategoryByIndex(index));
 
                     if (expenseService.addExpense(newExpense)) {
                         System.out.println("\nHarcama başarıyla kaydedildi.");
@@ -241,7 +243,7 @@ public class App {
 
                 while (true) {
 
-                    showAllExpenses();
+                    showExpenses();
 
                     System.out.println("\nDüzenlemek istediğiniz harcama ID yi giriniz: ");
                     Expense selectedExpense = expenseService.getExpenseById(Integer.parseInt(scanner.nextLine())-1);
@@ -272,7 +274,7 @@ public class App {
                 backwardMenu();
                 break;
             case 4:
-                showAllExpenses();
+                showExpenses();
                 System.out.println("\nSilmek istediğiniz Harcama ID yi giriniz: ");
                 if (expenseService.deleteExpense(Integer.parseInt(scanner.nextLine()) - 1)) {
                     System.out.println("\nHarcama başarıyla silindi.");
@@ -330,43 +332,43 @@ public class App {
 
     }
 
-    private static void showAllUsers() {
+    private static void showUsers() {
 
         System.out.println("\nTüm Kullanıcıların Listesi:");
 
-        List<User> allUsersList = userService.getAllUsers();
-        if (allUsersList.size() == 0)
+        List<User> usersList = userService.getUsers();
+        if (usersList.size() == 0)
         {
             recordNotFound();
         }else {
             int i;
-            for (i = 0; i < allUsersList.size(); i++) {
-                System.out.println("\nKullanıcı ID: " + allUsersList.get(i).getId());
-                System.out.println("Kullanıcı tipi: " + allUsersList.get(i).getType());
-                System.out.println("Kullanıcı adı: " + allUsersList.get(i).getName());
-                System.out.println("Kullanıcı soyadı: " + allUsersList.get(i).getSurname());
-                System.out.println("Kullanıcı eposta adresi: " + allUsersList.get(i).getEmail());
+            for (i = 0; i < usersList.size(); i++) {
+                System.out.println("\nKullanıcı ID: " + usersList.get(i).getId());
+                System.out.println("Kullanıcı tipi: " + usersList.get(i).getType());
+                System.out.println("Kullanıcı adı: " + usersList.get(i).getName());
+                System.out.println("Kullanıcı soyadı: " + usersList.get(i).getSurname());
+                System.out.println("Kullanıcı eposta adresi: " + usersList.get(i).getEmail());
             }
         }
 
     }
 
-    private static void showAllExpenses() {
+    private static void showExpenses() {
 
         System.out.println("\nTüm Harcamalarının Listesi:");
 
-        List<Expense> allExpensesList = expenseService.getAllExpensesOfCurrentUser();
-        if (allExpensesList.size() == 0)
+        List<Expense> expensesList = expenseService.getExpensesOfCurrentUser();
+        if (expensesList.size() == 0)
         {
             recordNotFound();
         }else {
             int i;
-            for (i = 0; i < allExpensesList.size(); i++) {
-                System.out.println("\nHarcama ID: " + (allExpensesList.get(i).getId() + 1));
-                System.out.println("Harcama adı: " + allExpensesList.get(i).getName());
-                System.out.println("Harcama miktarı: " + allExpensesList.get(i).getAmount());
-                System.out.println("Harcama tarihi: " + Dates.formatter.format(allExpensesList.get(i).getDate()));
-                System.out.println("Harcama kategorisi: " + allExpensesList.get(i).getCategory());
+            for (i = 0; i < expensesList.size(); i++) {
+                System.out.println("\nHarcama ID: " + (expensesList.get(i).getId() + 1));
+                System.out.println("Harcama adı: " + expensesList.get(i).getName());
+                System.out.println("Harcama miktarı: " + expensesList.get(i).getAmount());
+                System.out.println("Harcama tarihi: " + Dates.formatter.format(expensesList.get(i).getDate()));
+                System.out.println("Harcama kategorisi: " + expensesList.get(i).getCategory());
             }
         }
 
@@ -374,6 +376,20 @@ public class App {
 
     private static void recordNotFound(){
         System.out.println("\nHerhangi bir kayıt bulunamadı");
+    }
+
+    private static void showUserExpenseCategories(){
+        System.out.println("\n");
+        List<String> expenseCategoriesList = userService.getExpenseCategoryList(userService.getCurrentUser());
+        if (expenseCategoriesList.size() == 0)
+        {
+            recordNotFound();
+        }else {
+            int i;
+            for (i = 0; i < expenseCategoriesList.size(); i++) {
+                System.out.println(i+1 + expenseCategoriesList.get(i));
+            }
+        }
     }
 
 }
