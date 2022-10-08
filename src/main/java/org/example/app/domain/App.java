@@ -14,6 +14,7 @@ public class App {
 
     private static UserService userService;
     private static ExpenseService expenseService;
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws ParseException {
 
@@ -70,8 +71,6 @@ public class App {
     }
 
     public static void showMainMenu() throws ParseException {
-
-        Scanner scanner = new Scanner(System.in);
 
         menuHeader();
         System.out.println("1- Giriş Yap");
@@ -153,8 +152,6 @@ public class App {
 
     public static void showAdminMenu() throws ParseException {
 
-        Scanner scanner = new Scanner(System.in);
-
         System.out.println("\nSistem yönetimine hoşgeldiniz, " + userService.getCurrentUser().getName());
 
         menuHeader();
@@ -166,14 +163,15 @@ public class App {
         switch (Integer.parseInt(scanner.nextLine())) {
             case 1:
                 showAllUsers();
+                backwardMenu();
                 break;
             case 2:
                 showAllUsers();
 
                 System.out.println("\nSilmek istediğiniz Kullanıcı ID yi giriniz: ");
                 if (userService.deleteUser(Integer.parseInt(scanner.nextLine()))) {
-                    System.out.println("\nKullanıcı başarıyla silindi.");
-                    showAllUsers();
+                    System.out.println("\nKullanıcı başarıyla silindi");
+                    backwardMenu();
                 } else {
                     System.out.println("\nHata: Kullanıcı silinemedi.");
                 }
@@ -187,8 +185,6 @@ public class App {
     }
 
     public static void showCustomerMenu() throws ParseException {
-
-        Scanner scanner = new Scanner(System.in);
 
         System.out.println("\nHoşgeldiniz, " + userService.getCurrentUser().getName());
 
@@ -206,6 +202,7 @@ public class App {
         switch (Integer.parseInt(scanner.nextLine())) {
             case 1:
                 showAllExpenses();
+                backwardMenu();
                 break;
             case 2:
 
@@ -231,14 +228,14 @@ public class App {
                     newExpense.setCategory(scanner.nextLine());
 
                     if (expenseService.addExpense(newExpense)) {
-                        System.out.println("\nHarcama kaydı başarıyla gerçekleşti.");
+                        System.out.println("\nHarcama başarıyla kaydedildi.");
                         break;
                     } else {
                         System.out.println("\nHata Harcama kaydı oluşturulamadı.");
                     }
 
                 }
-                menuSelector();
+                backwardMenu();
                 break;
             case 3:
 
@@ -267,22 +264,22 @@ public class App {
 
                     if (expenseService.editExpense(selectedExpense.getId(), editedExpense)) {
                         System.out.println("\nHarcama başarıyla düzenlendi.");
-                        showAllExpenses();
                         break;
                     } else {
                         System.out.println("\nHata: Harcama düzenlenemedi.");
                     }
                 }
+                backwardMenu();
                 break;
             case 4:
                 showAllExpenses();
                 System.out.println("\nSilmek istediğiniz Harcama ID yi giriniz: ");
                 if (expenseService.deleteExpense(Integer.parseInt(scanner.nextLine()) - 1)) {
                     System.out.println("\nHarcama başarıyla silindi.");
-                    showAllExpenses();
                 } else {
                     System.out.println("\nHata: Harcama silinemedi.");
                 }
+                backwardMenu();
                 break;
             case 6:
                 logoutUser();
@@ -303,6 +300,25 @@ public class App {
 
     }
 
+    public static void backwardMenu() throws ParseException {
+
+        loops:
+        while (true){
+            menuHeader();
+            System.out.println("1- Geri Dön");
+            menuFooter();
+            switch(Integer.parseInt(scanner.nextLine())){
+                case 1:
+                    menuSelector();
+                    break loops;
+                case 0:
+                    break loops;
+            }
+
+        }
+
+    }
+
     public static void logoutUser() throws ParseException {
 
         if (userService.logout()) {
@@ -316,7 +332,7 @@ public class App {
 
     public static void showAllUsers() {
 
-        System.out.println("\nTüm Kullanıcı Listesi:");
+        System.out.println("\nTüm Kullanıcıların Listesi:\n");
 
         List<User> allUsersList = userService.getAllUsers();
         int i;
@@ -326,14 +342,13 @@ public class App {
             System.out.println("Kullanıcı adı: " + allUsersList.get(i).getName());
             System.out.println("Kullanıcı soyadı: " + allUsersList.get(i).getSurname());
             System.out.println("Kullanıcı email adresi: " + allUsersList.get(i).getEmail());
-            System.out.println("");
         }
 
     }
 
     public static void showAllExpenses() {
 
-        System.out.println("\nTüm Harcama Listesi:");
+        System.out.println("\nTüm Harcamalarının Listesi:\n");
 
         List<Expense> allExpensesList = expenseService.getAllExpensesOfCurrentUser();
         int i;
@@ -343,7 +358,6 @@ public class App {
             System.out.println("Harcama miktarı: " + allExpensesList.get(i).getAmount());
             System.out.println("Harcama tarihi: " + Dates.formatter.format(allExpensesList.get(i).getDate()));
             System.out.println("Harcama kategorisi: " + allExpensesList.get(i).getCategory());
-            System.out.println("");
         }
 
     }
