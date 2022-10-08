@@ -31,7 +31,6 @@ public class UserService {
         if (Objects.equals(firstPassword, secondPassword)) {
             return true;
         } else {
-            System.out.println("\nHata: Şifreler Uyuşmuyor. Lütfen tekrar giriniz.");
             return false;
         }
 
@@ -63,7 +62,6 @@ public class UserService {
         }
         else {
 
-            System.out.println("\nHata: Sistemde böyle bir kullanıcı bulunmuyor.");
             return false;
 
         }

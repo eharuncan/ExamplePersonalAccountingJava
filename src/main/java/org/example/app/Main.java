@@ -68,7 +68,7 @@ public class Main {
                         System.out.println("\nBaşarıyla kullanıcı girişi yapıldı.");
                         break;
                     } else {
-                        System.out.println("\nHata: Kullanıcı girişi yapılamadı.");
+                        System.out.println("\nHata: Sistemde böyle bir kullanıcı bulunmuyor.");
                     }
 
                 }
@@ -77,7 +77,7 @@ public class Main {
             case 2:
 
                 User newUser;
-                String secondPassword;
+                String retypedPassword;
 
                 while (true) {
 
@@ -94,13 +94,24 @@ public class Main {
                     System.out.println("\nEposta adresinizi giriniz: ");
                     newUser.setEmail(scanner.nextLine());
 
-                    System.out.println("\nŞifrenizi giriniz:");
-                    newUser.setPassword(scanner.nextLine());
+                    while(true){
 
-                    System.out.println("\nŞifrenizi tekrar giriniz:");
-                    secondPassword = scanner.nextLine();
+                        System.out.println("\nŞifrenizi giriniz:");
+                        newUser.setPassword(scanner.nextLine());
 
-                    if (userService.register(newUser, secondPassword)) {
+                        System.out.println("\nŞifrenizi tekrar giriniz:");
+                        retypedPassword = scanner.nextLine();
+
+                        if (userService.checkPasswords(newUser.getPassword(), retypedPassword)){
+                            break;
+                        }
+                        else {
+                            System.out.println("\nHata: Şifreler Uyuşmuyor. Lütfen tekrar giriniz.");
+                        }
+
+                    }
+
+                    if (userService.register(newUser, retypedPassword)) {
                         System.out.println("\nKullanıcı kaydı başarıyla gerçekleşti.");
                         break;
                     } else {
@@ -135,12 +146,14 @@ public class Main {
                 System.out.println("\nSilmek istediğiniz kullanıcı numarasını giriniz: ");
                 if (userService.deleteUser(Integer.parseInt(scanner.nextLine())-1)) {
                     System.out.println("\nKullanıcı başarıyla silindi.");
+                    showAllUsers();
                 } else {
                     System.out.println("\nHata: Kullanıcı silinemedi.");
                 }
                 break;
             case 3:
                 logoutUser();
+                System.out.println("\nOturum başarıyla kapatıldı.");
                 break;
         }
 
