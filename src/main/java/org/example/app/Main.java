@@ -24,7 +24,7 @@ public class Main {
 
         menuSelector();
 
-        System.out.println("\nUygulama kapatılmıştır.");
+        System.out.println("\nUygulama başarıyla kapatıldı.");
 
     }
 
