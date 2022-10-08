@@ -263,7 +263,7 @@ public class App {
                     System.out.println("\nYeni Harcama Kategorisi giriniz: (" + selectedExpense.getCategory() + ")");
                     editedExpense.setCategory(scanner.nextLine());
 
-                    if (expenseService.editExpense(Integer.parseInt(scanner.nextLine())-1, editedExpense)) {
+                    if (expenseService.editExpense(selectedExpense.getId(), editedExpense)) {
                         System.out.println("\nHarcama başarıyla düzenlendi.");
                         showAllExpenses();
                         break;
