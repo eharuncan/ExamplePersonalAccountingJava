@@ -8,9 +8,11 @@ import org.example.app.common.UserTypes;
 public class UserService {
 
     private final Database database;
+    private User currentUser;
 
-    public UserService(Database database) {
+    public UserService(Database database, User currentUser) {
         this.database = database;
+        this.currentUser = currentUser;
     }
 
     public boolean register(User user, String secondPassword) {
@@ -38,7 +40,7 @@ public class UserService {
     public User login(String email, String password) {
 
         if (checkUser(email, password)) {
-            return getUser(email, password);
+            return getUserByEmailAndPassword(email, password);
         } else {
             return null;
         }
@@ -67,8 +69,7 @@ public class UserService {
 
     }
 
-
-    public User getUser(String email, String password) {
+    public User getUserByEmailAndPassword(String email, String password) {
 
         if (Objects.equals(email, "admin@admin.com") && Objects.equals(password, "admin")) {
 
@@ -89,23 +90,30 @@ public class UserService {
 
     }
 
+    public User getUserByIndex(Integer index) {
+
+        return database.getUserList().get(index);
+
+    }
+
     public boolean logout(User user) {
 
-        user = null;
+        // Burada user adına olan oturum açma bilgileri silinir.
+        currentUser = null;
         return true;
 
     }
 
     public List<User> getAllUsers() {
 
-        List<User> userList = database.getUserList();
-        return userList;
+        return database.getUserList();
 
     }
 
     public boolean deleteUser(Integer index) {
 
-        database.getUserList().remove(index);
+        User foundUser = getUserByIndex(index);
+        database.getUserList().remove(foundUser);
         return true;
 
     }

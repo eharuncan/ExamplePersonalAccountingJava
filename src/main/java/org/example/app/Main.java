@@ -11,38 +11,42 @@ public class Main {
 
     private static UserService userService;
     private static ExpenseService expenseService;
+    private static User currentUser;
 
     public static void main(String[] args) {
 
         Database database = new Database();
-        userService = new UserService(database);
+        userService = new UserService(database, currentUser);
         expenseService = new ExpenseService(database);
+        currentUser = new User();
 
         System.out.println("\nŞAHSİ MUHASEBEM - HARCAMALARINIZI TAKİP EDİN !");
 
-        menuSelector(null);
+        currentUser = null;
+
+        menuSelector();
 
         System.out.println("\nUygulama kapatılmıştır.");
 
     }
 
-    public static void menuSelector(User user) {
+    public static void menuSelector() {
 
-        if (user != null) {
-            if (Objects.equals(user.getType(), UserTypes.ADMIN)) {
-                showAdminMenu(user);
-            } else if (Objects.equals(user.getType(), UserTypes.CUSTOMER)) {
-                showCustomerMenu(user);
+        if (currentUser != null) {
+            if (Objects.equals(currentUser.getType(), UserTypes.ADMIN)) {
+                showAdminMenu();
+            } else if (Objects.equals(currentUser.getType(), UserTypes.CUSTOMER)) {
+                showCustomerMenu();
             }
-            System.out.println("\nHoşgeldiniz, " + user.getName());
+            System.out.println("\nHoşgeldiniz, " + currentUser.getName());
         } else {
-            showMainMenu(null);
+            showMainMenu();
         }
 
     }
 
 
-    public static void showMainMenu(User user) {
+    public static void showMainMenu() {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -53,7 +57,6 @@ public class Main {
 
         switch (Integer.parseInt(scanner.nextLine())) {
             case 1:
-                User currentUser = null;
                 String email;
                 String password;
 
@@ -75,8 +78,7 @@ public class Main {
                     }
 
                 }
-                user = currentUser;
-                menuSelector(user);
+                menuSelector();
                 break;
             case 2:
 
@@ -112,14 +114,14 @@ public class Main {
                     }
 
                 }
-                user = newUser;
-                menuSelector(user);
+                currentUser = newUser;
+                menuSelector();
                 break;
         }
 
     }
 
-    public static void showAdminMenu(User user) {
+    public static void showAdminMenu() {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -143,13 +145,13 @@ public class Main {
                 }
                 break;
             case 3:
-                logoutUser(user);
+                logoutUser(currentUser);
                 break;
         }
 
     }
 
-    public static void showCustomerMenu(User user) {
+    public static void showCustomerMenu() {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -176,8 +178,8 @@ public class Main {
                 expenseService.deleteExpense();
                 break;
             case 6:
-                logoutUser(user);
-                menuSelector(null);
+                logoutUser(currentUser);
+                menuSelector();
                 break;
         }
     }
@@ -199,7 +201,7 @@ public class Main {
 
         if (userService.logout(user)) {
             System.out.println("\nOturum başarıyla kapatılmıştır.");
-            menuSelector(null);
+            menuSelector();
         } else {
             System.out.println("\nHata: Oturum kapatılamadı.");
         }
