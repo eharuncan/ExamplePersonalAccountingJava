@@ -65,34 +65,14 @@ public class UserService {
 
     }
 
-    public User login() {
+    public User login(String email, String password) {
 
-        String email = null;
-        String password = null;
-
-        Scanner readScreen = new Scanner(System.in);
-
-        boolean check = false;
-        User currentUser = null;
-
-        while (!check) {
-
-            System.out.println("Epostanızı giriniz:");
-            email = readScreen.nextLine();
-
-            System.out.println("Şifrenizi giriniz:");
-            password = readScreen.nextLine();
-
-            if (checkUser(email, password)) {
-                currentUser = getUser(email, password);
-                check = true;
-            } else {
-                System.out.println("Hata: Sistemde böyle bir kullanıcı bulunmuyor.");
-            }
-
+        if (checkUser(email, password)){
+            return getUser(email, password);
         }
-
-        return currentUser;
+        else {
+            return null;
+        }
 
     }
 

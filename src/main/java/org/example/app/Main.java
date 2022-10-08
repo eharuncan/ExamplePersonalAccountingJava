@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static UserService userService; // constructorları çalıştırmak için. kullanılmazsa verileri erişlmez sadece fonksiyonlara erişilir.
+    private static UserService userService;
     private static ExpenseService expenseService;
 
     public static void main(String[] args) {
@@ -20,6 +20,8 @@ public class Main {
         userService = new UserService(database);
         expenseService = new ExpenseService(database);
 
+        System.out.println("\nŞAHSİ MUHASEBEM - HARCAMALARINIZI TAKİP EDİN !");
+
         showMenu(null);
 
     }
@@ -27,8 +29,6 @@ public class Main {
     public static void showMenu(User user) {
 
         Scanner readScreen = new Scanner(System.in);
-
-        System.out.println("\nŞAHSİ MUHASEBEM - HARCAMALARINIZI TAKİP EDİN !");
 
         Enum selectedMenu = null;
 
@@ -53,8 +53,29 @@ public class Main {
 
             switch (readScreen.nextInt()) {
                 case 1:
-                    user = userService.login();
-                    showMenu(user);
+                    User currentUser = null;
+                    String email;
+                    String password;
+                    
+                    boolean check = false;
+                    while (!check) {
+
+                        System.out.println("Epostanızı giriniz:");
+                        email = readScreen.nextLine();
+
+                        System.out.println("Şifrenizi giriniz:");
+                        password = readScreen.nextLine();
+
+                        currentUser = userService.login(email, password);
+
+                        if (currentUser!= null) {
+                            check = true;
+                        } else {
+                            System.out.println("Hata: Sistemde böyle bir kullanıcı bulunmuyor.");
+                        }
+
+                    }
+                    showMenu(currentUser);
                     break;
                 case 2:
                     user = userService.register();
@@ -77,11 +98,11 @@ public class Main {
                     break;
                 case 2:
                     showAllUsers();
-                    System.out.println("Silmek istediğiniz kullanıcı numarasını giriniz: ");
+                    System.out.println("\nSilmek istediğiniz kullanıcı numarasını giriniz: ");
                     if (userService.deleteUser(readScreen.nextInt())){
-                        System.out.println("Kullanıcı başarıyla silindi.");
+                        System.out.println("\nKullanıcı başarıyla silindi.");
                     }else {
-                        System.out.println("Hata: Kullanıcı silinemedi.");
+                        System.out.println("\nHata: Kullanıcı silinemedi.");
                     }
                     showMenu(user);
                     break;
@@ -121,7 +142,7 @@ public class Main {
 
         }
 
-        System.out.println("Uygulama kapatılmıştır.");
+        System.out.println("\nUygulama kapatılmıştır.");
     }
 
     public static void menuHeader() {
@@ -132,8 +153,8 @@ public class Main {
 
     public static void menuFooter() {
 
-        System.out.println("0- Çıkış Yap\n");
-        System.out.print("Lütfen bir menü numarası giriniz: ");
+        System.out.println("0- Çıkış Yap");
+        System.out.print("\nLütfen bir menü numarası giriniz: ");
 
     }
 
@@ -144,7 +165,7 @@ public class Main {
             System.out.println("\nOturum başarıyla kapatılmıştır.");
         }
         else {
-            System.out.println("Hata: Oturum kapatılamadı.");
+            System.out.println("\nHata: Oturum kapatılamadı.");
         }
 
     }
