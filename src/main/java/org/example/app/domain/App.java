@@ -34,7 +34,7 @@ public class App {
 
     }
 
-    public static void setInitialValues(Database database){
+    private static void setInitialValues(Database database){
 
         User adminUser = new User();
         adminUser.setId(0);
@@ -56,7 +56,7 @@ public class App {
 
     }
 
-    public static void menuSelector() throws ParseException {
+    private static void menuSelector() throws ParseException {
 
         if (userService.getCurrentUser() != null) {
             if (Objects.equals(userService.getCurrentUser().getType(), UserTypes.ADMIN)) {
@@ -70,7 +70,7 @@ public class App {
 
     }
 
-    public static void showMainMenu() throws ParseException {
+    private static void showMainMenu() throws ParseException {
 
         menuHeader();
         System.out.println("1- Giriş Yap");
@@ -150,7 +150,7 @@ public class App {
 
     }
 
-    public static void showAdminMenu() throws ParseException {
+    private static void showAdminMenu() throws ParseException {
 
         System.out.println("\nSistem yönetimine hoşgeldiniz, " + userService.getCurrentUser().getName());
 
@@ -184,7 +184,7 @@ public class App {
 
     }
 
-    public static void showCustomerMenu() throws ParseException {
+    private static void showCustomerMenu() throws ParseException {
 
         System.out.println("\nHoşgeldiniz, " + userService.getCurrentUser().getName());
 
@@ -287,20 +287,20 @@ public class App {
         }
     }
 
-    public static void menuHeader() {
+    private static void menuHeader() {
 
         System.out.println("");
 
     }
 
-    public static void menuFooter() {
+    private static void menuFooter() {
 
         System.out.println("0- Çıkış Yap");
         System.out.print("\nLütfen bir menü numarası giriniz: ");
 
     }
 
-    public static void backwardMenu() throws ParseException {
+    private static void backwardMenu() throws ParseException {
 
         loops:
         while (true){
@@ -319,7 +319,7 @@ public class App {
 
     }
 
-    public static void logoutUser() throws ParseException {
+    private static void logoutUser() throws ParseException {
 
         if (userService.logout()) {
             System.out.println("\nOturum başarıyla kapatılmıştır.");
@@ -330,36 +330,50 @@ public class App {
 
     }
 
-    public static void showAllUsers() {
+    private static void showAllUsers() {
 
-        System.out.println("\nTüm Kullanıcıların Listesi:\n");
+        System.out.println("\nTüm Kullanıcıların Listesi:");
 
         List<User> allUsersList = userService.getAllUsers();
-        int i;
-        for (i = 0; i < allUsersList.size(); i++) {
-            System.out.println("Kullanıcı ID: " + allUsersList.get(i).getId());
-            System.out.println("Kullanıcı tipi: " + allUsersList.get(i).getType());
-            System.out.println("Kullanıcı adı: " + allUsersList.get(i).getName());
-            System.out.println("Kullanıcı soyadı: " + allUsersList.get(i).getSurname());
-            System.out.println("Kullanıcı eposta adresi: " + allUsersList.get(i).getEmail());
+        if (allUsersList.size() == 0)
+        {
+            recordNotFound();
+        }else {
+            int i;
+            for (i = 0; i < allUsersList.size(); i++) {
+                System.out.println("\nKullanıcı ID: " + allUsersList.get(i).getId());
+                System.out.println("Kullanıcı tipi: " + allUsersList.get(i).getType());
+                System.out.println("Kullanıcı adı: " + allUsersList.get(i).getName());
+                System.out.println("Kullanıcı soyadı: " + allUsersList.get(i).getSurname());
+                System.out.println("Kullanıcı eposta adresi: " + allUsersList.get(i).getEmail());
+            }
         }
 
     }
 
-    public static void showAllExpenses() {
+    private static void showAllExpenses() {
 
-        System.out.println("\nTüm Harcamalarının Listesi:\n");
+        System.out.println("\nTüm Harcamalarının Listesi:");
 
         List<Expense> allExpensesList = expenseService.getAllExpensesOfCurrentUser();
-        int i;
-        for (i = 0; i < allExpensesList.size(); i++) {
-            System.out.println("Harcama ID: " + (allExpensesList.get(i).getId()+1));
-            System.out.println("Harcama adı: " + allExpensesList.get(i).getName());
-            System.out.println("Harcama miktarı: " + allExpensesList.get(i).getAmount());
-            System.out.println("Harcama tarihi: " + Dates.formatter.format(allExpensesList.get(i).getDate()));
-            System.out.println("Harcama kategorisi: " + allExpensesList.get(i).getCategory());
+        if (allExpensesList.size() == 0)
+        {
+            recordNotFound();
+        }else {
+            int i;
+            for (i = 0; i < allExpensesList.size(); i++) {
+                System.out.println("\nHarcama ID: " + (allExpensesList.get(i).getId() + 1));
+                System.out.println("Harcama adı: " + allExpensesList.get(i).getName());
+                System.out.println("Harcama miktarı: " + allExpensesList.get(i).getAmount());
+                System.out.println("Harcama tarihi: " + Dates.formatter.format(allExpensesList.get(i).getDate()));
+                System.out.println("Harcama kategorisi: " + allExpensesList.get(i).getCategory());
+            }
         }
 
+    }
+
+    private static void recordNotFound(){
+        System.out.println("\nHerhangi bir kayıt bulunamadı");
     }
 
 }
