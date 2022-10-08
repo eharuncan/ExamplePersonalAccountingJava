@@ -2,8 +2,7 @@ package org.example.app;
 
 import org.example.db.Database;
 
-import java.sql.Date;
-import java.util.Scanner;
+import java.util.List;
 
 public class ExpenseService {
 
@@ -13,48 +12,51 @@ public class ExpenseService {
         this.database = database;
     }
 
-    public void showExpenses() {
+    public List<Expense> getAllExpenses() {
 
-        System.out.println("asfdasdgagfdsg");
-        System.out.println("asfdasdgagfdsg");
-        System.out.println("asfdasdgagfdsg");
-        System.out.println("asfdasdgagfdsg");
-        System.out.println("asfdasdgagfdsg");
-        System.out.println("asfdasdgagfdsg");
-        System.out.println("asfdasdgagfdsg");
+        return database.getExpenseList();
 
     }
 
-    public boolean addExpense() {
+    public boolean addExpense(Expense expense) {
 
-        Expense newExpense = new Expense();
+        if (validateExpense(expense)) {
+            database.getExpenseList().add(expense);
+            return true;
+        } else {
+            return false;
+        }
 
-        Scanner readScreen = new Scanner(System.in);
+    }
 
-        System.out.println("Harcama adını giriniz:");
-        newExpense.setName(readScreen.nextLine());
+    public boolean editExpense(Integer index, Expense expense) {
 
-        System.out.println("Harcama miktarını giriniz: (TL)");
-        newExpense.setAmount(Double.valueOf(readScreen.nextLine()));
+        if (validateExpense(expense)) {
+            database.getExpenseList().set(index, expense);
+            return true;
+        } else {
+            return false;
+        }
 
-        System.out.println("Harcama tarihini giriniz:");
-        newExpense.setDate(Date.valueOf(readScreen.nextLine()));
+    }
 
-        System.out.println("Harcama kategorisini giriniz:");
-        newExpense.setCategory(readScreen.nextLine());
+    public Expense getExpenseByIndex(Integer index) {
 
+        return database.getExpenseList().get(index);
+
+    }
+
+    public boolean deleteExpense(Integer index) {
+
+        Expense foundExpense = getExpenseByIndex(index);
+        database.getExpenseList().remove(foundExpense);
         return true;
 
     }
 
-    public boolean editExpense() {
+    public boolean validateExpense(Expense expense) {
 
-        return true;
-
-    }
-
-    public boolean deleteExpense() {
-
+        //todo: burası yazılacak
         return true;
 
     }

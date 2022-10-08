@@ -3,7 +3,7 @@ package org.example.app;
 import java.util.*;
 
 import org.example.db.Database;
-import org.example.app.common.UserTypes;
+import org.example.app.enums.UserTypes;
 
 public class UserService {
 
@@ -12,14 +12,29 @@ public class UserService {
 
     public UserService(Database database) {
         this.database = database;
+
+        User adminUser = new User();
+        adminUser.setId(0);
+        adminUser.setType(UserTypes.ADMIN);
+        adminUser.setName("admin");
+        adminUser.setSurname("admin");
+        adminUser.setEmail("admin@admin.com");
+        adminUser.setPassword("admin");
+        database.getUserList().add(adminUser);
+
     }
 
     public boolean register(User user, String secondPassword) {
 
         if (checkPasswords(user.getPassword(), secondPassword)) {
-            database.getUserList().add(user);
-            currentUser = user;
-            return true;
+            if (validateUser(user)) {
+                user.setId(database.getUserList().size());
+                database.getUserList().add(user);
+                currentUser = user;
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
@@ -28,11 +43,7 @@ public class UserService {
 
     public boolean checkPasswords(String firstPassword, String secondPassword) {
 
-        if (Objects.equals(firstPassword, secondPassword)) {
-            return true;
-        } else {
-            return false;
-        }
+        return Objects.equals(firstPassword, secondPassword);
 
     }
 
@@ -51,41 +62,14 @@ public class UserService {
 
         List<User> userList = database.getUserList();
 
-        if (Objects.equals(email, "admin@admin.com") && Objects.equals(password, "admin")) {
-
-            return true;
-
-        } else if (userList.stream().anyMatch(x -> Objects.equals(x.getEmail(), email) && Objects.equals(x.getPassword(), password))){
-
-            return true;
-
-        }
-        else {
-
-            return false;
-
-        }
+        return userList.stream().anyMatch(x -> Objects.equals(x.getEmail(), email) && Objects.equals(x.getPassword(), password));
 
     }
 
     public User getUserByEmailAndPassword(String email, String password) {
 
-        if (Objects.equals(email, "admin@admin.com") && Objects.equals(password, "admin")) {
-
-            User adminUser = new User();
-            adminUser.setName("admin");
-            adminUser.setSurname("admin");
-            adminUser.setEmail("admin@admin.com");
-            adminUser.setPassword("admin");
-            adminUser.setType(UserTypes.ADMIN);
-            return adminUser;
-
-        } else {
-
-            List<User> userList = database.getUserList();
-            return userList.stream().filter(x -> Objects.equals(x.getEmail(), email) && Objects.equals(x.getPassword(), password)).findFirst().get();
-
-        }
+        List<User> userList = database.getUserList();
+        return userList.stream().filter(x -> Objects.equals(x.getEmail(), email) && Objects.equals(x.getPassword(), password)).findFirst().get();
 
     }
 
@@ -124,5 +108,13 @@ public class UserService {
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
+
+    public boolean validateUser(User user) {
+
+        //todo: burası yazılacak
+        return true;
+
+    }
+
 }
 

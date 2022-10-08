@@ -1,6 +1,6 @@
 package org.example.app;
 
-import org.example.app.common.UserTypes;
+import org.example.app.enums.UserTypes;
 
 public class User {
 
@@ -9,11 +9,20 @@ public class User {
     }
 
     //Getters, Setters, Attributes
+    private Integer id;
     private UserTypes type;
     private String name;
     private String surname;
     private String email;
     private String password;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public UserTypes getType() {
         return type;

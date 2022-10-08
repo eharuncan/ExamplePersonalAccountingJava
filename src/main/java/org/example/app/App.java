@@ -1,18 +1,21 @@
 package org.example.app;
 
-import org.example.app.common.UserTypes;
+import org.example.app.enums.UserTypes;
+import org.example.app.utils.Dates;
 import org.example.db.Database;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Main {
+public class App {
 
     private static UserService userService;
     private static ExpenseService expenseService;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
 
         Database database = new Database();
         userService = new UserService(database);
@@ -28,7 +31,7 @@ public class Main {
 
     }
 
-    public static void menuSelector() {
+    public static void menuSelector() throws ParseException {
 
         if (userService.getCurrentUser() != null) {
             if (Objects.equals(userService.getCurrentUser().getType(), UserTypes.ADMIN)) {
@@ -42,7 +45,7 @@ public class Main {
 
     }
 
-    public static void showMainMenu() {
+    public static void showMainMenu() throws ParseException {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -94,7 +97,7 @@ public class Main {
                     System.out.println("\nEposta adresinizi giriniz: ");
                     newUser.setEmail(scanner.nextLine());
 
-                    while(true){
+                    while (true) {
 
                         System.out.println("\nŞifrenizi giriniz:");
                         newUser.setPassword(scanner.nextLine());
@@ -102,10 +105,9 @@ public class Main {
                         System.out.println("\nŞifrenizi tekrar giriniz:");
                         retypedPassword = scanner.nextLine();
 
-                        if (userService.checkPasswords(newUser.getPassword(), retypedPassword)){
+                        if (userService.checkPasswords(newUser.getPassword(), retypedPassword)) {
                             break;
-                        }
-                        else {
+                        } else {
                             System.out.println("\nHata: Şifreler Uyuşmuyor. Lütfen tekrar giriniz.");
                         }
 
@@ -125,7 +127,7 @@ public class Main {
 
     }
 
-    public static void showAdminMenu() {
+    public static void showAdminMenu() throws ParseException {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -143,8 +145,9 @@ public class Main {
                 break;
             case 2:
                 showAllUsers();
+
                 System.out.println("\nSilmek istediğiniz kullanıcı numarasını giriniz: ");
-                if (userService.deleteUser(Integer.parseInt(scanner.nextLine())-1)) {
+                if (userService.deleteUser(Integer.parseInt(scanner.nextLine()) - 1)) {
                     System.out.println("\nKullanıcı başarıyla silindi.");
                     showAllUsers();
                 } else {
@@ -159,7 +162,7 @@ public class Main {
 
     }
 
-    public static void showCustomerMenu() {
+    public static void showCustomerMenu() throws ParseException {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -176,16 +179,87 @@ public class Main {
 
         switch (Integer.parseInt(scanner.nextLine())) {
             case 1:
-                expenseService.showExpenses();
+                showAllExpenses();
                 break;
             case 2:
-                expenseService.addExpense();
+
+                while (true) {
+
+                    Expense newExpense = null;
+
+                    newExpense = new Expense();
+
+                    newExpense.setUserId(userService.getCurrentUser().getId());
+
+                    System.out.println("\nHarcama adını giriniz: ");
+                    newExpense.setName(scanner.nextLine());
+
+                    System.out.println("\nHarcama Miktarını giriniz: Örneğin: " + 100.0);
+                    newExpense.setAmount(Double.parseDouble(scanner.nextLine()));
+
+                    String formattedDate = Dates.formatter.format(new Date());
+                    System.out.println("\nHarcama Tarihini giriniz: Örneğin: " + formattedDate);
+                    newExpense.setDate(Dates.formatter.parse(scanner.nextLine()));
+
+                    System.out.println("\nHarcama Kategorisi giriniz: (İsteğe bağlı) ");
+                    newExpense.setCategory(scanner.nextLine());
+
+                    if (expenseService.addExpense(newExpense)) {
+                        System.out.println("\nHarcama kaydı başarıyla gerçekleşti.");
+                        break;
+                    } else {
+                        System.out.println("\nHata Harcama kaydı oluşturulamadı.");
+                    }
+
+                }
+                menuSelector();
                 break;
             case 3:
-                expenseService.editExpense();
+
+                while (true) {
+
+                    Expense editedExpense = null;
+
+                    showAllExpenses();
+
+                    System.out.println("\nDüzenlemek istediğiniz harcama numarasını giriniz: ");
+                    Expense selectedExpense = expenseService.getExpenseByIndex(Integer.parseInt(scanner.nextLine())-1);
+
+                    System.out.println("\nHarcama adını giriniz: ");
+                    System.out.print(selectedExpense.getName());
+                    editedExpense.setName(scanner.nextLine());
+
+                    System.out.println("\nHarcama Miktarını giriniz: ");
+                    System.out.print(selectedExpense.getAmount());
+                    editedExpense.setAmount(Double.parseDouble(scanner.nextLine()));
+
+                    String formattedDate = Dates.formatter.format(new Date());
+                    System.out.println("\nHarcama Tarihini giriniz: Örneğin: " + formattedDate);
+                    System.out.print(selectedExpense.getDate());
+                    editedExpense.setDate(new Date(scanner.nextLine()));
+
+                    System.out.println("\nHarcama Kategorisi giriniz: (İsteğe bağlı) ");
+                    System.out.print(selectedExpense.getCategory());
+                    editedExpense.setCategory(scanner.nextLine());
+
+                    if (expenseService.editExpense(Integer.parseInt(scanner.nextLine())-1, editedExpense)) {
+                        System.out.println("\nHarcama başarıyla düzenlendi.");
+                        showAllExpenses();
+                        break;
+                    } else {
+                        System.out.println("\nHata: Harcama düzenlenemedi.");
+                    }
+                }
                 break;
             case 4:
-                expenseService.deleteExpense();
+                showAllExpenses();
+                System.out.println("\nSilmek istediğiniz harcama numarasını giriniz: ");
+                if (expenseService.deleteExpense(Integer.parseInt(scanner.nextLine()) - 1)) {
+                    System.out.println("\nHarcama başarıyla silindi.");
+                    showAllExpenses();
+                } else {
+                    System.out.println("\nHata: Harcama silinemedi.");
+                }
                 break;
             case 6:
                 logoutUser();
@@ -206,7 +280,7 @@ public class Main {
 
     }
 
-    public static void logoutUser() {
+    public static void logoutUser() throws ParseException {
 
         if (userService.logout()) {
             System.out.println("\nOturum başarıyla kapatılmıştır.");
@@ -224,7 +298,28 @@ public class Main {
         List<User> allUsersList = userService.getAllUsers();
         int i;
         for (i = 0; i < allUsersList.size(); i++) {
-            System.out.println(i+1 + "- " + allUsersList.get(i).getName() + ", " + allUsersList.get(i).getSurname() + ", " + allUsersList.get(i).getEmail());
+            System.out.println(i + 1 + ")");
+            System.out.println("Kullanıcı adı: " + allUsersList.get(i).getName());
+            System.out.println("Kullanıcı soyadı: " + allUsersList.get(i).getSurname());
+            System.out.println("Kullanıcı email adresi: " + allUsersList.get(i).getEmail());
+            System.out.println("");
+        }
+
+    }
+
+    public static void showAllExpenses() {
+
+        System.out.println("\nTüm Harcama Listesi:");
+
+        List<Expense> allExpensesList = expenseService.getAllExpenses();
+        int i;
+        for (i = 0; i < allExpensesList.size(); i++) {
+            System.out.println(i + 1 + ")");
+            System.out.println("Harcama adı: " + allExpensesList.get(i).getName());
+            System.out.println("Harcama miktarı: " + allExpensesList.get(i).getAmount());
+            System.out.println("Harcama tarihi: " + Dates.formatter.format(allExpensesList.get(i).getDate()));
+            System.out.println("Harcama kategorisi: " + allExpensesList.get(i).getCategory());
+            System.out.println("");
         }
 
     }
