@@ -11,18 +11,16 @@ public class Main {
 
     private static UserService userService;
     private static ExpenseService expenseService;
-    private static User currentUser;
 
     public static void main(String[] args) {
 
         Database database = new Database();
-        userService = new UserService(database, currentUser);
+        userService = new UserService(database);
         expenseService = new ExpenseService(database);
-        currentUser = new User();
 
         System.out.println("\nŞAHSİ MUHASEBEM - HARCAMALARINIZI TAKİP EDİN !");
 
-        currentUser = null;
+        userService.setCurrentUser(null);
 
         menuSelector();
 
@@ -32,13 +30,12 @@ public class Main {
 
     public static void menuSelector() {
 
-        if (currentUser != null) {
-            if (Objects.equals(currentUser.getType(), UserTypes.ADMIN)) {
+        if (userService.getCurrentUser() != null) {
+            if (Objects.equals(userService.getCurrentUser().getType(), UserTypes.ADMIN)) {
                 showAdminMenu();
-            } else if (Objects.equals(currentUser.getType(), UserTypes.CUSTOMER)) {
+            } else if (Objects.equals(userService.getCurrentUser().getType(), UserTypes.CUSTOMER)) {
                 showCustomerMenu();
             }
-            System.out.println("\nHoşgeldiniz, " + currentUser.getName());
         } else {
             showMainMenu();
         }
@@ -68,9 +65,7 @@ public class Main {
                     System.out.println("\nŞifrenizi giriniz:");
                     password = scanner.nextLine();
 
-                    currentUser = userService.login(email, password);
-
-                    if (currentUser != null) {
+                    if (userService.login(email, password)) {
                         System.out.println("\nBaşarıyla kullanıcı girişi yapıldı.");
                         break;
                     } else {
@@ -82,7 +77,7 @@ public class Main {
                 break;
             case 2:
 
-                User newUser = null;
+                User newUser;
                 String secondPassword;
 
                 while (true) {
@@ -114,7 +109,7 @@ public class Main {
                     }
 
                 }
-                currentUser = newUser;
+                userService.setCurrentUser(newUser);
                 menuSelector();
                 break;
         }
@@ -124,6 +119,8 @@ public class Main {
     public static void showAdminMenu() {
 
         Scanner scanner = new Scanner(System.in);
+
+        System.out.println("\nSistem yönetimine hoşgeldiniz, " + userService.getCurrentUser().getName());
 
         menuHeader();
         System.out.println("1- Kullanıcılar");
@@ -145,7 +142,7 @@ public class Main {
                 }
                 break;
             case 3:
-                logoutUser(currentUser);
+                logoutUser();
                 break;
         }
 
@@ -154,6 +151,8 @@ public class Main {
     public static void showCustomerMenu() {
 
         Scanner scanner = new Scanner(System.in);
+
+        System.out.println("\nHoşgeldiniz, " + userService.getCurrentUser().getName());
 
         menuHeader();
         System.out.println("1- Harcamalarım");
@@ -178,7 +177,7 @@ public class Main {
                 expenseService.deleteExpense();
                 break;
             case 6:
-                logoutUser(currentUser);
+                logoutUser();
                 menuSelector();
                 break;
         }
@@ -197,9 +196,9 @@ public class Main {
 
     }
 
-    public static void logoutUser(User user) {
+    public static void logoutUser() {
 
-        if (userService.logout(user)) {
+        if (userService.logout()) {
             System.out.println("\nOturum başarıyla kapatılmıştır.");
             menuSelector();
         } else {

@@ -10,9 +10,8 @@ public class UserService {
     private final Database database;
     private User currentUser;
 
-    public UserService(Database database, User currentUser) {
+    public UserService(Database database) {
         this.database = database;
-        this.currentUser = currentUser;
     }
 
     public boolean register(User user, String secondPassword) {
@@ -37,12 +36,13 @@ public class UserService {
 
     }
 
-    public User login(String email, String password) {
+    public boolean login(String email, String password) {
 
         if (checkUser(email, password)) {
-            return getUserByEmailAndPassword(email, password);
+            currentUser = getUserByEmailAndPassword(email, password);
+            return true;
         } else {
-            return null;
+            return false;
         }
 
     }
@@ -96,7 +96,7 @@ public class UserService {
 
     }
 
-    public boolean logout(User user) {
+    public boolean logout() {
 
         // Burada user adına olan oturum açma bilgileri silinir.
         currentUser = null;
@@ -118,5 +118,12 @@ public class UserService {
 
     }
 
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
 }
 
