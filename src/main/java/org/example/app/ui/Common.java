@@ -25,7 +25,7 @@ public class Common {
         this.guestMenu = new GuestMenu(this);
     }
 
-    public void menuSelector(){
+    public void menuSelector() {
         if (userService.getCurrentUser() != null) {
             if (Objects.equals(userService.getCurrentUser().getType(), UserTypes.ADMIN)) {
                 adminMenu.show();
@@ -51,22 +51,19 @@ public class Common {
     }
 
     public void backwardMenu() {
-        loops:
         while (true) {
             System.out.println("\ng- Geri Dön");
             menuFooter();
-            switch (screenScanner.nextLine()) {
-                case "g":
-                    menuSelector();
-                    break loops;
-                case "o":
-                    logoutUser();
-                    menuSelector();
-                case "ç":
-                    break loops;
-                default:
-                    System.out.println("\nHata: Lütfen doğru seçeneği giriniz.");
-                    break;
+            String input = screenScanner.nextLine();
+            if (Objects.equals(input, "g")) {
+                menuSelector();
+            } else if (Objects.equals(input, "o")) {
+                logoutUser();
+                menuSelector();
+            } else if (Objects.equals(input, "ç")) {
+                break;
+            } else {
+                System.out.println("\nHata: Lütfen doğru seçeneği giriniz.");
             }
         }
     }
