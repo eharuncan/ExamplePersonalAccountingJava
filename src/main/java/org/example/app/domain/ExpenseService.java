@@ -14,8 +14,10 @@ public class ExpenseService {
     private final UserService userService;
 
     public ExpenseService(Database database) {
+
         this.database = database;
         userService = new UserService(database);
+
     }
 
     public List<Expense> getExpenses() {

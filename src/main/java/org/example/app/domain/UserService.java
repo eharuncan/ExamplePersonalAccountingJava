@@ -34,18 +34,6 @@ public class UserService {
 
     }
 
-    public List <String> getExpenseCategoryListByUser(User user){
-
-        return user.getExpenseCategoryList();
-
-    }
-
-    public String getExpenseCategoryByIndex (Integer index){
-
-        return currentUser.getExpenseCategoryList().get(index);
-
-    }
-
     public boolean checkPasswords(String firstPassword, String secondPassword) {
 
         return Objects.equals(firstPassword, secondPassword);
@@ -122,6 +110,12 @@ public class UserService {
 
         //todo: burası yazılacak
         return true;
+
+    }
+
+    public String getExpenseCategoryByIndex (Integer index){
+
+        return currentUser.getExpenseCategoryList().get(index);
 
     }
 

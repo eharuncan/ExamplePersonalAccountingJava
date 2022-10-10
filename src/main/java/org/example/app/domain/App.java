@@ -287,6 +287,26 @@ public class App {
                 }
                 backwardMenu();
                 break;
+            case 5:
+
+                menuHeader();
+                System.out.println("1- Kategorilerim");
+                System.out.println("2- Kategori Ekle");
+                System.out.println("3- Kategori Düzenle");
+                System.out.println("4- Kategori Sil");
+                System.out.println("5- Oturumu Kapat");
+                menuFooter();
+
+                switch (Integer.parseInt(scanner.nextLine())) {
+                    case 1:
+                        showUserExpenseCategories();
+                        break;
+                    case 2:
+
+                }
+
+
+                break;
             case 6:
                 logoutUser();
                 break;
@@ -385,7 +405,7 @@ public class App {
     private static void showUserExpenseCategories(){
 
         System.out.print("\n");
-        List<String> expenseCategoryList = userService.getExpenseCategoryListByUser(userService.getCurrentUser());
+        List<String> expenseCategoryList = userService.getCurrentUser().getExpenseCategoryList();
         if (expenseCategoryList.size() == 0)
         {
             recordNotFound();
