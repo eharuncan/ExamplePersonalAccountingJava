@@ -102,13 +102,13 @@ public class App {
 
                     newUser.setType(UserTypes.CUSTOMER);
 
-                    System.out.println("\nAdınızı giriniz: ");
+                    System.out.println("\nAdınızı giriniz:");
                     newUser.setName(scanner.nextLine());
 
-                    System.out.println("\nSoyadınızı giriniz: ");
+                    System.out.println("\nSoyadınızı giriniz:");
                     newUser.setSurname(scanner.nextLine());
 
-                    System.out.println("\nEposta adresinizi giriniz: ");
+                    System.out.println("\nEposta adresinizi giriniz:");
                     newUser.setEmail(scanner.nextLine());
 
                     while (true) {
@@ -159,7 +159,7 @@ public class App {
                 System.out.println("\nTüm Kullanıcıların Listesi:");
                 showUsers();
 
-                System.out.println("\nSilmek istediğiniz Kullanıcı ID yi giriniz: ");
+                System.out.println("\nSilmek istediğiniz Kullanıcı ID yi giriniz:");
                 if (userService.deleteUser(Integer.parseInt(scanner.nextLine()))) {
                     System.out.println("\nKullanıcı başarıyla silindi");
                     backwardMenu();
@@ -202,7 +202,7 @@ public class App {
 
                     newExpense.setUserId(userService.getCurrentUser().getId());
 
-                    System.out.println("\nHarcama Adını giriniz: ");
+                    System.out.println("\nHarcama Adını giriniz:");
                     newExpense.setName(scanner.nextLine());
 
                     System.out.println("\nHarcama Miktarını giriniz: Örneğin: " + 100.0);
@@ -212,7 +212,7 @@ public class App {
                     System.out.println("\nHarcama Tarihini giriniz: Örneğin: " + formattedDate);
                     newExpense.setDate(Dates.formatter.parse(scanner.nextLine()));
 
-                    System.out.println("\nHarcama Kategorisini seçiniz: (İsteğe bağlı) ");
+                    System.out.println("\nHarcama Kategorisini seçiniz: (İsteğe bağlı)");
                     showUserExpenseCategories(userService.getCurrentUser().getId());
                     System.out.print("\nSeçiminiz: ");
                     int index = (Integer.parseInt(scanner.nextLine()) - 1);
@@ -233,7 +233,7 @@ public class App {
                     System.out.println("\nTüm Harcamalarının Listesi:");
                     showUserExpenses(userService.getCurrentUser().getId());
 
-                    System.out.println("\nDüzenlemek istediğiniz harcama ID yi giriniz: ");
+                    System.out.println("\nDüzenlemek istediğiniz harcama ID yi giriniz:");
                     Expense selectedExpense = expenseService.getExpenseByUserIdAndExpenseId(userService.getCurrentUser().getId(),Integer.parseInt(scanner.nextLine()) - 1);
 
                     Expense editedExpense;
@@ -267,7 +267,7 @@ public class App {
             case "4":
                 System.out.println("\nTüm Harcamalarının Listesi:");
                 showUserExpenses(userService.getCurrentUser().getId());
-                System.out.println("\nSilmek istediğiniz Harcama ID yi giriniz: ");
+                System.out.println("\nSilmek istediğiniz Harcama ID yi giriniz:");
                 if (expenseService.deleteExpenseByUserId(userService.getCurrentUser().getId(),Integer.parseInt(scanner.nextLine()) - 1)) {
                     System.out.println("\nHarcama başarıyla silindi.");
                 } else {
@@ -291,7 +291,7 @@ public class App {
                         backwardMenu();
                         break;
                     case "2":
-                        System.out.println("\nHarcama Kategorisi Adını giriniz: ");
+                        System.out.println("\nHarcama Kategorisi Adını giriniz:");
                         try{
                             String newExpenseCategory = scanner.nextLine();
                             userService.getCurrentUser().getExpenseCategoryList().add(newExpenseCategory);
@@ -347,7 +347,7 @@ public class App {
     }
 
     private static void recordNotFound() {
-        System.out.println("\nHerhangi bir kayıt bulunamadı");
+        System.out.println("\nHerhangi bir kayıt bulunamadı.");
     }
 
     private static void showUsers() {
