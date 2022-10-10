@@ -168,6 +168,7 @@ public class App {
                 backwardMenu();
                 break;
             case 2:
+                System.out.println("\nTüm Kullanıcıların Listesi:");
                 showUsers();
 
                 System.out.println("\nSilmek istediğiniz Kullanıcı ID yi giriniz: ");
@@ -246,6 +247,8 @@ public class App {
 
                 while (true) {
 
+                    System.out.println("\nTüm Harcamalarının Listesi:");
+
                     showExpenses();
 
                     System.out.println("\nDüzenlemek istediğiniz harcama ID yi giriniz: ");
@@ -280,6 +283,7 @@ public class App {
                 backwardMenu();
                 break;
             case 4:
+                System.out.println("\nTüm Harcamalarının Listesi:");
                 showExpenses();
                 System.out.println("\nSilmek istediğiniz Harcama ID yi giriniz: ");
                 if (expenseService.deleteExpense(Integer.parseInt(scanner.nextLine()) - 1)) {
@@ -365,8 +369,6 @@ public class App {
 
     private static void showUsers() {
 
-        System.out.println("\nTüm Kullanıcıların Listesi:");
-
         List<User> userList = userService.getUsers();
         if (userList.size() == 0)
         {
@@ -385,8 +387,6 @@ public class App {
     }
 
     private static void showExpenses() {
-
-        System.out.println("\nTüm Harcamalarının Listesi:");
 
         List<Expense> expenseList = expenseService.getExpensesOfCurrentUser();
         if (expenseList.size() == 0)
