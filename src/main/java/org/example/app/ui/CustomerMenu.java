@@ -21,7 +21,7 @@ public class CustomerMenu {
         this.expenseService = expenseService;
     }
 
-    public void showMenu() {
+    public void show() {
         try {
 
             System.out.println("\nHoşgeldiniz, " + userService.getCurrentUser().getName());

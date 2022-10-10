@@ -17,7 +17,7 @@ public class GuestMenu {
         this.common = common;
     }
 
-    public void showMenu() {
+    public void show() {
         System.out.println("\nHoşgeldiniz...");
 
         loops:

@@ -14,7 +14,7 @@ public class AdminMenu {
         this.common = common;
     }
 
-    public void showMenu() {
+    public void show() {
         System.out.println("\nSistem yönetimine hoşgeldiniz, " + userService.getCurrentUser().getName());
 
         loops:

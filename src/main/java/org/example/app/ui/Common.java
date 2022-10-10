@@ -32,12 +32,12 @@ public class Common {
     public void menuSelector(){
         if (userService.getCurrentUser() != null) {
             if (Objects.equals(userService.getCurrentUser().getType(), UserTypes.ADMIN)) {
-                adminMenu.showMenu();
+                adminMenu.show();
             } else if (Objects.equals(userService.getCurrentUser().getType(), UserTypes.CUSTOMER)) {
-                customerMenu.showMenu();
+                customerMenu.show();
             }
         } else {
-            guestMenu.showMenu();
+            guestMenu.show();
         }
     }
 
