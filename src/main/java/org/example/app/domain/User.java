@@ -1,6 +1,8 @@
-package org.example.app;
+package org.example.app.domain;
 
-import org.example.app.common.UserTypes;
+import org.example.app.enums.UserTypes;
+
+import java.util.List;
 
 public class User {
 
@@ -9,11 +11,21 @@ public class User {
     }
 
     //Getters, Setters, Attributes
+    private Integer id;
     private UserTypes type;
     private String name;
     private String surname;
     private String email;
     private String password;
+    private List<String> expenseCategoryList;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public UserTypes getType() {
         return type;
@@ -55,11 +67,18 @@ public class User {
         this.password = password;
     }
 
+    public List<String> getExpenseCategoryList() {
+        return expenseCategoryList;
+    }
+
+    public void setExpenseCategoryList(List<String> expenseCategoryList) {
+        this.expenseCategoryList = expenseCategoryList;
+    }
+
     public User(String name, String surname, String email, String password) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
     }
-
 }

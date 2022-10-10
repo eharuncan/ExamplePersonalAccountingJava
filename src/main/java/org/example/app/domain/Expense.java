@@ -1,5 +1,4 @@
-package org.example.app;
-import org.example.app.ExpenseService;
+package org.example.app.domain;
 
 import java.util.Date;
 
@@ -10,10 +9,28 @@ public class Expense {
     }
 
     //Getters, Setters, Attributes
+    private Integer userId;
+    private Integer id;
     private String name;
     private Double amount;
     private Date date;
     private String category;
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -53,5 +70,4 @@ public class Expense {
         this.date = date;
         this.category = category;
     }
-
 }

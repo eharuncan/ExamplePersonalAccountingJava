@@ -1,4 +1,4 @@
-package org.example.app.common;
+package org.example.app.enums;
 
 public enum UserTypes {
     ADMIN,
