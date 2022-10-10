@@ -14,28 +14,21 @@ public class ExpenseService {
     private final UserService userService;
 
     public ExpenseService(Database database) {
-
         this.database = database;
         userService = new UserService(database);
-
     }
 
     public List<Expense> getExpenses() {
-
         return database.getExpenseList();
-
     }
 
     public List<Expense> getExpensesOfCurrentUser() {
-
         return database.getExpenseList().stream()
                 .filter(expense -> Objects.equals(expense.getUserId(), userService.getCurrentUser().getId()))
                 .collect(Collectors.toList());
-
     }
 
     public boolean addExpense(Expense newExpense) {
-
         if (validateExpense(newExpense)) {
             newExpense.setUserId(userService.getCurrentUser().getId());
             newExpense.setId(getExpensesOfCurrentUser().size());
@@ -44,11 +37,9 @@ public class ExpenseService {
         } else {
             return false;
         }
-
     }
 
     public boolean editExpense(Integer expenseId, Expense editedExpense) {
-
         if (validateExpense(editedExpense)) {
             int index = getExpenses().indexOf(getExpenseById(expenseId));
             database.getExpenseList().set(index, editedExpense);
@@ -56,37 +47,28 @@ public class ExpenseService {
         } else {
             return false;
         }
-
     }
 
     public Expense getExpenseById(Integer expenseId) {
-
         List<Expense> expenseList = database.getExpenseList();
-
         return expenseList.stream()
                 .filter(expense -> Objects.equals(expense.getUserId(), userService.getCurrentUser().getId()) && Objects.equals(expense.getId(), expenseId))
                 .findFirst()
                 .get();
-
     }
 
     public boolean deleteExpense(Integer expenseId) {
-
         Expense foundExpense = getExpenseById(expenseId);
         database.getExpenseList().remove(foundExpense);
         return true;
-
     }
 
     public boolean validateExpense(Expense expense) {
-
         //todo: burası yazılacak
         return true;
-
     }
 
     public Double getSumOfExpensesOfDate(Date date) {
-
         List <Expense> currentUsersExpenseList = getExpensesOfCurrentUser();
         List <Expense> resultList = currentUsersExpenseList.stream()
                 .filter(expense -> Objects.equals(Dates.formatter.format(expense.getDate()), Dates.formatter.format(date)))
@@ -94,8 +76,6 @@ public class ExpenseService {
         return resultList.stream()
                 .mapToDouble(Expense::getAmount)
                 .sum();
-
     }
-
 }
 

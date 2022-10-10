@@ -293,7 +293,7 @@ public class App {
                             userService.getCurrentUser().getExpenseCategoryList().add(newExpenseCategory);
                             System.out.println("\nHarcama Kategorisi başarıyla kaydedildi.");
                         }catch (Exception e){
-                            System.out.println(e.getMessage());
+                            System.out.println("\nHata: " + e.getMessage());
                         }
                         backwardMenu();
                         break;
