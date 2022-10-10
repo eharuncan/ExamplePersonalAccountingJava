@@ -22,6 +22,7 @@ public class CustomerMenu {
             System.out.println("\nHoşgeldiniz, " + userService.getCurrentUser().getName());
             System.out.println("\nBugünkü toplam harcamanız: " + expenseService.getSumOfExpensesOfDateByUserId(userService.getCurrentUser().getId(), new java.util.Date()) + " TL");
 
+            loops:
             while (true) {
                 common.menuHeader();
                 System.out.println("1- Harcamalarım");
@@ -66,7 +67,7 @@ public class CustomerMenu {
                         if (expenseService.addExpenseByUserId(userService.getCurrentUser().getId(), newExpense)) {
                             System.out.println("\nHarcama başarıyla kaydedildi.");
                             common.backwardMenu();
-                            break;
+                            break loops;
                         } else {
                             System.out.println("\nHata: Harcama kaydı oluşturulamadı.");
                         }
@@ -101,7 +102,7 @@ public class CustomerMenu {
                         if (expenseService.editExpenseByUserId(userService.getCurrentUser().getId(), selectedExpense.getId(), editedExpense)) {
                             System.out.println("\nHarcama başarıyla düzenlendi.");
                             common.backwardMenu();
-                            break;
+                            break loops;
                         } else {
                             System.out.println("\nHata: Harcama düzenlenemedi.");
                         }
