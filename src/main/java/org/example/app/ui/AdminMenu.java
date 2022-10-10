@@ -19,7 +19,7 @@ public class AdminMenu {
 
         loops:
         while (true) {
-            Common.menuHeader();
+            common.menuHeader();
             System.out.println("1- Kullanıcılar");
             System.out.println("2- Kullanıcı Sil");
             common.menuFooter();

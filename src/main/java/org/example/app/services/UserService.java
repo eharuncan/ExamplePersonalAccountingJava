@@ -39,8 +39,6 @@ public class UserService {
         database.getUserList().add(customerUser);
     }
 
-
-
     public boolean register(User user, String secondPassword) {
         if (checkPasswords(user.getPassword(), secondPassword)) {
             if (validateUser(user)) {

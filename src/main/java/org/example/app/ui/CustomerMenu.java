@@ -29,7 +29,7 @@ public class CustomerMenu {
 
             loops:
             while (true) {
-                Common.menuHeader();
+                common.menuHeader();
                 System.out.println("1- Harcamalarım");
                 System.out.println("2- Harcama Ekle");
                 System.out.println("3- Harcama Düzenle");

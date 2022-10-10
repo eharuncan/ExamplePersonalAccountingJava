@@ -41,7 +41,7 @@ public class Common {
         }
     }
 
-    public static void menuHeader() {
+    public void menuHeader() {
         System.out.print("\n");
     }
 
