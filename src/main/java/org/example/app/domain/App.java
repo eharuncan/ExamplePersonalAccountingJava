@@ -17,7 +17,6 @@ public class App {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws ParseException {
-
         Database database = new Database();
 
         userService = new UserService(database);
@@ -32,11 +31,9 @@ public class App {
         menuSelector();
 
         System.out.println("\nUygulama başarıyla kapatıldı.");
-
     }
 
-    private static void setInitialValues(Database database){
-
+    private static void setInitialValues(Database database) {
         User adminUser = new User();
         adminUser.setId(0);
         adminUser.setType(UserTypes.ADMIN);
@@ -55,11 +52,9 @@ public class App {
         customerUser.setPassword("123");
         customerUser.setExpenseCategoryList(userService.getDefaultExpenseCategoryList());
         database.getUserList().add(customerUser);
-
     }
 
     private static void menuSelector() throws ParseException {
-
         if (userService.getCurrentUser() != null) {
             if (Objects.equals(userService.getCurrentUser().getType(), UserTypes.ADMIN)) {
                 showAdminMenu();
@@ -69,11 +64,9 @@ public class App {
         } else {
             showMainMenu();
         }
-
     }
 
     private static void showMainMenu() throws ParseException {
-
         menuHeader();
         System.out.println("1- Giriş Yap");
         System.out.println("2- Kaydol");
@@ -85,7 +78,6 @@ public class App {
                 String password;
 
                 while (true) {
-
                     System.out.println("\nEposta adresinizi giriniz:");
                     email = scanner.nextLine();
 
@@ -98,17 +90,14 @@ public class App {
                     } else {
                         System.out.println("\nHata: Sistemde böyle bir kullanıcı bulunmuyor.");
                     }
-
                 }
                 menuSelector();
                 break;
             case 2:
-
                 User newUser;
                 String retypedPassword;
 
                 while (true) {
-
                     newUser = new User();
 
                     newUser.setType(UserTypes.CUSTOMER);
@@ -144,16 +133,13 @@ public class App {
                     } else {
                         System.out.println("\nHata kullanıcı kaydı oluşturulamadı.");
                     }
-
                 }
                 menuSelector();
                 break;
         }
-
     }
 
     private static void showAdminMenu() throws ParseException {
-
         System.out.println("\nSistem yönetimine hoşgeldiniz, " + userService.getCurrentUser().getName());
 
         menuHeader();
@@ -184,13 +170,10 @@ public class App {
                 System.out.println("\nOturum başarıyla kapatıldı.");
                 break;
         }
-
     }
 
     private static void showCustomerMenu() throws ParseException {
-
         System.out.println("\nHoşgeldiniz, " + userService.getCurrentUser().getName());
-
         System.out.println("\nBugünkü toplam harcamanız: " + expenseService.getSumOfExpensesOfDate(new Date()) + " TL");
 
         menuHeader();
@@ -208,9 +191,7 @@ public class App {
                 backwardMenu();
                 break;
             case 2:
-
                 while (true) {
-
                     Expense newExpense = null;
 
                     newExpense = new Expense();
@@ -230,7 +211,7 @@ public class App {
                     System.out.println("\nHarcama Kategorisini seçiniz: (İsteğe bağlı) ");
                     showUserExpenseCategories();
                     System.out.print("\nSeçiminiz: ");
-                    int index = (Integer.parseInt(scanner.nextLine()) -1);
+                    int index = (Integer.parseInt(scanner.nextLine()) - 1);
                     newExpense.setCategory(userService.getExpenseCategoryByIndex(index));
 
                     if (expenseService.addExpense(newExpense)) {
@@ -244,19 +225,16 @@ public class App {
                 backwardMenu();
                 break;
             case 3:
-
                 while (true) {
-
                     System.out.println("\nTüm Harcamalarının Listesi:");
-
                     showExpenses();
 
                     System.out.println("\nDüzenlemek istediğiniz harcama ID yi giriniz: ");
-                    Expense selectedExpense = expenseService.getExpenseById(Integer.parseInt(scanner.nextLine())-1);
+                    Expense selectedExpense = expenseService.getExpenseById(Integer.parseInt(scanner.nextLine()) - 1);
 
                     Expense editedExpense;
 
-                    editedExpense  = selectedExpense;
+                    editedExpense = selectedExpense;
 
                     System.out.println("\nYeni Harcama Adını giriniz: (" + selectedExpense.getName() + ")");
                     editedExpense.setName(scanner.nextLine());
@@ -270,7 +248,7 @@ public class App {
                     System.out.println("\nYeni Harcama Kategorisi seçiniz: (" + selectedExpense.getCategory() + ")");
                     showUserExpenseCategories();
                     System.out.print("\nSeçiminiz: ");
-                    int index = (Integer.parseInt(scanner.nextLine()) -1);
+                    int index = (Integer.parseInt(scanner.nextLine()) - 1);
                     editedExpense.setCategory(userService.getExpenseCategoryByIndex(index));
 
                     if (expenseService.editExpense(selectedExpense.getId(), editedExpense)) {
@@ -294,7 +272,6 @@ public class App {
                 backwardMenu();
                 break;
             case 5:
-
                 menuHeader();
                 System.out.println("1- Kategorilerim");
                 System.out.println("2- Kategori Ekle");
@@ -305,15 +282,22 @@ public class App {
 
                 switch (Integer.parseInt(scanner.nextLine())) {
                     case 1:
+                        System.out.println("\nTüm Harcama Kategorilerinin Listesi:");
                         showUserExpenseCategories();
                         backwardMenu();
                         break;
                     case 2:
-
+                        System.out.println("\nHarcama Kategorisi Adını giriniz: ");
+                        try{
+                            String newExpenseCategory = scanner.nextLine();
+                            userService.getCurrentUser().getExpenseCategoryList().add(newExpenseCategory);
+                            System.out.println("\nHarcama Kategorisi başarıyla kaydedildi.");
+                        }catch (Exception e){
+                            System.out.println(e.getMessage());
+                        }
+                        backwardMenu();
+                        break;
                 }
-
-
-                break;
             case 6:
                 logoutUser();
                 break;
@@ -321,59 +305,48 @@ public class App {
     }
 
     private static void menuHeader() {
-
         System.out.println("");
-
     }
 
     private static void menuFooter() {
-
         System.out.println("0- Çıkış Yap");
         System.out.print("\nLütfen bir menü numarası giriniz: ");
-
     }
 
     private static void backwardMenu() throws ParseException {
-
         loops:
-        while (true){
+        while (true) {
             menuHeader();
             System.out.println("1- Geri Dön");
             menuFooter();
-            switch(Integer.parseInt(scanner.nextLine())){
+            switch (Integer.parseInt(scanner.nextLine())) {
                 case 1:
                     menuSelector();
                     break loops;
                 case 0:
                     break loops;
             }
-
         }
-
     }
 
     private static void logoutUser() throws ParseException {
-
         if (userService.logout()) {
             System.out.println("\nOturum başarıyla kapatılmıştır.");
             menuSelector();
         } else {
             System.out.println("\nHata: Oturum kapatılamadı.");
         }
-
     }
 
-    private static void recordNotFound(){
+    private static void recordNotFound() {
         System.out.println("\nHerhangi bir kayıt bulunamadı");
     }
 
     private static void showUsers() {
-
         List<User> userList = userService.getUsers();
-        if (userList.size() == 0)
-        {
+        if (userList.size() == 0) {
             recordNotFound();
-        }else {
+        } else {
             int i;
             for (i = 0; i < userList.size(); i++) {
                 System.out.println("\nKullanıcı ID: " + userList.get(i).getId());
@@ -383,16 +356,13 @@ public class App {
                 System.out.println("Kullanıcı eposta adresi: " + userList.get(i).getEmail());
             }
         }
-
     }
 
     private static void showExpenses() {
-
         List<Expense> expenseList = expenseService.getExpensesOfCurrentUser();
-        if (expenseList.size() == 0)
-        {
+        if (expenseList.size() == 0) {
             recordNotFound();
-        }else {
+        } else {
             int i;
             for (i = 0; i < expenseList.size(); i++) {
                 System.out.println("\nHarcama ID: " + (expenseList.get(i).getId() + 1));
@@ -402,23 +372,18 @@ public class App {
                 System.out.println("Harcama kategorisi: " + expenseList.get(i).getCategory());
             }
         }
-
     }
 
-    private static void showUserExpenseCategories(){
-
+    private static void showUserExpenseCategories() {
         System.out.print("\n");
         List<String> expenseCategoryList = userService.getCurrentUser().getExpenseCategoryList();
-        if (expenseCategoryList.size() == 0)
-        {
+        if (expenseCategoryList.size() == 0) {
             recordNotFound();
-        }else {
+        } else {
             int i;
             for (i = 0; i < expenseCategoryList.size(); i++) {
-                System.out.println("" + (i+1) + "- " + expenseCategoryList.get(i));
+                System.out.println("" + (i + 1) + "- " + expenseCategoryList.get(i));
             }
         }
-
     }
-
 }
