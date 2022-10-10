@@ -30,6 +30,14 @@ public class ExpenseService {
                 .collect(Collectors.toList());
     }
 
+    public Expense getExpenseByUserIdAndExpenseId(Integer userId, Integer expenseId) {
+        List<Expense> expenseList = database.getExpenseList();
+        return expenseList.stream()
+                .filter(expense -> Objects.equals(expense.getUserId(), userId) && Objects.equals(expense.getId(), expenseId))
+                .findFirst()
+                .get();
+    }
+
     public boolean addExpenseByUserId(Integer userId, Expense newExpense) {
         if (validateExpense(newExpense)) {
             newExpense.setUserId(userService.getCurrentUser().getId());
@@ -41,7 +49,7 @@ public class ExpenseService {
         }
     }
 
-    public boolean editExpense(Integer userId, Integer expenseId, Expense editedExpense) {
+    public boolean editExpenseByUserId(Integer userId, Integer expenseId, Expense editedExpense) {
         if (validateExpense(editedExpense)) {
             int index = getExpenses().indexOf(getExpenseByUserIdAndExpenseId(userId, expenseId));
             database.getExpenseList().set(index, editedExpense);
@@ -49,14 +57,6 @@ public class ExpenseService {
         } else {
             return false;
         }
-    }
-
-    public Expense getExpenseByUserIdAndExpenseId(Integer userId, Integer expenseId) {
-        List<Expense> expenseList = database.getExpenseList();
-        return expenseList.stream()
-                .filter(expense -> Objects.equals(expense.getUserId(), userId) && Objects.equals(expense.getId(), expenseId))
-                .findFirst()
-                .get();
     }
 
     public boolean deleteExpenseByUserId(Integer userId, Integer expenseId) {
@@ -70,7 +70,7 @@ public class ExpenseService {
         return true;
     }
 
-    public Double getSumOfExpensesOfDate(Integer userId, java.util.Date date) {
+    public Double getSumOfExpensesOfDateByUserId(Integer userId, java.util.Date date) {
         List <Expense> currentUsersExpenseList = getExpensesByUserId(userId);
         List <Expense> resultList = currentUsersExpenseList.stream()
                 .filter(expense -> Objects.equals(dateFormatter.format(expense.getDate()), dateFormatter.format(date)))

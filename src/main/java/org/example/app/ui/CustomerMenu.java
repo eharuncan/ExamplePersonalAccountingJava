@@ -17,9 +17,8 @@ public class CustomerMenu {
 
     public void show() {
         try {
-
             System.out.println("\nHoşgeldiniz, " + userService.getCurrentUser().getName());
-            System.out.println("\nBugünkü toplam harcamanız: " + expenseService.getSumOfExpensesOfDate(userService.getCurrentUser().getId(), new java.util.Date()) + " TL");
+            System.out.println("\nBugünkü toplam harcamanız: " + expenseService.getSumOfExpensesOfDateByUserId(userService.getCurrentUser().getId(), new java.util.Date()) + " TL");
 
             loops:
             while (true) {
@@ -99,7 +98,7 @@ public class CustomerMenu {
                             int index = (Integer.parseInt(screenScanner.nextLine()) - 1);
                             editedExpense.setCategory(userService.getExpenseCategoryByUserIdAndIndex(userService.getCurrentUser().getId(), index));
 
-                            if (expenseService.editExpense(userService.getCurrentUser().getId(), selectedExpense.getId(), editedExpense)) {
+                            if (expenseService.editExpenseByUserId(userService.getCurrentUser().getId(), selectedExpense.getId(), editedExpense)) {
                                 System.out.println("\nHarcama başarıyla düzenlendi.");
                                 break;
                             } else {
