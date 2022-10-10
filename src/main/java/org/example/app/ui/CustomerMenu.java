@@ -65,13 +65,12 @@ public class CustomerMenu {
 
                         if (expenseService.addExpenseByUserId(userService.getCurrentUser().getId(), newExpense)) {
                             System.out.println("\nHarcama başarıyla kaydedildi.");
+                            common.backwardMenu();
                             break;
                         } else {
                             System.out.println("\nHata: Harcama kaydı oluşturulamadı.");
                         }
                     }
-                    common.backwardMenu();
-                    break;
                 } else if (Objects.equals(input, "3")) {
                     while (true) {
                         System.out.println("\nTüm Harcamalarının Listesi:");
@@ -101,24 +100,23 @@ public class CustomerMenu {
 
                         if (expenseService.editExpenseByUserId(userService.getCurrentUser().getId(), selectedExpense.getId(), editedExpense)) {
                             System.out.println("\nHarcama başarıyla düzenlendi.");
+                            common.backwardMenu();
                             break;
                         } else {
                             System.out.println("\nHata: Harcama düzenlenemedi.");
                         }
                     }
-                    common.backwardMenu();
-                    break;
                 } else if (Objects.equals(input, "4")) {
                     System.out.println("\nTüm Harcamalarının Listesi:");
                     common.showUserExpenses(userService.getCurrentUser().getId());
                     System.out.println("\nSilmek istediğiniz Harcama ID yi giriniz:");
                     if (expenseService.deleteExpenseByUserId(userService.getCurrentUser().getId(), Integer.parseInt(screenScanner.nextLine()) - 1)) {
                         System.out.println("\nHarcama başarıyla silindi.");
+                        common.backwardMenu();
+                        break;
                     } else {
                         System.out.println("\nHata: Harcama silinemedi.");
                     }
-                    common.backwardMenu();
-                    break;
                 } else if (Objects.equals(input, "5")) {
                     System.out.println("\nTüm Harcama Kategorilerinin Listesi:");
                     common.showUserExpenseCategories(userService.getCurrentUser().getId());

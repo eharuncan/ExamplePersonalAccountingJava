@@ -35,10 +35,10 @@ public class AdminMenu {
                 if (userService.deleteUserByIndex(Integer.parseInt(screenScanner.nextLine()))) {
                     System.out.println("\nKullanıcı başarıyla silindi");
                     common.backwardMenu();
+                    break;
                 } else {
                     System.out.println("\nHata: Kullanıcı silinemedi.");
                 }
-                break;
             } else if (Objects.equals(input, "o")) {
                 common.logoutUser();
                 common.menuSelector();

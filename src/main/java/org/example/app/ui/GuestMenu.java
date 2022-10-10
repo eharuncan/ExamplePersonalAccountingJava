@@ -19,6 +19,7 @@ public class GuestMenu {
     public void show() {
         System.out.println("\nHoşgeldiniz...");
 
+        loops:
         while (true) {
             common.menuHeader();
             System.out.println("1- Giriş Yap");
@@ -40,13 +41,12 @@ public class GuestMenu {
 
                     if (userService.login(email, password)) {
                         System.out.println("\nBaşarıyla kullanıcı girişi yapıldı.");
-                        break;
+                        common.menuSelector();
+                        break loops;
                     } else {
                         System.out.println("\nHata: Sistemde böyle bir kullanıcı bulunmuyor.");
                     }
                 }
-                common.menuSelector();
-                break;
             } else if (Objects.equals(input, "2")) {
                 User newUser;
                 String retypedPassword;
@@ -80,13 +80,12 @@ public class GuestMenu {
                     }
                     if (userService.register(newUser, retypedPassword)) {
                         System.out.println("\nKullanıcı kaydı başarıyla gerçekleşti.");
+                        common.menuSelector();
                         break;
                     } else {
                         System.out.println("\nHata: kullanıcı kaydı oluşturulamadı.");
                     }
                 }
-                common.menuSelector();
-                break;
             } else if (Objects.equals(input, "ç")) {
                 break;
             } else {
