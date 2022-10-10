@@ -14,7 +14,6 @@ public class Database {
     public List<User> getUserList() {
         return userList;
     }
-
     public void setUserList(List<User> userList) {
         this.userList = userList;
     }
@@ -22,7 +21,6 @@ public class Database {
     public List<Expense> getExpenseList() {
         return expenseList;
     }
-
     public void setExpenseList(List<Expense> expenseList) {
         this.expenseList = expenseList;
     }
