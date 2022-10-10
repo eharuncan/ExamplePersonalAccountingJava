@@ -136,7 +136,7 @@ public class App {
                 }
                 menuSelector();
                 break;
-            case "00":
+            case "ç":
                 break;
             default:
                 System.out.println("\nHata: Lütfen doğru seçeneği giriniz.");
@@ -172,7 +172,7 @@ public class App {
                 break;
             case "3":
                 logoutUser();
-                System.out.println("\nOturum başarıyla kapatıldı.");
+                menuSelector();
                 break;
             case "00":
                 break;
@@ -192,9 +192,9 @@ public class App {
         System.out.println("3- Harcama Düzenle");
         System.out.println("4- Harcama Sil");
         System.out.println("5- Harcama Kategorilerim");
-        System.out.println("6- Oturumu Kapat");
         menuFooter();
 
+        loops:
         switch (scanner.nextLine()) {
             case "1":
                 showUserExpenses(userService.getCurrentUser().getId());
@@ -285,9 +285,7 @@ public class App {
                 menuHeader();
                 System.out.println("1- Kategorilerim");
                 System.out.println("2- Kategori Ekle");
-                System.out.println("3- Kategori Düzenle");
-                System.out.println("4- Kategori Sil");
-                System.out.println("5- Oturumu Kapat");
+                System.out.println("3- Kategori Sil");
                 menuFooter();
 
                 switch (scanner.nextLine()) {
@@ -307,11 +305,24 @@ public class App {
                         }
                         backwardMenu();
                         break;
+                    case "3":
+                        break;
+                    case "g":
+                        menuSelector();
+                        break;
+                    case "o":
+                        logoutUser();
+                        menuSelector();
+                    case "ç":
+                        break loops;
                 }
-            case "6":
-                logoutUser();
+            case "g":
+                menuSelector();
                 break;
-            case "00":
+            case "o":
+                logoutUser();
+                menuSelector();
+            case "ç":
                 break;
             default:
                 System.out.println("\nHata: Lütfen doğru seçeneği giriniz.");
@@ -320,25 +331,31 @@ public class App {
     }
 
     private static void menuHeader() {
-        System.out.println("");
+        System.out.print("\n");
     }
 
     private static void menuFooter() {
-        System.out.println("00- Çıkış Yap");
+        System.out.print("\n");
+        if (userService.getCurrentUser() != null){
+            System.out.println("o- Oturumu Kapat");
+        }
+        System.out.println("ç- Çıkış Yap");
         System.out.print("\nLütfen bir menü numarası giriniz: ");
     }
 
     private static void backwardMenu() throws ParseException {
         loops:
         while (true) {
-            menuHeader();
-            System.out.println("0- Geri Dön");
+            System.out.println("\ng- Geri Dön");
             menuFooter();
             switch (scanner.nextLine()) {
-                case "0":
+                case "g":
                     menuSelector();
                     break loops;
-                case "00":
+                case "o":
+                    logoutUser();
+                    menuSelector();
+                case "ç":
                     break loops;
                 default:
                     System.out.println("\nHata: Lütfen doğru seçeneği giriniz.");
@@ -349,8 +366,7 @@ public class App {
 
     private static void logoutUser() throws ParseException {
         if (userService.logout()) {
-            System.out.println("\nOturum başarıyla kapatılmıştır.");
-            menuSelector();
+            System.out.println("\nOturum başarıyla kapatıldı.");
         } else {
             System.out.println("\nHata: Oturum kapatılamadı.");
         }
