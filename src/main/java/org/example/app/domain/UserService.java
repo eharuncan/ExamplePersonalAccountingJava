@@ -104,8 +104,8 @@ public class UserService {
 
     }
 
-    public String getExpenseCategoryByIndex (Integer index){
-        return currentUser.getExpenseCategoryList().get(index);
+    public String getExpenseCategoryByUserIdAndIndex(Integer userId, Integer index){
+        return getUserById(userId).getExpenseCategoryList().get(index);
     }
 
     public List<String> getDefaultExpenseCategoryList() {

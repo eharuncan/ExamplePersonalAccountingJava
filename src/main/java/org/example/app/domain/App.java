@@ -231,7 +231,7 @@ public class App {
                             showUserExpenseCategories(userService.getCurrentUser().getId());
                             System.out.print("\nSeçiminiz: ");
                             int index = (Integer.parseInt(scanner.nextLine()) - 1);
-                            newExpense.setCategory(userService.getExpenseCategoryByIndex(index));
+                            newExpense.setCategory(userService.getExpenseCategoryByUserIdAndIndex(userService.getCurrentUser().getId(),index));
 
                             if (expenseService.addExpenseByUserId(userService.getCurrentUser().getId(), newExpense)) {
                                 System.out.println("\nHarcama başarıyla kaydedildi.");
@@ -268,7 +268,7 @@ public class App {
                             showUserExpenseCategories(userService.getCurrentUser().getId());
                             System.out.print("\nSeçiminiz: ");
                             int index = (Integer.parseInt(scanner.nextLine()) - 1);
-                            editedExpense.setCategory(userService.getExpenseCategoryByIndex(index));
+                            editedExpense.setCategory(userService.getExpenseCategoryByUserIdAndIndex(userService.getCurrentUser().getId(),index));
 
                             if (expenseService.editExpense(userService.getCurrentUser().getId(), selectedExpense.getId(), editedExpense)) {
                                 System.out.println("\nHarcama başarıyla düzenlendi.");
@@ -311,6 +311,13 @@ public class App {
                                 backwardMenu();
                                 break;
                             case "3":
+                                System.out.println("\nTüm Harcama Kategorilerinin Listesi:");
+                                showUserExpenseCategories(userService.getCurrentUser().getId());
+                                System.out.print("\nDeğiştirmek istediğiniz kategori sayısını seçiniz: ");
+                                int index = (Integer.parseInt(scanner.nextLine()) - 1);
+                                userService.getCurrentUser().getExpenseCategoryList().remove(userService.getExpenseCategoryByUserIdAndIndex(userService.getCurrentUser().getId(), index));
+                                System.out.println("\nHarcama Kategorisi başarıyla silindi.");
+                                backwardMenu();
                                 break;
                             case "g":
                                 menuSelector();
