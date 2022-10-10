@@ -72,8 +72,8 @@ public class App {
         System.out.println("2- Kaydol");
         menuFooter();
 
-        switch (Integer.parseInt(scanner.nextLine())) {
-            case 1:
+        switch (scanner.nextLine()) {
+            case "1":
                 String email;
                 String password;
 
@@ -93,7 +93,7 @@ public class App {
                 }
                 menuSelector();
                 break;
-            case 2:
+            case "2":
                 User newUser;
                 String retypedPassword;
 
@@ -131,11 +131,13 @@ public class App {
                         System.out.println("\nKullanıcı kaydı başarıyla gerçekleşti.");
                         break;
                     } else {
-                        System.out.println("\nHata kullanıcı kaydı oluşturulamadı.");
+                        System.out.println("\nHata: kullanıcı kaydı oluşturulamadı.");
                     }
                 }
                 menuSelector();
                 break;
+            default:
+                System.out.println("\nHata: Lütfen doğru seçeneği giriniz.");
         }
     }
 
@@ -148,12 +150,12 @@ public class App {
         System.out.println("3- Oturumu Kapat");
         menuFooter();
 
-        switch (Integer.parseInt(scanner.nextLine())) {
-            case 1:
+        switch (scanner.nextLine()) {
+            case "1":
                 showUsers();
                 backwardMenu();
                 break;
-            case 2:
+            case "2":
                 System.out.println("\nTüm Kullanıcıların Listesi:");
                 showUsers();
 
@@ -165,10 +167,12 @@ public class App {
                     System.out.println("\nHata: Kullanıcı silinemedi.");
                 }
                 break;
-            case 3:
+            case "3":
                 logoutUser();
                 System.out.println("\nOturum başarıyla kapatıldı.");
                 break;
+            default:
+                System.out.println("\nHata: Lütfen doğru seçeneği giriniz.");
         }
     }
 
@@ -185,12 +189,12 @@ public class App {
         System.out.println("6- Oturumu Kapat");
         menuFooter();
 
-        switch (Integer.parseInt(scanner.nextLine())) {
-            case 1:
+        switch (scanner.nextLine()) {
+            case "1":
                 showUserExpenses(userService.getCurrentUser().getId());
                 backwardMenu();
                 break;
-            case 2:
+            case "2":
                 while (true) {
                     Expense newExpense = null;
 
@@ -218,13 +222,13 @@ public class App {
                         System.out.println("\nHarcama başarıyla kaydedildi.");
                         break;
                     } else {
-                        System.out.println("\nHata Harcama kaydı oluşturulamadı.");
+                        System.out.println("\nHata: Harcama kaydı oluşturulamadı.");
                     }
 
                 }
                 backwardMenu();
                 break;
-            case 3:
+            case "3":
                 while (true) {
                     System.out.println("\nTüm Harcamalarının Listesi:");
                     showUserExpenses(userService.getCurrentUser().getId());
@@ -260,7 +264,7 @@ public class App {
                 }
                 backwardMenu();
                 break;
-            case 4:
+            case "4":
                 System.out.println("\nTüm Harcamalarının Listesi:");
                 showUserExpenses(userService.getCurrentUser().getId());
                 System.out.println("\nSilmek istediğiniz Harcama ID yi giriniz: ");
@@ -271,7 +275,7 @@ public class App {
                 }
                 backwardMenu();
                 break;
-            case 5:
+            case "5":
                 menuHeader();
                 System.out.println("1- Kategorilerim");
                 System.out.println("2- Kategori Ekle");
@@ -280,13 +284,13 @@ public class App {
                 System.out.println("5- Oturumu Kapat");
                 menuFooter();
 
-                switch (Integer.parseInt(scanner.nextLine())) {
-                    case 1:
+                switch (scanner.nextLine()) {
+                    case "1":
                         System.out.println("\nTüm Harcama Kategorilerinin Listesi:");
                         showUserExpenseCategories(userService.getCurrentUser().getId());
                         backwardMenu();
                         break;
-                    case 2:
+                    case "2":
                         System.out.println("\nHarcama Kategorisi Adını giriniz: ");
                         try{
                             String newExpenseCategory = scanner.nextLine();
@@ -298,9 +302,11 @@ public class App {
                         backwardMenu();
                         break;
                 }
-            case 6:
+            case "6":
                 logoutUser();
                 break;
+            default:
+                System.out.println("\nHata: Lütfen doğru seçeneği giriniz.");
         }
     }
 
@@ -309,7 +315,7 @@ public class App {
     }
 
     private static void menuFooter() {
-        System.out.println("0- Çıkış Yap");
+        System.out.println("00- Çıkış Yap");
         System.out.print("\nLütfen bir menü numarası giriniz: ");
     }
 
@@ -317,14 +323,16 @@ public class App {
         loops:
         while (true) {
             menuHeader();
-            System.out.println("1- Geri Dön");
+            System.out.println("0- Geri Dön");
             menuFooter();
-            switch (Integer.parseInt(scanner.nextLine())) {
-                case 1:
+            switch (scanner.nextLine()) {
+                case "0":
                     menuSelector();
                     break loops;
-                case 0:
+                case "00":
                     break loops;
+                default:
+                    System.out.println("\nHata: Lütfen doğru seçeneği giriniz.");
             }
         }
     }
