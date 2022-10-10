@@ -8,10 +8,14 @@ public class UserService {
 
     private final Database database;
     private static User currentUser;
-    private final List<String> defaultExpenseCategoryList = Arrays.asList("Sağlık", "Güvenlik", "Kitap", "Çocuk");
+    private final List<String> defaultExpenseCategoryList = new ArrayList<>();
 
     public UserService(Database database) {
         this.database = database;
+        defaultExpenseCategoryList.add("Sağlık");
+        defaultExpenseCategoryList.add("Güvenlik");
+        defaultExpenseCategoryList.add("Kitap");
+        defaultExpenseCategoryList.add("Çocuk");
     }
 
     public boolean register(User user, String secondPassword) {
