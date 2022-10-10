@@ -136,8 +136,11 @@ public class App {
                 }
                 menuSelector();
                 break;
+            case "00":
+                break;
             default:
                 System.out.println("\nHata: Lütfen doğru seçeneği giriniz.");
+                break;
         }
     }
 
@@ -171,8 +174,11 @@ public class App {
                 logoutUser();
                 System.out.println("\nOturum başarıyla kapatıldı.");
                 break;
+            case "00":
+                break;
             default:
                 System.out.println("\nHata: Lütfen doğru seçeneği giriniz.");
+                break;
         }
     }
 
@@ -305,8 +311,11 @@ public class App {
             case "6":
                 logoutUser();
                 break;
+            case "00":
+                break;
             default:
                 System.out.println("\nHata: Lütfen doğru seçeneği giriniz.");
+                break;
         }
     }
 
@@ -333,6 +342,7 @@ public class App {
                     break loops;
                 default:
                     System.out.println("\nHata: Lütfen doğru seçeneği giriniz.");
+                    break;
             }
         }
     }
