@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.example.app.domain.User;
 import org.example.app.enums.UserTypes;
+
 import org.example.db.Database;
 
 public class UserService {

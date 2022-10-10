@@ -1,13 +1,12 @@
 package org.example.app.ui;
 
 import org.example.app.domain.Expense;
-import org.example.app.utils.Dates;
-
-import java.util.Date;
 
 import static org.example.app.App.userService;
 import static org.example.app.App.expenseService;
-import static org.example.app.utils.Screen.scanner;
+
+import static org.example.app.utils.Date.dateFormatter;
+import static org.example.app.utils.Screen.screenScanner;
 
 public class CustomerMenu {
     private final Common common;
@@ -20,7 +19,7 @@ public class CustomerMenu {
         try {
 
             System.out.println("\nHoşgeldiniz, " + userService.getCurrentUser().getName());
-            System.out.println("\nBugünkü toplam harcamanız: " + expenseService.getSumOfExpensesOfDate(userService.getCurrentUser().getId(), new Date()) + " TL");
+            System.out.println("\nBugünkü toplam harcamanız: " + expenseService.getSumOfExpensesOfDate(userService.getCurrentUser().getId(), new java.util.Date()) + " TL");
 
             loops:
             while (true) {
@@ -34,7 +33,7 @@ public class CustomerMenu {
                 System.out.println("7- Kategori Sil");
                 common.menuFooter();
 
-                switch (scanner.nextLine()) {
+                switch (screenScanner.nextLine()) {
                     case "1":
                         common.showUserExpenses(userService.getCurrentUser().getId());
                         common.backwardMenu();
@@ -48,19 +47,19 @@ public class CustomerMenu {
                             newExpense.setUserId(userService.getCurrentUser().getId());
 
                             System.out.println("\nHarcama Adını giriniz:");
-                            newExpense.setName(scanner.nextLine());
+                            newExpense.setName(screenScanner.nextLine());
 
                             System.out.println("\nHarcama Miktarını giriniz: Örneğin: " + 100.0);
-                            newExpense.setAmount(Double.parseDouble(scanner.nextLine()));
+                            newExpense.setAmount(Double.parseDouble(screenScanner.nextLine()));
 
-                            String formattedDate = Dates.formatter.format(new Date());
+                            String formattedDate = dateFormatter.format(new java.util.Date());
                             System.out.println("\nHarcama Tarihini giriniz: Örneğin: " + formattedDate);
-                            newExpense.setDate(Dates.formatter.parse(scanner.nextLine()));
+                            newExpense.setDate(dateFormatter.parse(screenScanner.nextLine()));
 
                             System.out.println("\nHarcama Kategorisini seçiniz: (İsteğe bağlı)");
                             common.showUserExpenseCategories(userService.getCurrentUser().getId());
                             System.out.print("\nSeçiminiz: ");
-                            int index = (Integer.parseInt(scanner.nextLine()) - 1);
+                            int index = (Integer.parseInt(screenScanner.nextLine()) - 1);
                             newExpense.setCategory(userService.getExpenseCategoryByUserIdAndIndex(userService.getCurrentUser().getId(), index));
 
                             if (expenseService.addExpenseByUserId(userService.getCurrentUser().getId(), newExpense)) {
@@ -79,25 +78,25 @@ public class CustomerMenu {
                             common.showUserExpenses(userService.getCurrentUser().getId());
 
                             System.out.println("\nDüzenlemek istediğiniz harcama ID yi giriniz:");
-                            Expense selectedExpense = expenseService.getExpenseByUserIdAndExpenseId(userService.getCurrentUser().getId(), Integer.parseInt(scanner.nextLine()) - 1);
+                            Expense selectedExpense = expenseService.getExpenseByUserIdAndExpenseId(userService.getCurrentUser().getId(), Integer.parseInt(screenScanner.nextLine()) - 1);
 
                             Expense editedExpense;
 
                             editedExpense = selectedExpense;
 
                             System.out.println("\nYeni Harcama Adını giriniz: (" + selectedExpense.getName() + ")");
-                            editedExpense.setName(scanner.nextLine());
+                            editedExpense.setName(screenScanner.nextLine());
 
                             System.out.println("\nYeni Harcama Miktarını giriniz: (" + selectedExpense.getAmount() + ")");
-                            editedExpense.setAmount(Double.parseDouble(scanner.nextLine()));
+                            editedExpense.setAmount(Double.parseDouble(screenScanner.nextLine()));
 
-                            System.out.println("\nYeni Harcama Tarihini giriniz: (" + Dates.formatter.format(selectedExpense.getDate()) + ")");
-                            editedExpense.setDate(Dates.formatter.parse(scanner.nextLine()));
+                            System.out.println("\nYeni Harcama Tarihini giriniz: (" + dateFormatter.format(selectedExpense.getDate()) + ")");
+                            editedExpense.setDate(dateFormatter.parse(screenScanner.nextLine()));
 
                             System.out.println("\nYeni Harcama Kategorisi seçiniz: (" + selectedExpense.getCategory() + ")");
                             common.showUserExpenseCategories(userService.getCurrentUser().getId());
                             System.out.print("\nSeçiminiz: ");
-                            int index = (Integer.parseInt(scanner.nextLine()) - 1);
+                            int index = (Integer.parseInt(screenScanner.nextLine()) - 1);
                             editedExpense.setCategory(userService.getExpenseCategoryByUserIdAndIndex(userService.getCurrentUser().getId(), index));
 
                             if (expenseService.editExpense(userService.getCurrentUser().getId(), selectedExpense.getId(), editedExpense)) {
@@ -113,7 +112,7 @@ public class CustomerMenu {
                         System.out.println("\nTüm Harcamalarının Listesi:");
                         common.showUserExpenses(userService.getCurrentUser().getId());
                         System.out.println("\nSilmek istediğiniz Harcama ID yi giriniz:");
-                        if (expenseService.deleteExpenseByUserId(userService.getCurrentUser().getId(), Integer.parseInt(scanner.nextLine()) - 1)) {
+                        if (expenseService.deleteExpenseByUserId(userService.getCurrentUser().getId(), Integer.parseInt(screenScanner.nextLine()) - 1)) {
                             System.out.println("\nHarcama başarıyla silindi.");
                         } else {
                             System.out.println("\nHata: Harcama silinemedi.");
@@ -127,7 +126,7 @@ public class CustomerMenu {
                         break;
                     case "6":
                         System.out.println("\nHarcama Kategorisi Adını giriniz:");
-                        String newExpenseCategory = scanner.nextLine();
+                        String newExpenseCategory = screenScanner.nextLine();
                         userService.getCurrentUser().getExpenseCategoryList().add(newExpenseCategory);
                         System.out.println("\nHarcama Kategorisi başarıyla kaydedildi.");
                         common.backwardMenu();
@@ -136,7 +135,7 @@ public class CustomerMenu {
                         System.out.println("\nTüm Harcama Kategorilerinin Listesi:");
                         common.showUserExpenseCategories(userService.getCurrentUser().getId());
                         System.out.print("\nDeğiştirmek istediğiniz kategori sayısını seçiniz: ");
-                        int index = (Integer.parseInt(scanner.nextLine()) - 1);
+                        int index = (Integer.parseInt(screenScanner.nextLine()) - 1);
                         userService.getCurrentUser().getExpenseCategoryList().remove(userService.getExpenseCategoryByUserIdAndIndex(userService.getCurrentUser().getId(), index));
                         System.out.println("\nHarcama Kategorisi başarıyla silindi.");
                         common.backwardMenu();

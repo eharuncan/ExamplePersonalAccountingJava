@@ -4,7 +4,8 @@ import org.example.app.domain.User;
 import org.example.app.enums.UserTypes;
 
 import static org.example.app.App.userService;
-import static org.example.app.utils.Screen.scanner;
+
+import static org.example.app.utils.Screen.screenScanner;
 
 public class GuestMenu {
     private final Common common;
@@ -23,17 +24,17 @@ public class GuestMenu {
             System.out.println("2- Kaydol");
             common.menuFooter();
 
-            switch (scanner.nextLine()) {
+            switch (screenScanner.nextLine()) {
                 case "1":
                     String email;
                     String password;
 
                     while (true) {
                         System.out.println("\nEposta adresinizi giriniz:");
-                        email = scanner.nextLine();
+                        email = screenScanner.nextLine();
 
                         System.out.println("\nŞifrenizi giriniz:");
-                        password = scanner.nextLine();
+                        password = screenScanner.nextLine();
 
                         if (userService.login(email, password)) {
                             System.out.println("\nBaşarıyla kullanıcı girişi yapıldı.");
@@ -54,21 +55,21 @@ public class GuestMenu {
                         newUser.setType(UserTypes.CUSTOMER);
 
                         System.out.println("\nAdınızı giriniz:");
-                        newUser.setName(scanner.nextLine());
+                        newUser.setName(screenScanner.nextLine());
 
                         System.out.println("\nSoyadınızı giriniz:");
-                        newUser.setSurname(scanner.nextLine());
+                        newUser.setSurname(screenScanner.nextLine());
 
                         System.out.println("\nEposta adresinizi giriniz:");
-                        newUser.setEmail(scanner.nextLine());
+                        newUser.setEmail(screenScanner.nextLine());
 
                         while (true) {
 
                             System.out.println("\nŞifrenizi giriniz:");
-                            newUser.setPassword(scanner.nextLine());
+                            newUser.setPassword(screenScanner.nextLine());
 
                             System.out.println("\nŞifrenizi tekrar giriniz:");
-                            retypedPassword = scanner.nextLine();
+                            retypedPassword = screenScanner.nextLine();
 
                             if (userService.checkPasswords(newUser.getPassword(), retypedPassword)) {
                                 break;

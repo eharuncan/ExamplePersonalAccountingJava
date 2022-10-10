@@ -2,7 +2,9 @@ package org.example.app;
 
 import org.example.app.services.ExpenseService;
 import org.example.app.services.UserService;
+
 import org.example.app.ui.Common;
+
 import org.example.db.Database;
 
 public class App {

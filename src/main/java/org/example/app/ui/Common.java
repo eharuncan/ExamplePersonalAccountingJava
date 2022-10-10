@@ -2,15 +2,17 @@ package org.example.app.ui;
 
 import org.example.app.domain.Expense;
 import org.example.app.domain.User;
+
 import org.example.app.enums.UserTypes;
-import org.example.app.utils.Dates;
 
 import java.util.List;
 import java.util.Objects;
 
 import static org.example.app.App.expenseService;
 import static org.example.app.App.userService;
-import static org.example.app.utils.Screen.scanner;
+
+import static org.example.app.utils.Date.dateFormatter;
+import static org.example.app.utils.Screen.screenScanner;
 
 public class Common {
     private final AdminMenu adminMenu;
@@ -53,7 +55,7 @@ public class Common {
         while (true) {
             System.out.println("\ng- Geri Dön");
             menuFooter();
-            switch (scanner.nextLine()) {
+            switch (screenScanner.nextLine()) {
                 case "g":
                     menuSelector();
                     break loops;
@@ -107,7 +109,7 @@ public class Common {
                 System.out.println("\nHarcama ID: " + (expenseList.get(i).getId() + 1));
                 System.out.println("Harcama adı: " + expenseList.get(i).getName());
                 System.out.println("Harcama miktarı: " + expenseList.get(i).getAmount());
-                System.out.println("Harcama tarihi: " + Dates.formatter.format(expenseList.get(i).getDate()));
+                System.out.println("Harcama tarihi: " + dateFormatter.format(expenseList.get(i).getDate()));
                 System.out.println("Harcama kategorisi: " + expenseList.get(i).getCategory());
             }
         }

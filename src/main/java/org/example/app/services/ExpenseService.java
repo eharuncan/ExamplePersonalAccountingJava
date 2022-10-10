@@ -1,15 +1,16 @@
 package org.example.app.services;
 
 import org.example.app.domain.Expense;
-import org.example.app.utils.Dates;
+
 import org.example.db.Database;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static org.example.app.App.userService;
+
+import static org.example.app.utils.Date.dateFormatter;
 
 public class ExpenseService {
 
@@ -69,10 +70,10 @@ public class ExpenseService {
         return true;
     }
 
-    public Double getSumOfExpensesOfDate(Integer userId, Date date) {
+    public Double getSumOfExpensesOfDate(Integer userId, java.util.Date date) {
         List <Expense> currentUsersExpenseList = getExpensesByUserId(userId);
         List <Expense> resultList = currentUsersExpenseList.stream()
-                .filter(expense -> Objects.equals(Dates.formatter.format(expense.getDate()), Dates.formatter.format(date)))
+                .filter(expense -> Objects.equals(dateFormatter.format(expense.getDate()), dateFormatter.format(date)))
                 .collect(Collectors.toList());
         return resultList.stream()
                 .mapToDouble(Expense::getAmount)

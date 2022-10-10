@@ -1,7 +1,8 @@
 package org.example.app.ui;
 
 import static org.example.app.App.userService;
-import static org.example.app.utils.Screen.scanner;
+
+import static org.example.app.utils.Screen.screenScanner;
 
 public class AdminMenu {
     private final Common common;
@@ -20,7 +21,7 @@ public class AdminMenu {
             System.out.println("2- Kullanıcı Sil");
             common.menuFooter();
 
-            switch (scanner.nextLine()) {
+            switch (screenScanner.nextLine()) {
                 case "1":
                     common.showUsers();
                     common.backwardMenu();
@@ -30,7 +31,7 @@ public class AdminMenu {
                     common.showUsers();
 
                     System.out.println("\nSilmek istediğiniz Kullanıcı ID yi giriniz:");
-                    if (userService.deleteUserByIndex(Integer.parseInt(scanner.nextLine()))) {
+                    if (userService.deleteUserByIndex(Integer.parseInt(screenScanner.nextLine()))) {
                         System.out.println("\nKullanıcı başarıyla silindi");
                         common.backwardMenu();
                     } else {
