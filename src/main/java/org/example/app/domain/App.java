@@ -1,6 +1,8 @@
 package org.example.app.domain;
 
 import org.example.app.enums.UserTypes;
+import org.example.app.services.ExpenseService;
+import org.example.app.services.UserService;
 import org.example.app.utils.Dates;
 import org.example.db.Database;
 

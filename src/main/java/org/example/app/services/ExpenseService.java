@@ -1,5 +1,6 @@
-package org.example.app.domain;
+package org.example.app.services;
 
+import org.example.app.domain.Expense;
 import org.example.app.utils.Dates;
 import org.example.db.Database;
 
