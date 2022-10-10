@@ -7,17 +7,15 @@ import org.example.app.utils.Dates;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Scanner;
 
 import static org.example.app.App.expenseService;
 import static org.example.app.App.userService;
+import static org.example.app.utils.Screen.scanner;
 
 public class Common {
     private final AdminMenu adminMenu;
     private final CustomerMenu customerMenu;
     private final GuestMenu guestMenu;
-
-    private static final Scanner scanner = new Scanner(System.in);
 
     public Common() {
         this.adminMenu = new AdminMenu(this);

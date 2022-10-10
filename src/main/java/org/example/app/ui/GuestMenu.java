@@ -2,16 +2,12 @@ package org.example.app.ui;
 
 import org.example.app.domain.User;
 import org.example.app.enums.UserTypes;
-import org.example.app.services.UserService;
-
-import java.util.Scanner;
 
 import static org.example.app.App.userService;
+import static org.example.app.utils.Screen.scanner;
 
 public class GuestMenu {
     private final Common common;
-
-    private static final Scanner scanner = new Scanner(System.in);
 
     public GuestMenu(Common common) {
         this.common = common;

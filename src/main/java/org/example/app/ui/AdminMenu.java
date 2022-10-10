@@ -1,12 +1,10 @@
 package org.example.app.ui;
 
 import static org.example.app.App.userService;
-
-import java.util.Scanner;
+import static org.example.app.utils.Screen.scanner;
 
 public class AdminMenu {
     private final Common common;
-    private static final Scanner scanner = new Scanner(System.in);
 
     public AdminMenu(Common common) {
         this.common = common;

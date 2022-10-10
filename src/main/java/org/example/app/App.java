@@ -15,6 +15,7 @@ public class App {
 
         userService = new UserService(database);
         expenseService = new ExpenseService(database);
+
         Common common = new Common();
 
         System.out.println("\nŞAHSİ MUHASEBEM - HARCAMALARINIZI TAKİP EDİN !");

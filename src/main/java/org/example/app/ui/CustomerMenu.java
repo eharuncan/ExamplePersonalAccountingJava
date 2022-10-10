@@ -1,20 +1,16 @@
 package org.example.app.ui;
 
 import org.example.app.domain.Expense;
-import org.example.app.services.ExpenseService;
-import org.example.app.services.UserService;
 import org.example.app.utils.Dates;
 
 import java.util.Date;
-import java.util.Scanner;
 
 import static org.example.app.App.userService;
 import static org.example.app.App.expenseService;
+import static org.example.app.utils.Screen.scanner;
 
 public class CustomerMenu {
     private final Common common;
-
-    private static final Scanner scanner = new Scanner(System.in);
 
     public CustomerMenu(Common common) {
         this.common = common;
