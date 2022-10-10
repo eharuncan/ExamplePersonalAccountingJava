@@ -1,19 +1,20 @@
 package org.example.app.ui;
 
 import org.example.app.services.UserService;
-import org.example.db.Database;
 
 import java.util.Scanner;
 
-public class Admin {
-    private static UserService userService;
+public class AdminMenu {
+    private final UserService userService;
+    private final Common common;
     private static final Scanner scanner = new Scanner(System.in);
 
-    public Admin(Database database) {
-        userService = new UserService(database);
+    public AdminMenu(UserService userService, Common common) {
+        this.userService = userService;
+        this.common = common;
     }
 
-    public static void showMenu() {
+    public void showMenu() {
         System.out.println("\nSistem yönetimine hoşgeldiniz, " + userService.getCurrentUser().getName());
 
         loops:
@@ -21,28 +22,28 @@ public class Admin {
             Common.menuHeader();
             System.out.println("1- Kullanıcılar");
             System.out.println("2- Kullanıcı Sil");
-            Common.menuFooter();
+            common.menuFooter();
 
             switch (scanner.nextLine()) {
                 case "1":
-                    Common.showUsers();
-                    Common.backwardMenu();
+                    common.showUsers();
+                    common.backwardMenu();
                     break;
                 case "2":
                     System.out.println("\nTüm Kullanıcıların Listesi:");
-                    Common.showUsers();
+                    common.showUsers();
 
                     System.out.println("\nSilmek istediğiniz Kullanıcı ID yi giriniz:");
                     if (userService.deleteUserByIndex(Integer.parseInt(scanner.nextLine()))) {
                         System.out.println("\nKullanıcı başarıyla silindi");
-                        Common.backwardMenu();
+                        common.backwardMenu();
                     } else {
                         System.out.println("\nHata: Kullanıcı silinemedi.");
                     }
                     break;
                 case "o":
-                    Common.logoutUser();
-                    Common.menuSelector();
+                    common.logoutUser();
+                    common.menuSelector();
                     break;
                 case "ç":
                     break loops;

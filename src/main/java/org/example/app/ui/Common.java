@@ -6,40 +6,38 @@ import org.example.app.enums.UserTypes;
 import org.example.app.services.ExpenseService;
 import org.example.app.services.UserService;
 import org.example.app.utils.Dates;
-import org.example.db.Database;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Common {
-    private static UserService userService;
-    private static ExpenseService expenseService;
-    private static Admin admin;
-    private static Customer customer;
-    private static Guest guest;
+    private final UserService userService;
+    private final ExpenseService expenseService;
+
+    private final AdminMenu adminMenu;
+    private final CustomerMenu customerMenu;
+    private final GuestMenu guestMenu;
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public Common(Database database) {
-        userService = new UserService(database);
-        expenseService = new ExpenseService(database);
-        admin = new Admin(database);
-        customer = new Customer(database);
-        guest = new Guest(database);
+    public Common(UserService userService, ExpenseService expenseService) {
+        this.userService = userService;
+        this.expenseService = expenseService;
+        this.adminMenu = new AdminMenu(userService, this);
+        this.customerMenu = new CustomerMenu(this, userService, expenseService);
+        this.guestMenu = new GuestMenu(userService, this);
     }
 
-    public static void menuSelector() {
-        System.out.println("\nŞAHSİ MUHASEBEM - HARCAMALARINIZI TAKİP EDİN !");
-
+    public void menuSelector(){
         if (userService.getCurrentUser() != null) {
             if (Objects.equals(userService.getCurrentUser().getType(), UserTypes.ADMIN)) {
-                admin.showMenu();
+                adminMenu.showMenu();
             } else if (Objects.equals(userService.getCurrentUser().getType(), UserTypes.CUSTOMER)) {
-                customer.showMenu();
+                customerMenu.showMenu();
             }
         } else {
-            guest.showMenu();
+            guestMenu.showMenu();
         }
     }
 
@@ -47,7 +45,7 @@ public class Common {
         System.out.print("\n");
     }
 
-    public static void menuFooter() {
+    public void menuFooter() {
         System.out.print("\n");
         if (userService.getCurrentUser() != null) {
             System.out.println("o- Oturumu Kapat");
@@ -56,7 +54,7 @@ public class Common {
         System.out.print("\nLütfen bir menü numarası giriniz: ");
     }
 
-    public static void backwardMenu() {
+    public void backwardMenu() {
         loops:
         while (true) {
             System.out.println("\ng- Geri Dön");
@@ -77,7 +75,7 @@ public class Common {
         }
     }
 
-    public static void logoutUser() {
+    public void logoutUser() {
         if (userService.logout()) {
             System.out.println("\nOturum başarıyla kapatıldı.");
         } else {
@@ -85,11 +83,11 @@ public class Common {
         }
     }
 
-    public static void recordNotFound() {
+    public void recordNotFound() {
         System.out.println("\nHerhangi bir kayıt bulunamadı.");
     }
 
-    public static void showUsers() {
+    public void showUsers() {
         List<User> userList = userService.getUsers();
         if (userList.size() == 0) {
             recordNotFound();
@@ -105,7 +103,7 @@ public class Common {
         }
     }
 
-    public static void showUserExpenses(Integer userId) {
+    public void showUserExpenses(Integer userId) {
         List<Expense> expenseList = expenseService.getExpensesByUserId(userId);
         if (expenseList.size() == 0) {
             recordNotFound();
@@ -121,7 +119,7 @@ public class Common {
         }
     }
 
-    public static void showUserExpenseCategories(Integer userId) {
+    public void showUserExpenseCategories(Integer userId) {
         System.out.print("\n");
         List<String> expenseCategoryList = userService.getUserById(userId).getExpenseCategoryList();
         if (expenseCategoryList.size() == 0) {

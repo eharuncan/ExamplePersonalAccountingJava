@@ -3,6 +3,7 @@ package org.example.app.services;
 import java.util.*;
 
 import org.example.app.domain.User;
+import org.example.app.enums.UserTypes;
 import org.example.db.Database;
 
 public class UserService {
@@ -17,7 +18,28 @@ public class UserService {
         defaultExpenseCategoryList.add("Güvenlik");
         defaultExpenseCategoryList.add("Kitap");
         defaultExpenseCategoryList.add("Çocuk");
+
+        User adminUser = new User();
+        adminUser.setId(0);
+        adminUser.setType(UserTypes.ADMIN);
+        adminUser.setName("admin");
+        adminUser.setSurname("admin");
+        adminUser.setEmail("admin@admin.com");
+        adminUser.setPassword("admin");
+        database.getUserList().add(adminUser);
+
+        User customerUser = new User();
+        customerUser.setId(1);
+        customerUser.setType(UserTypes.CUSTOMER);
+        customerUser.setName("customer1");
+        customerUser.setSurname("customer");
+        customerUser.setEmail("123");
+        customerUser.setPassword("123");
+        customerUser.setExpenseCategoryList(getDefaultExpenseCategoryList());
+        database.getUserList().add(customerUser);
     }
+
+
 
     public boolean register(User user, String secondPassword) {
         if (checkPasswords(user.getPassword(), secondPassword)) {

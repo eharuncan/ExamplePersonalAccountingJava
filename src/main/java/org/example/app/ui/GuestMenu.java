@@ -3,28 +3,29 @@ package org.example.app.ui;
 import org.example.app.domain.User;
 import org.example.app.enums.UserTypes;
 import org.example.app.services.UserService;
-import org.example.db.Database;
 
 import java.util.Scanner;
 
-public class Guest {
-    private static UserService userService;
+public class GuestMenu {
+    private final UserService userService;
+    private final Common common;
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public Guest(Database database) {
-        userService = new UserService(database);
+    public GuestMenu(UserService userService, Common common) {
+        this.userService = userService;
+        this.common = common;
     }
 
-    public static void showMenu() {
+    public void showMenu() {
         System.out.println("\nHoşgeldiniz...");
 
         loops:
         while (true) {
-            Common.menuHeader();
+            common.menuHeader();
             System.out.println("1- Giriş Yap");
             System.out.println("2- Kaydol");
-            Common.menuFooter();
+            common.menuFooter();
 
             switch (scanner.nextLine()) {
                 case "1":
@@ -45,7 +46,7 @@ public class Guest {
                             System.out.println("\nHata: Sistemde böyle bir kullanıcı bulunmuyor.");
                         }
                     }
-                    Common.menuSelector();
+                    common.menuSelector();
                     break;
                 case "2":
                     User newUser;
@@ -88,7 +89,7 @@ public class Guest {
                             System.out.println("\nHata: kullanıcı kaydı oluşturulamadı.");
                         }
                     }
-                    Common.menuSelector();
+                    common.menuSelector();
                     break;
                 case "ç":
                     break loops;
