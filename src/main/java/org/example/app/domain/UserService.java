@@ -83,7 +83,7 @@ public class UserService {
         return database.getUserList();
     }
 
-    public boolean deleteUser(Integer index) {
+    public boolean deleteUserByIndex(Integer index) {
         User foundUser = getUserByIndex(index);
         database.getUserList().remove(foundUser);
         return true;

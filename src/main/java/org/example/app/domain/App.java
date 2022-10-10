@@ -168,7 +168,7 @@ public class App {
                     showUsers();
 
                     System.out.println("\nSilmek istediğiniz Kullanıcı ID yi giriniz:");
-                    if (userService.deleteUser(Integer.parseInt(scanner.nextLine()))) {
+                    if (userService.deleteUserByIndex(Integer.parseInt(scanner.nextLine()))) {
                         System.out.println("\nKullanıcı başarıyla silindi");
                         backwardMenu();
                     } else {
