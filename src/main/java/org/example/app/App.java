@@ -8,7 +8,6 @@ import org.example.app.ui.Common;
 import org.example.db.Database;
 
 public class App {
-
     public static UserService userService;
     public static ExpenseService expenseService;
 
@@ -26,5 +25,4 @@ public class App {
 
         System.out.println("\nUygulama başarıyla kapatıldı.");
     }
-
 }
