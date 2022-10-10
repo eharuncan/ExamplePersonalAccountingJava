@@ -57,6 +57,14 @@ public class UserService {
                 .get();
     }
 
+    public User getUserById(Integer userId) {
+        List<User> userList = database.getUserList();
+        return userList.stream()
+                .filter(x -> Objects.equals(x.getId(), userId))
+                .findFirst()
+                .get();
+    }
+
     public User getUserByIndex(Integer index) {
         return database.getUserList().get(index);
     }
