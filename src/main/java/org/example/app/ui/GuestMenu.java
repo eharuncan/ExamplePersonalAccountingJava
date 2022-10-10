@@ -46,6 +46,7 @@ public class GuestMenu {
                     }
                 }
                 common.menuSelector();
+                break;
             } else if (Objects.equals(input, "2")) {
                 User newUser;
                 String retypedPassword;
@@ -85,6 +86,7 @@ public class GuestMenu {
                     }
                 }
                 common.menuSelector();
+                break;
             } else if (Objects.equals(input, "ç")) {
                 break;
             } else {

@@ -54,12 +54,15 @@ public class Common {
         while (true) {
             System.out.println("\ng- Geri Dön");
             menuFooter();
+
             String input = screenScanner.nextLine();
             if (Objects.equals(input, "g")) {
                 menuSelector();
+                break;
             } else if (Objects.equals(input, "o")) {
                 logoutUser();
                 menuSelector();
+                break;
             } else if (Objects.equals(input, "ç")) {
                 break;
             } else {

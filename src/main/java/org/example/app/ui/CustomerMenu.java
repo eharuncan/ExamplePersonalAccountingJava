@@ -38,6 +38,7 @@ public class CustomerMenu {
                 if (Objects.equals(input, "1")) {
                     common.showUserExpenses(userService.getCurrentUser().getId());
                     common.backwardMenu();
+                    break;
                 } else if (Objects.equals(input, "2")) {
                     while (true) {
                         Expense newExpense = null;
@@ -46,21 +47,21 @@ public class CustomerMenu {
 
                         newExpense.setUserId(userService.getCurrentUser().getId());
 
-                            System.out.println("\nHarcama Adını giriniz:");
-                            newExpense.setName(screenScanner.nextLine());
+                        System.out.println("\nHarcama Adını giriniz:");
+                        newExpense.setName(screenScanner.nextLine());
 
-                            System.out.println("\nHarcama Miktarını giriniz: Örneğin: " + 100.0);
-                            newExpense.setAmount(Double.parseDouble(screenScanner.nextLine()));
+                        System.out.println("\nHarcama Miktarını giriniz: Örneğin: " + 100.0);
+                        newExpense.setAmount(Double.parseDouble(screenScanner.nextLine()));
 
-                            String formattedDate = dateFormatter.format(new java.util.Date());
-                            System.out.println("\nHarcama Tarihini giriniz: Örneğin: " + formattedDate);
-                            newExpense.setDate(dateFormatter.parse(screenScanner.nextLine()));
+                        String formattedDate = dateFormatter.format(new java.util.Date());
+                        System.out.println("\nHarcama Tarihini giriniz: Örneğin: " + formattedDate);
+                        newExpense.setDate(dateFormatter.parse(screenScanner.nextLine()));
 
-                            System.out.println("\nHarcama Kategorisini seçiniz: (İsteğe bağlı)");
-                            common.showUserExpenseCategories(userService.getCurrentUser().getId());
-                            System.out.print("\nSeçiminiz: ");
-                            int index = (Integer.parseInt(screenScanner.nextLine()) - 1);
-                            newExpense.setCategory(userService.getExpenseCategoryByUserIdAndIndex(userService.getCurrentUser().getId(), index));
+                        System.out.println("\nHarcama Kategorisini seçiniz: (İsteğe bağlı)");
+                        common.showUserExpenseCategories(userService.getCurrentUser().getId());
+                        System.out.print("\nSeçiminiz: ");
+                        int index = (Integer.parseInt(screenScanner.nextLine()) - 1);
+                        newExpense.setCategory(userService.getExpenseCategoryByUserIdAndIndex(userService.getCurrentUser().getId(), index));
 
                         if (expenseService.addExpenseByUserId(userService.getCurrentUser().getId(), newExpense)) {
                             System.out.println("\nHarcama başarıyla kaydedildi.");
@@ -70,6 +71,7 @@ public class CustomerMenu {
                         }
                     }
                     common.backwardMenu();
+                    break;
                 } else if (Objects.equals(input, "3")) {
                     while (true) {
                         System.out.println("\nTüm Harcamalarının Listesi:");
@@ -82,20 +84,20 @@ public class CustomerMenu {
 
                         editedExpense = selectedExpense;
 
-                            System.out.println("\nYeni Harcama Adını giriniz: (" + selectedExpense.getName() + ")");
-                            editedExpense.setName(screenScanner.nextLine());
+                        System.out.println("\nYeni Harcama Adını giriniz: (" + selectedExpense.getName() + ")");
+                        editedExpense.setName(screenScanner.nextLine());
 
-                            System.out.println("\nYeni Harcama Miktarını giriniz: (" + selectedExpense.getAmount() + ")");
-                            editedExpense.setAmount(Double.parseDouble(screenScanner.nextLine()));
+                        System.out.println("\nYeni Harcama Miktarını giriniz: (" + selectedExpense.getAmount() + ")");
+                        editedExpense.setAmount(Double.parseDouble(screenScanner.nextLine()));
 
-                            System.out.println("\nYeni Harcama Tarihini giriniz: (" + dateFormatter.format(selectedExpense.getDate()) + ")");
-                            editedExpense.setDate(dateFormatter.parse(screenScanner.nextLine()));
+                        System.out.println("\nYeni Harcama Tarihini giriniz: (" + dateFormatter.format(selectedExpense.getDate()) + ")");
+                        editedExpense.setDate(dateFormatter.parse(screenScanner.nextLine()));
 
-                            System.out.println("\nYeni Harcama Kategorisi seçiniz: (" + selectedExpense.getCategory() + ")");
-                            common.showUserExpenseCategories(userService.getCurrentUser().getId());
-                            System.out.print("\nSeçiminiz: ");
-                            int index = (Integer.parseInt(screenScanner.nextLine()) - 1);
-                            editedExpense.setCategory(userService.getExpenseCategoryByUserIdAndIndex(userService.getCurrentUser().getId(), index));
+                        System.out.println("\nYeni Harcama Kategorisi seçiniz: (" + selectedExpense.getCategory() + ")");
+                        common.showUserExpenseCategories(userService.getCurrentUser().getId());
+                        System.out.print("\nSeçiminiz: ");
+                        int index = (Integer.parseInt(screenScanner.nextLine()) - 1);
+                        editedExpense.setCategory(userService.getExpenseCategoryByUserIdAndIndex(userService.getCurrentUser().getId(), index));
 
                         if (expenseService.editExpenseByUserId(userService.getCurrentUser().getId(), selectedExpense.getId(), editedExpense)) {
                             System.out.println("\nHarcama başarıyla düzenlendi.");
@@ -105,6 +107,7 @@ public class CustomerMenu {
                         }
                     }
                     common.backwardMenu();
+                    break;
                 } else if (Objects.equals(input, "4")) {
                     System.out.println("\nTüm Harcamalarının Listesi:");
                     common.showUserExpenses(userService.getCurrentUser().getId());
@@ -115,16 +118,20 @@ public class CustomerMenu {
                         System.out.println("\nHata: Harcama silinemedi.");
                     }
                     common.backwardMenu();
+                    break;
                 } else if (Objects.equals(input, "5")) {
                     System.out.println("\nTüm Harcama Kategorilerinin Listesi:");
                     common.showUserExpenseCategories(userService.getCurrentUser().getId());
                     common.backwardMenu();
+                    break;
                 } else if (Objects.equals(input, "6")) {
                     System.out.println("\nHarcama Kategorisi Adını giriniz:");
-                    String newExpenseCategory = screenScanner.nextLine();;
+                    String newExpenseCategory = screenScanner.nextLine();
+
                     userService.getCurrentUser().getExpenseCategoryList().add(newExpenseCategory);
                     System.out.println("\nHarcama Kategorisi başarıyla kaydedildi.");
                     common.backwardMenu();
+                    break;
                 } else if (Objects.equals(input, "7")) {
                     System.out.println("\nTüm Harcama Kategorilerinin Listesi:");
                     common.showUserExpenseCategories(userService.getCurrentUser().getId());
@@ -134,11 +141,10 @@ public class CustomerMenu {
                     System.out.println("\nHarcama Kategorisi başarıyla silindi.");
                     common.backwardMenu();
                     break;
-                } else if (Objects.equals(input, "g")) {
-                    common.menuSelector();
                 } else if (Objects.equals(input, "o")) {
                     common.logoutUser();
                     common.menuSelector();
+                    break;
                 } else if (Objects.equals(input, "ç")) {
                     break;
                 } else {

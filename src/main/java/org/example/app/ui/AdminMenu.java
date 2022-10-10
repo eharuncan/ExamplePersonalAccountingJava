@@ -26,6 +26,7 @@ public class AdminMenu {
             if (Objects.equals(input, "1")) {
                 common.showUsers();
                 common.backwardMenu();
+                break;
             } else if (Objects.equals(input, "2")) {
                 System.out.println("\nTüm Kullanıcıların Listesi:");
                 common.showUsers();
@@ -37,9 +38,11 @@ public class AdminMenu {
                 } else {
                     System.out.println("\nHata: Kullanıcı silinemedi.");
                 }
+                break;
             } else if (Objects.equals(input, "o")) {
                 common.logoutUser();
                 common.menuSelector();
+                break;
             } else if (Objects.equals(input, "ç")) {
                 break;
             } else {
