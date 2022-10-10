@@ -19,7 +19,6 @@ public class GuestMenu {
     public void show() {
         System.out.println("\nHoşgeldiniz...");
 
-        loops:
         while (true) {
             common.menuHeader();
             System.out.println("1- Giriş Yap");
@@ -47,7 +46,6 @@ public class GuestMenu {
                     }
                 }
                 common.menuSelector();
-                break;
             } else if (Objects.equals(input, "2")) {
                 User newUser;
                 String retypedPassword;
@@ -87,9 +85,8 @@ public class GuestMenu {
                     }
                 }
                 common.menuSelector();
-                break;
             } else if (Objects.equals(input, "ç")) {
-                break loops;
+                break;
             } else {
                 System.out.println("\nHata: Lütfen doğru seçeneği giriniz.");
             }
