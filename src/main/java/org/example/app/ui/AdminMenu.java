@@ -1,16 +1,14 @@
 package org.example.app.ui;
 
-import org.example.app.services.UserService;
+import static org.example.app.App.userService;
 
 import java.util.Scanner;
 
 public class AdminMenu {
-    private final UserService userService;
     private final Common common;
     private static final Scanner scanner = new Scanner(System.in);
 
-    public AdminMenu(UserService userService, Common common) {
-        this.userService = userService;
+    public AdminMenu(Common common) {
         this.common = common;
     }
 

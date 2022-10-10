@@ -9,14 +9,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static org.example.app.App.userService;
+
 public class ExpenseService {
 
     private final Database database;
-    private final UserService userService;
 
-    public ExpenseService(Database database, UserService userService) {
+    public ExpenseService(Database database) {
         this.database = database;
-        this.userService = userService;
     }
 
     public List<Expense> getExpenses() {

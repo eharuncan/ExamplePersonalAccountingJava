@@ -6,14 +6,14 @@ import org.example.app.services.UserService;
 
 import java.util.Scanner;
 
+import static org.example.app.App.userService;
+
 public class GuestMenu {
-    private final UserService userService;
     private final Common common;
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public GuestMenu(UserService userService, Common common) {
-        this.userService = userService;
+    public GuestMenu(Common common) {
         this.common = common;
     }
 

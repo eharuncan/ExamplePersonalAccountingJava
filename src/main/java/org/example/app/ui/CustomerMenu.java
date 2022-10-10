@@ -8,17 +8,16 @@ import org.example.app.utils.Dates;
 import java.util.Date;
 import java.util.Scanner;
 
+import static org.example.app.App.userService;
+import static org.example.app.App.expenseService;
+
 public class CustomerMenu {
-    private final UserService userService;
-    private final ExpenseService expenseService;
     private final Common common;
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public CustomerMenu(Common common, UserService userService, ExpenseService expenseService) {
+    public CustomerMenu(Common common) {
         this.common = common;
-        this.userService = userService;
-        this.expenseService = expenseService;
     }
 
     public void show() {

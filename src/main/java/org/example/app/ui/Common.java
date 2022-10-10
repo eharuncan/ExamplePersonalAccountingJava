@@ -3,30 +3,26 @@ package org.example.app.ui;
 import org.example.app.domain.Expense;
 import org.example.app.domain.User;
 import org.example.app.enums.UserTypes;
-import org.example.app.services.ExpenseService;
-import org.example.app.services.UserService;
 import org.example.app.utils.Dates;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Common {
-    private final UserService userService;
-    private final ExpenseService expenseService;
+import static org.example.app.App.expenseService;
+import static org.example.app.App.userService;
 
+public class Common {
     private final AdminMenu adminMenu;
     private final CustomerMenu customerMenu;
     private final GuestMenu guestMenu;
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public Common(UserService userService, ExpenseService expenseService) {
-        this.userService = userService;
-        this.expenseService = expenseService;
-        this.adminMenu = new AdminMenu(userService, this);
-        this.customerMenu = new CustomerMenu(this, userService, expenseService);
-        this.guestMenu = new GuestMenu(userService, this);
+    public Common() {
+        this.adminMenu = new AdminMenu(this);
+        this.customerMenu = new CustomerMenu(this);
+        this.guestMenu = new GuestMenu(this);
     }
 
     public void menuSelector(){
