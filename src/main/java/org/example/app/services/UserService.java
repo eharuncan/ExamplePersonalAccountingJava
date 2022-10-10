@@ -106,9 +106,13 @@ public class UserService {
     }
 
     public boolean deleteUserByIndex(Integer index) {
-        User foundUser = getUserByIndex(index);
-        database.getUserList().remove(foundUser);
-        return true;
+        if (index == 0) {
+            return false;
+        } else {
+            User foundUser = getUserByIndex(index);
+            database.getUserList().remove(foundUser);
+            return true;
+        }
     }
 
     public User getCurrentUser() {
@@ -126,7 +130,7 @@ public class UserService {
 
     }
 
-    public String getExpenseCategoryByUserIdAndIndex(Integer userId, Integer index){
+    public String getExpenseCategoryByUserIdAndIndex(Integer userId, Integer index) {
         return getUserById(userId).getExpenseCategoryList().get(index);
     }
 

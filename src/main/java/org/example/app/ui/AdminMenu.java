@@ -23,7 +23,6 @@ public class AdminMenu {
             common.menuFooter();
 
             String input = screenScanner.nextLine();
-
             if (Objects.equals(input, "1")) {
                 common.showUsers();
                 common.backwardMenu();
@@ -33,7 +32,6 @@ public class AdminMenu {
                 common.showUsers();
 
                 System.out.println("\nSilmek istediğiniz Kullanıcı ID yi giriniz:");
-
                 if (userService.deleteUserByIndex(Integer.parseInt(screenScanner.nextLine()))) {
                     System.out.println("\nKullanıcı başarıyla silindi");
                     common.backwardMenu();
