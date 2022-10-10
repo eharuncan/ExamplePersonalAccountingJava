@@ -1,5 +1,7 @@
-package org.example.app.domain;
+package org.example.app;
 
+import org.example.app.domain.Expense;
+import org.example.app.domain.User;
 import org.example.app.enums.UserTypes;
 import org.example.app.services.ExpenseService;
 import org.example.app.services.UserService;
@@ -69,6 +71,7 @@ public class App {
     }
 
     private static void showMainMenu() {
+        System.out.println("\nHoşgeldiniz...");
 
         loops:
         while (true) {
