@@ -19,7 +19,6 @@ public class App {
     public static void main(String[] args) throws ParseException {
 
         Database database = new Database();
-        setInitialValues(database);
 
         userService = new UserService(database);
         expenseService = new ExpenseService(database);
@@ -27,6 +26,8 @@ public class App {
         System.out.println("\nŞAHSİ MUHASEBEM - HARCAMALARINIZI TAKİP EDİN !");
 
         userService.setCurrentUser(null);
+
+        setInitialValues(database);
 
         menuSelector();
 
@@ -52,6 +53,7 @@ public class App {
         customerUser.setSurname("customer");
         customerUser.setEmail("123");
         customerUser.setPassword("123");
+        customerUser.setExpenseCategoryList(userService.getDefaultExpenseCategoryList());
         database.getUserList().add(customerUser);
 
     }
@@ -300,6 +302,7 @@ public class App {
                 switch (Integer.parseInt(scanner.nextLine())) {
                     case 1:
                         showUserExpenseCategories();
+                        backwardMenu();
                         break;
                     case 2:
 

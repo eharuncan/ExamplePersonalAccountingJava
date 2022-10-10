@@ -119,5 +119,8 @@ public class UserService {
 
     }
 
+    public List<String> getDefaultExpenseCategoryList() {
+        return defaultExpenseCategoryList;
+    }
 }
 
