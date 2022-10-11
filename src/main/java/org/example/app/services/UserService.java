@@ -7,32 +7,33 @@ import org.example.app.enums.UserTypes;
 
 import org.example.db.Database;
 
+import static org.example.app.App.expenseCategoryService;
+
 public class UserService {
 
     private final Database database;
     private static User currentUser;
-    private final List<String> defaultExpenseCategoryList = new ArrayList<>();
+
 
     public UserService(Database database) {
         this.database = database;
 
-        defaultExpenseCategoryList.add("Çocuk");
-        defaultExpenseCategoryList.add("Güvenlik");
-        defaultExpenseCategoryList.add("Kitap");
-        defaultExpenseCategoryList.add("Sağlık");
-
-        User adminUser = new User(0, UserTypes.ADMIN, "admin", "admin", "admin@admin.com", "admin", null   );
+        User adminUser = new User(0, UserTypes.ADMIN, "admin", "admin", "admin@admin.com", "admin");
         database.getUserList().add(adminUser);
 
-        User customerUser = new User(1, UserTypes.CUSTOMER, "customer1", "customer1", "1", "1", defaultExpenseCategoryList);
+        User customerUser = new User(1, UserTypes.CUSTOMER, "customer1", "customer1", "1", "1");
         database.getUserList().add(customerUser);
     }
 
     public boolean register(User user, String secondPassword) {
         if (checkPasswords(user.getPassword(), secondPassword)) {
             if (validateUser(user)) {
-                user.setId(database.getUserList().size());
-                user.setExpenseCategoryList(defaultExpenseCategoryList);
+                Integer newUserId = database.getUserList().size();
+                user.setId(newUserId);
+                expenseCategoryService.addExpenseCategoryByUserId(newUserId,"Çocuk" );
+                expenseCategoryService.addExpenseCategoryByUserId(newUserId,"Güvenlik" );
+                expenseCategoryService.addExpenseCategoryByUserId(newUserId,"Kitap" );
+                expenseCategoryService.addExpenseCategoryByUserId(newUserId,"Sağlık" );
                 database.getUserList().add(user);
                 currentUser = user;
                 return true;
@@ -118,12 +119,5 @@ public class UserService {
 
     }
 
-    public String getExpenseCategoryByUserIdAndIndex(Integer userId, Integer index) {
-        return getUserById(userId).getExpenseCategoryList().get(index);
-    }
-
-    public List<String> getDefaultExpenseCategoryList() {
-        return defaultExpenseCategoryList;
-    }
 }
 

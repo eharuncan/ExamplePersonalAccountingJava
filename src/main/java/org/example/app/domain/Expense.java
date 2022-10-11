@@ -7,13 +7,13 @@ public class Expense {
     public Expense() {
     }
 
-    public Expense(Integer userId, Integer id, String name, Double amount, Date date, String category) {
+    public Expense(Integer userId, Integer id, String name, Double amount, Date date, Integer categoryId) {
         this.userId = userId;
         this.id = id;
         this.name = name;
         this.amount = amount;
         this.date = date;
-        this.category = category;
+        this.categoryId = categoryId;
     }
 
     //Getters, Setters, Attributes
@@ -22,12 +22,11 @@ public class Expense {
     private String name;
     private Double amount;
     private Date date;
-    private String category;
+    private Integer categoryId;
 
     public Integer getUserId() {
         return userId;
     }
-
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
@@ -35,7 +34,6 @@ public class Expense {
     public Integer getId() {
         return id;
     }
-
     public void setId(Integer id) {
         this.id = id;
     }
@@ -43,7 +41,6 @@ public class Expense {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -51,7 +48,6 @@ public class Expense {
     public Double getAmount() {
         return amount;
     }
-
     public void setAmount(Double amount) {
         this.amount = amount;
     }
@@ -59,16 +55,14 @@ public class Expense {
     public Date getDate() {
         return date;
     }
-
     public void setDate(Date date) {
         this.date = date;
     }
 
-    public String getCategory() {
-        return category;
+    public Integer getCategoryId() {
+        return categoryId;
     }
-
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 }

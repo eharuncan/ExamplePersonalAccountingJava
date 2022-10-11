@@ -1,6 +1,7 @@
 package org.example.app.ui;
 
 import org.example.app.domain.Expense;
+import org.example.app.domain.ExpenseCategory;
 import org.example.app.domain.User;
 
 import org.example.app.enums.UserTypes;
@@ -8,9 +9,7 @@ import org.example.app.enums.UserTypes;
 import java.util.List;
 import java.util.Objects;
 
-import static org.example.app.App.expenseService;
-import static org.example.app.App.userService;
-
+import static org.example.app.App.*;
 import static org.example.app.utils.Date.dateFormatter;
 import static org.example.app.utils.Screen.screenScanner;
 
@@ -95,7 +94,6 @@ public class Common {
                 System.out.println("Kullanıcı adı: " + userList.get(i).getName());
                 System.out.println("Kullanıcı soyadı: " + userList.get(i).getSurname());
                 System.out.println("Kullanıcı eposta adresi: " + userList.get(i).getEmail());
-                System.out.println("Kategoriler: " + userList.get(i).getExpenseCategoryList());
             }
         }
     }
@@ -111,20 +109,20 @@ public class Common {
                 System.out.println("Harcama adı: " + expenseList.get(i).getName());
                 System.out.println("Harcama miktarı: " + expenseList.get(i).getAmount());
                 System.out.println("Harcama tarihi: " + dateFormatter.format(expenseList.get(i).getDate()));
-                System.out.println("Harcama kategorisi: " + expenseList.get(i).getCategory());
+                System.out.println("Harcama kategorisi: " + expenseCategoryService.getExpenseCategoryByUserIdAndExpenseCategoryId(user.getId(), expenseList.get(i).getCategoryId()).getName());
             }
         }
     }
 
     public void showUserExpenseCategories(User user) {
-        System.out.print("\n");
-        List<String> expenseCategoryList = user.getExpenseCategoryList();
+        List<ExpenseCategory> expenseCategoryList = expenseCategoryService.getExpenseCategoriesByUserId(user.getId());
         if (expenseCategoryList.size() == 0) {
             recordNotFound();
         } else {
             int i;
             for (i = 0; i < expenseCategoryList.size(); i++) {
-                System.out.println("" + (i + 1) + "- " + expenseCategoryList.get(i));
+                System.out.println("\nKategori ID: " + (expenseCategoryList.get(i).getId() + 1));
+                System.out.println("Kategori adı: " + expenseCategoryList.get(i).getName());
             }
         }
     }

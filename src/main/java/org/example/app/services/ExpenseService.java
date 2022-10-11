@@ -49,7 +49,7 @@ public class ExpenseService {
         }
     }
 
-    public boolean editExpenseByUserId(Integer userId, Integer expenseId, Expense editedExpense) {
+    public boolean editExpenseByUserIdAndExpenseId(Integer userId, Integer expenseId, Expense editedExpense) {
         if (validateExpense(editedExpense)) {
             int index = getExpenses().indexOf(getExpenseByUserIdAndExpenseId(userId, expenseId));
             database.getExpenseList().set(index, editedExpense);
