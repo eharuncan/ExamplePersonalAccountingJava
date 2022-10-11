@@ -15,10 +15,11 @@ public class UserService {
 
     public UserService(Database database) {
         this.database = database;
-        defaultExpenseCategoryList.add("Sağlık");
+
+        defaultExpenseCategoryList.add("Çocuk");
         defaultExpenseCategoryList.add("Güvenlik");
         defaultExpenseCategoryList.add("Kitap");
-        defaultExpenseCategoryList.add("Çocuk");
+        defaultExpenseCategoryList.add("Sağlık");
 
         User adminUser = new User();
         adminUser.setId(0);
