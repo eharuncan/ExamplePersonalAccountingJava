@@ -98,6 +98,12 @@ public class Common {
         }
     }
 
+    public void showUserProfile(User user) {
+        System.out.println("\nAdınız: " + user.getName());
+        System.out.println("Soyadınız: " + user.getSurname());
+        System.out.println("Eposta adresiniz : " + user.getEmail());
+    }
+
     public void showUserExpenses(User user) {
         List<Expense> expenseList = expenseService.getExpensesByUserId(user.getId());
         if (expenseList.size() == 0) {
@@ -129,5 +135,22 @@ public class Common {
 
     public boolean checkPasswords(String firstPassword, String secondPassword) {
         return Objects.equals(firstPassword, secondPassword);
+    }
+
+    public String changePasswords(){
+        String typedPassword, retypedPassword;
+        while (true) {
+            System.out.println("\nŞifrenizi giriniz:");
+            typedPassword = screenScanner.nextLine();
+
+            System.out.println("\nŞifrenizi tekrar giriniz:");
+            retypedPassword = screenScanner.nextLine();
+
+            if (checkPasswords(typedPassword, retypedPassword)) {
+                return typedPassword;
+            } else {
+                System.out.println("\nHata: Şifreler Uyuşmuyor. Lütfen tekrar giriniz.");
+            }
+        }
     }
 }

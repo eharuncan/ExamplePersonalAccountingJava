@@ -2,6 +2,7 @@ package org.example.app.services;
 
 import java.util.*;
 
+import org.example.app.domain.Expense;
 import org.example.app.domain.User;
 import org.example.app.enums.UserTypes;
 
@@ -64,6 +65,16 @@ public class UserService {
 
             userListDB.add(user);
             currentUser = user;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean editUser(Integer userId, User editedUser) {
+        if (validateUser(editedUser)) {
+            int index = getUsers().indexOf(getUserById(userId));
+            userListDB.set(index, editedUser);
             return true;
         } else {
             return false;

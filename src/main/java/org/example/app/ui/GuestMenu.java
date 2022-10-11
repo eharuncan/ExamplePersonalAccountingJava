@@ -65,20 +65,7 @@ public class GuestMenu {
                     System.out.println("\nEposta adresinizi giriniz:");
                     newUser.setEmail(screenScanner.nextLine());
 
-                    while (true) {
-                        System.out.println("\nŞifrenizi giriniz:");
-                        typedPassword = screenScanner.nextLine();
-
-                        System.out.println("\nŞifrenizi tekrar giriniz:");
-                        retypedPassword = screenScanner.nextLine();
-
-                        if (common.checkPasswords(typedPassword, retypedPassword)) {
-                            break;
-                        } else {
-                            System.out.println("\nHata: Şifreler Uyuşmuyor. Lütfen tekrar giriniz.");
-                        }
-                    }
-                    newUser.setPassword(typedPassword);
+                    newUser.setPassword(common.changePasswords());
 
                     if (userService.register(newUser)) {
                         System.out.println("\nKullanıcı kaydı başarıyla gerçekleşti.");
