@@ -2,6 +2,7 @@ package org.example.app.services;
 
 import org.example.app.domain.Expense;
 
+import org.example.app.domain.User;
 import org.example.db.Database;
 
 import java.util.List;
@@ -41,7 +42,17 @@ public class ExpenseService {
     public boolean addExpenseByUserId(Integer userId, Expense newExpense) {
         if (validateExpense(newExpense)) {
             newExpense.setUserId(userService.getCurrentUser().getId());
-            newExpense.setId(getExpensesByUserId(userId).size());
+
+            int newExpenseId;
+            List <Expense> expenseList = database.getExpenseList();
+            if (expenseList.size() == 0){
+                newExpenseId = 0;
+            }else {
+                Expense lastExpense =  expenseList.get(expenseList.size()-1);
+                newExpenseId = lastExpense.getId() + 1;
+            }
+            newExpense.setId(newExpenseId);
+
             database.getExpenseList().add(newExpense);
             return true;
         } else {

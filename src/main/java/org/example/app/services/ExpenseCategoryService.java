@@ -42,7 +42,15 @@ public class ExpenseCategoryService {
     }
 
     public boolean addExpenseCategoryByUserId(Integer userId, String expenseName) {
-        Integer newExpenseCategoryId = getExpenseCategoriesByUserId(userId).size();
+        int newExpenseCategoryId;
+        List <ExpenseCategory> expenseCategoryList = database.getExpenseCategoryList();
+        if (expenseCategoryList.size() == 0){
+            newExpenseCategoryId = 0;
+        }else {
+            ExpenseCategory lastExpenseCategory =  expenseCategoryList.get(expenseCategoryList.size()-1);
+            newExpenseCategoryId = lastExpenseCategory.getId() + 1;
+        }
+
         ExpenseCategory expenseCategory = new ExpenseCategory(userId, newExpenseCategoryId, expenseName);
         database.getExpenseCategoryList().add(expenseCategory);
         return true;

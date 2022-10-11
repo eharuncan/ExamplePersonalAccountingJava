@@ -28,8 +28,16 @@ public class UserService {
     public boolean register(User user, String secondPassword) {
         if (checkPasswords(user.getPassword(), secondPassword)) {
             if (validateUser(user)) {
-                Integer newUserId = database.getUserList().size();
+                int newUserId;
+                List <User> userList = database.getUserList();
+                if (userList.size() == 0){
+                    newUserId = 0;
+                }else {
+                    User lastUser =  userList.get(userList.size()-1);
+                    newUserId = lastUser.getId() + 1;
+                }
                 user.setId(newUserId);
+
                 expenseCategoryService.addExpenseCategoryByUserId(newUserId,"Çocuk" );
                 expenseCategoryService.addExpenseCategoryByUserId(newUserId,"Güvenlik" );
                 expenseCategoryService.addExpenseCategoryByUserId(newUserId,"Kitap" );
