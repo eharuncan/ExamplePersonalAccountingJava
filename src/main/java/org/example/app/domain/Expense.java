@@ -3,9 +3,13 @@ package org.example.app.domain;
 import java.util.Date;
 
 public class Expense {
-
-    public Expense() {
-
+    public Expense(Integer userId, Integer id, String name, Double amount, Date date, String category) {
+        this.userId = userId;
+        this.id = id;
+        this.name = name;
+        this.amount = amount;
+        this.date = date;
+        this.category = category;
     }
 
     //Getters, Setters, Attributes
@@ -61,13 +65,6 @@ public class Expense {
     }
 
     public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public Expense(String name, Double amount, Date date, String category) {
-        this.name = name;
-        this.amount = amount;
-        this.date = date;
         this.category = category;
     }
 }
