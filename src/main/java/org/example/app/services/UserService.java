@@ -36,7 +36,7 @@ public class UserService {
         customerUser.setSurname("customer");
         customerUser.setEmail("123");
         customerUser.setPassword("123");
-        customerUser.setExpenseCategoryList(getDefaultExpenseCategoryList());
+        customerUser.setExpenseCategoryList(defaultExpenseCategoryList);
         database.getUserList().add(customerUser);
     }
 
@@ -72,13 +72,13 @@ public class UserService {
     public boolean checkUser(String email, String password) {
         List<User> userList = database.getUserList();
         return userList.stream()
-                .anyMatch(x -> Objects.equals(x.getEmail(), email) && Objects.equals(x.getPassword(), password));
+                .anyMatch(user -> Objects.equals(user.getEmail(), email) && Objects.equals(user.getPassword(), password));
     }
 
     public User getUserByEmailAndPassword(String email, String password) {
         List<User> userList = database.getUserList();
         return userList.stream()
-                .filter(x -> Objects.equals(x.getEmail(), email) && Objects.equals(x.getPassword(), password))
+                .filter(user -> Objects.equals(user.getEmail(), email) && Objects.equals(user.getPassword(), password))
                 .findFirst()
                 .get();
     }
@@ -86,7 +86,7 @@ public class UserService {
     public User getUserById(Integer userId) {
         List<User> userList = database.getUserList();
         return userList.stream()
-                .filter(x -> Objects.equals(x.getId(), userId))
+                .filter(user -> Objects.equals(user.getId(), userId))
                 .findFirst()
                 .get();
     }

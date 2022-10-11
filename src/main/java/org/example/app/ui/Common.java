@@ -99,8 +99,8 @@ public class Common {
         }
     }
 
-    public void showUserExpenses(Integer userId) {
-        List<Expense> expenseList = expenseService.getExpensesByUserId(userId);
+    public void showUserExpenses(User user) {
+        List<Expense> expenseList = expenseService.getExpensesByUserId(user.getId());
         if (expenseList.size() == 0) {
             recordNotFound();
         } else {
@@ -115,9 +115,9 @@ public class Common {
         }
     }
 
-    public void showUserExpenseCategories(Integer userId) {
+    public void showUserExpenseCategories(User user) {
         System.out.print("\n");
-        List<String> expenseCategoryList = userService.getUserById(userId).getExpenseCategoryList();
+        List<String> expenseCategoryList = user.getExpenseCategoryList();
         if (expenseCategoryList.size() == 0) {
             recordNotFound();
         } else {
