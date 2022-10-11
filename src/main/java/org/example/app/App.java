@@ -16,9 +16,9 @@ public class App {
     public static void main(String[] args) {
         Database database = new Database();
 
+        expenseCategoryService = new ExpenseCategoryService(database);
         userService = new UserService(database);
         expenseService = new ExpenseService(database);
-        expenseCategoryService = new ExpenseCategoryService(database);
 
         Common common = new Common();
 

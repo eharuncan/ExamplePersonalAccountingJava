@@ -71,10 +71,10 @@ public class ExpenseCategoryService {
     }
 
     public boolean addDefaultExpenseCategories(Integer userId){
-        expenseCategoryService.addExpenseCategory(userId,"Çocuk" );
-        expenseCategoryService.addExpenseCategory(userId,"Güvenlik" );
-        expenseCategoryService.addExpenseCategory(userId,"Kitap" );
-        expenseCategoryService.addExpenseCategory(userId,"Sağlık" );
+        addExpenseCategory(userId,"Çocuk" );
+        addExpenseCategory(userId,"Güvenlik" );
+        addExpenseCategory(userId,"Kitap" );
+        addExpenseCategory(userId,"Sağlık" );
         return true;
     }
 

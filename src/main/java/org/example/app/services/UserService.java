@@ -14,7 +14,6 @@ public class UserService {
     private final Database database;
     private static User currentUser;
 
-
     public UserService(Database database) {
         this.database = database;
 
