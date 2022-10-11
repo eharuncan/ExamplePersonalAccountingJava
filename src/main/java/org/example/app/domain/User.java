@@ -9,6 +9,16 @@ public class User {
     public User() {
     }
 
+    public User(Integer id, UserTypes type, String name, String surname, String email, String password, List <String> expenseCategoryList) {
+        this.id = id;
+        this.type = type;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+        this.expenseCategoryList = expenseCategoryList;
+    }
+
     //Getters, Setters, Attributes
     private Integer id;
     private UserTypes type;

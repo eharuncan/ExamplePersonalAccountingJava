@@ -7,6 +7,15 @@ public class Expense {
     public Expense() {
     }
 
+    public Expense(Integer userId, Integer id, String name, Double amount, Date date, String category) {
+        this.userId = userId;
+        this.id = id;
+        this.name = name;
+        this.amount = amount;
+        this.date = date;
+        this.category = category;
+    }
+
     //Getters, Setters, Attributes
     private Integer userId;
     private Integer id;

@@ -21,23 +21,10 @@ public class UserService {
         defaultExpenseCategoryList.add("Kitap");
         defaultExpenseCategoryList.add("Sağlık");
 
-        User adminUser = new User();
-        adminUser.setId(0);
-        adminUser.setType(UserTypes.ADMIN);
-        adminUser.setName("admin");
-        adminUser.setSurname("admin");
-        adminUser.setEmail("admin@admin.com");
-        adminUser.setPassword("admin");
+        User adminUser = new User(0, UserTypes.ADMIN, "admin", "admin", "admin@admin.com", "admin", null   );
         database.getUserList().add(adminUser);
 
-        User customerUser = new User();
-        customerUser.setId(1);
-        customerUser.setType(UserTypes.CUSTOMER);
-        customerUser.setName("customer1");
-        customerUser.setSurname("customer");
-        customerUser.setEmail("123");
-        customerUser.setPassword("123");
-        customerUser.setExpenseCategoryList(defaultExpenseCategoryList);
+        User customerUser = new User(1, UserTypes.CUSTOMER, "customer1", "customer1", "1", "1", defaultExpenseCategoryList);
         database.getUserList().add(customerUser);
     }
 
