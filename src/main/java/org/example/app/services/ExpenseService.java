@@ -12,24 +12,24 @@ import static org.example.app.utils.Date.dateFormatter;
 
 public class ExpenseService {
 
-    private final Database database;
+    private final List <Expense> expenseListDB;
 
-    public ExpenseService(Database database) {
-        this.database = database;
+    public ExpenseService(List <Expense> expenseListDB) {
+        this.expenseListDB = expenseListDB;
     }
 
     public List<Expense> getExpenses() {
-        return database.getExpenseList();
+        return expenseListDB;
     }
 
     public List<Expense> getExpensesByUserId(Integer userId) {
-        return database.getExpenseList().stream()
+        return expenseListDB.stream()
                 .filter(expense -> Objects.equals(expense.getUserId(), userId))
                 .collect(Collectors.toList());
     }
 
     public Expense getExpenseByUserIdAndExpenseId(Integer userId, Integer expenseId) {
-        List<Expense> expenseList = database.getExpenseList();
+        List<Expense> expenseList = expenseListDB;
         return expenseList.stream()
                 .filter(expense -> Objects.equals(expense.getUserId(), userId) && Objects.equals(expense.getId(), expenseId))
                 .findFirst()
@@ -41,7 +41,7 @@ public class ExpenseService {
             newExpense.setUserId(userId);
 
             int newExpenseId;
-            List <Expense> expenseList = database.getExpenseList();
+            List <Expense> expenseList = expenseListDB;
             if (expenseList.size() == 0){
                 newExpenseId = 0;
             }else {
@@ -50,7 +50,7 @@ public class ExpenseService {
             }
             newExpense.setId(newExpenseId);
 
-            database.getExpenseList().add(newExpense);
+            expenseListDB.add(newExpense);
             return true;
         } else {
             return false;
@@ -60,7 +60,7 @@ public class ExpenseService {
     public boolean editExpense(Integer userId, Integer expenseId, Expense editedExpense) {
         if (validateExpense(editedExpense)) {
             int index = getExpenses().indexOf(getExpenseByUserIdAndExpenseId(userId, expenseId));
-            database.getExpenseList().set(index, editedExpense);
+            expenseListDB.set(index, editedExpense);
             return true;
         } else {
             return false;
@@ -69,7 +69,7 @@ public class ExpenseService {
 
     public boolean deleteExpense(Integer userId, Integer expenseId) {
         Expense foundExpense = getExpenseByUserIdAndExpenseId(userId, expenseId);
-        database.getExpenseList().remove(foundExpense);
+        expenseListDB.remove(foundExpense);
         return true;
     }
 

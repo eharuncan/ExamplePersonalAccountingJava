@@ -13,26 +13,26 @@ import static org.example.app.App.expenseCategoryService;
 
 public class ExpenseCategoryService {
 
-    private final Database database;
+    private final List <ExpenseCategory> expenseCategoryListDB;
 
     private final List<String> defaultExpenseCategoryList = new ArrayList<>();
 
     public List<ExpenseCategory> getExpenseCategories() {
-        return database.getExpenseCategoryList();
+        return expenseCategoryListDB;
     }
 
-    public ExpenseCategoryService(Database database) {
-        this.database = database;
+    public ExpenseCategoryService(List <ExpenseCategory> expenseCategoryListDB) {
+        this.expenseCategoryListDB = expenseCategoryListDB;
     }
 
     public List <ExpenseCategory> getExpenseCategoriesByUserId(Integer userId) {
-        return database.getExpenseCategoryList().stream()
+        return expenseCategoryListDB.stream()
                 .filter(expenseCategory -> Objects.equals(expenseCategory.getUserId(), userId))
                 .collect(Collectors.toList());
     }
 
     public ExpenseCategory getExpenseCategoryByUserIdAndExpenseCategoryId(Integer userId, Integer expenseCategoryId) {
-        List<ExpenseCategory> expenseCategoryList = database.getExpenseCategoryList();
+        List<ExpenseCategory> expenseCategoryList = expenseCategoryListDB;
         return expenseCategoryList.stream()
                 .filter(expenseCategory -> Objects.equals(expenseCategory.getUserId(), userId) && Objects.equals(expenseCategory.getId(), expenseCategoryId))
                 .findFirst()
@@ -41,7 +41,7 @@ public class ExpenseCategoryService {
 
     public boolean addExpenseCategory(Integer userId, String expenseName) {
         int newExpenseCategoryId;
-        List <ExpenseCategory> expenseCategoryList = database.getExpenseCategoryList();
+        List <ExpenseCategory> expenseCategoryList = expenseCategoryListDB;
         if (expenseCategoryList.size() == 0){
             newExpenseCategoryId = 0;
         }else {
@@ -50,14 +50,14 @@ public class ExpenseCategoryService {
         }
 
         ExpenseCategory expenseCategory = new ExpenseCategory(userId, newExpenseCategoryId, expenseName);
-        database.getExpenseCategoryList().add(expenseCategory);
+        expenseCategoryListDB.add(expenseCategory);
         return true;
     }
 
     public boolean editExpenseCategory(Integer userId, Integer expenseCategoryId, ExpenseCategory editedExpenseCategory) {
         if (validateExpenseCategory(editedExpenseCategory)) {
             int index = getExpenseCategories().indexOf(getExpenseCategoryByUserIdAndExpenseCategoryId(userId, expenseCategoryId));
-            database.getExpenseCategoryList().set(index, editedExpenseCategory);
+            expenseCategoryListDB.set(index, editedExpenseCategory);
             return true;
         } else {
             return false;
@@ -66,7 +66,7 @@ public class ExpenseCategoryService {
 
     public boolean deleteExpenseCategory(Integer userId, Integer expenseCategoryId) {
         ExpenseCategory foundExpenseCategory = getExpenseCategoryByUserIdAndExpenseCategoryId(userId, expenseCategoryId);
-        database.getExpenseCategoryList().remove(foundExpenseCategory);
+        expenseCategoryListDB.remove(foundExpenseCategory);
         return true;
     }
 

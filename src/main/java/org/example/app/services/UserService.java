@@ -11,11 +11,11 @@ import static org.example.app.App.expenseCategoryService;
 
 public class UserService {
 
-    private final Database database;
+    private final List <User> userListDB;
     private static User currentUser;
 
-    public UserService(Database database) {
-        this.database = database;
+    public UserService(List <User> userListDB) {
+        this.userListDB = userListDB;
 
         User adminUser = new User(0, UserTypes.ADMIN, "admin", "admin", "admin@admin.com", "admin");
         register(adminUser);
@@ -27,11 +27,11 @@ public class UserService {
     }
 
     public List<User> getUsers() {
-        return database.getUserList();
+        return userListDB;
     }
 
     public User getUserById(Integer userId) {
-        List<User> userList = database.getUserList();
+        List<User> userList = userListDB;
         return userList.stream()
                 .filter(user -> Objects.equals(user.getId(), userId))
                 .findFirst()
@@ -39,7 +39,7 @@ public class UserService {
     }
 
     public User getUserByEmailAndPassword(String email, String password) {
-        List<User> userList = database.getUserList();
+        List<User> userList = userListDB;
         return userList.stream()
                 .filter(user -> Objects.equals(user.getEmail(), email) && Objects.equals(user.getPassword(), password))
                 .findFirst()
@@ -49,7 +49,7 @@ public class UserService {
     public boolean register(User user) {
         if (validateUser(user)) {
             int newUserId;
-            List<User> userList = database.getUserList();
+            List<User> userList = userListDB;
             if (userList.size() == 0) {
                 newUserId = 0;
             } else {
@@ -62,7 +62,7 @@ public class UserService {
                 return false;
             }
 
-            database.getUserList().add(user);
+            userListDB.add(user);
             currentUser = user;
             return true;
         } else {
@@ -75,7 +75,7 @@ public class UserService {
             return false;
         } else {
             User foundUser = getUserById(userId);
-            database.getUserList().remove(foundUser);
+            userListDB.remove(foundUser);
             return true;
         }
     }
@@ -103,7 +103,7 @@ public class UserService {
     }
 
     public boolean checkUser(String email, String password) {
-        List<User> userList = database.getUserList();
+        List<User> userList = userListDB;
         return userList.stream()
                 .anyMatch(user -> Objects.equals(user.getEmail(), email) && Objects.equals(user.getPassword(), password));
     }
