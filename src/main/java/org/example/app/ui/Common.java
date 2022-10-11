@@ -126,4 +126,8 @@ public class Common {
             }
         }
     }
+
+    public boolean checkPasswords(String firstPassword, String secondPassword) {
+        return Objects.equals(firstPassword, secondPassword);
+    }
 }

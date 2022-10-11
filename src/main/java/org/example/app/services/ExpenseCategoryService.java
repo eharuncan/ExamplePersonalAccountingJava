@@ -1,12 +1,15 @@
 package org.example.app.services;
 
 import org.example.app.domain.ExpenseCategory;
+import org.example.app.domain.User;
 import org.example.db.Database;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static org.example.app.App.expenseCategoryService;
 
 public class ExpenseCategoryService {
 
@@ -64,6 +67,14 @@ public class ExpenseCategoryService {
     public boolean deleteExpenseCategory(Integer userId, Integer expenseCategoryId) {
         ExpenseCategory foundExpenseCategory = getExpenseCategoryByUserIdAndExpenseCategoryId(userId, expenseCategoryId);
         database.getExpenseCategoryList().remove(foundExpenseCategory);
+        return true;
+    }
+
+    public boolean addDefaultExpenseCategories(Integer userId){
+        expenseCategoryService.addExpenseCategory(userId,"Çocuk" );
+        expenseCategoryService.addExpenseCategory(userId,"Güvenlik" );
+        expenseCategoryService.addExpenseCategory(userId,"Kitap" );
+        expenseCategoryService.addExpenseCategory(userId,"Sağlık" );
         return true;
     }
 

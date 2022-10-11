@@ -19,10 +19,10 @@ public class UserService {
         this.database = database;
 
         User adminUser = new User(0, UserTypes.ADMIN, "admin", "admin", "admin@admin.com", "admin");
-        database.getUserList().add(adminUser);
+        register(adminUser);
 
         User customerUser = new User(1, UserTypes.CUSTOMER, "customer1", "customer1", "1", "1");
-        database.getUserList().add(customerUser);
+        register(customerUser);
     }
 
     public List<User> getUsers() {
@@ -45,29 +45,25 @@ public class UserService {
                 .get();
     }
 
-    public boolean register(User user, String secondPassword) {
-        if (checkPasswords(user.getPassword(), secondPassword)) {
-            if (validateUser(user)) {
-                int newUserId;
-                List <User> userList = database.getUserList();
-                if (userList.size() == 0){
-                    newUserId = 0;
-                }else {
-                    User lastUser =  userList.get(userList.size()-1);
-                    newUserId = lastUser.getId() + 1;
-                }
-                user.setId(newUserId);
-
-                expenseCategoryService.addExpenseCategory(newUserId,"Çocuk" );
-                expenseCategoryService.addExpenseCategory(newUserId,"Güvenlik" );
-                expenseCategoryService.addExpenseCategory(newUserId,"Kitap" );
-                expenseCategoryService.addExpenseCategory(newUserId,"Sağlık" );
-                database.getUserList().add(user);
-                currentUser = user;
-                return true;
+    public boolean register(User user) {
+        if (validateUser(user)) {
+            int newUserId;
+            List<User> userList = database.getUserList();
+            if (userList.size() == 0) {
+                newUserId = 0;
             } else {
+                User lastUser = userList.get(userList.size() - 1);
+                newUserId = lastUser.getId() + 1;
+            }
+            user.setId(newUserId);
+
+            if (!expenseCategoryService.addDefaultExpenseCategories(newUserId)) {
                 return false;
             }
+
+            database.getUserList().add(user);
+            currentUser = user;
+            return true;
         } else {
             return false;
         }
@@ -109,10 +105,6 @@ public class UserService {
         List<User> userList = database.getUserList();
         return userList.stream()
                 .anyMatch(user -> Objects.equals(user.getEmail(), email) && Objects.equals(user.getPassword(), password));
-    }
-
-    public boolean checkPasswords(String firstPassword, String secondPassword) {
-        return Objects.equals(firstPassword, secondPassword);
     }
 
     public User getCurrentUser() {

@@ -72,13 +72,13 @@ public class GuestMenu {
                         System.out.println("\nŞifrenizi tekrar giriniz:");
                         retypedPassword = screenScanner.nextLine();
 
-                        if (userService.checkPasswords(newUser.getPassword(), retypedPassword)) {
+                        if (common.checkPasswords(newUser.getPassword(), retypedPassword)) {
                             break;
                         } else {
                             System.out.println("\nHata: Şifreler Uyuşmuyor. Lütfen tekrar giriniz.");
                         }
                     }
-                    if (userService.register(newUser, retypedPassword)) {
+                    if (userService.register(newUser)) {
                         System.out.println("\nKullanıcı kaydı başarıyla gerçekleşti.");
                         common.menuSelector();
                         break loops;
