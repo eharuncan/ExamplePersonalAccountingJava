@@ -49,7 +49,7 @@ public class GuestMenu {
                 }
             } else if (Objects.equals(input, "2")) {
                 User newUser;
-                String retypedPassword;
+                String typedPassword, retypedPassword;
 
                 while (true) {
                     newUser = new User();
@@ -67,17 +67,19 @@ public class GuestMenu {
 
                     while (true) {
                         System.out.println("\nŞifrenizi giriniz:");
-                        newUser.setPassword(screenScanner.nextLine());
+                        typedPassword = screenScanner.nextLine();
 
                         System.out.println("\nŞifrenizi tekrar giriniz:");
                         retypedPassword = screenScanner.nextLine();
 
-                        if (common.checkPasswords(newUser.getPassword(), retypedPassword)) {
+                        if (common.checkPasswords(typedPassword, retypedPassword)) {
                             break;
                         } else {
                             System.out.println("\nHata: Şifreler Uyuşmuyor. Lütfen tekrar giriniz.");
                         }
                     }
+                    newUser.setPassword(typedPassword);
+
                     if (userService.register(newUser)) {
                         System.out.println("\nKullanıcı kaydı başarıyla gerçekleşti.");
                         common.menuSelector();
