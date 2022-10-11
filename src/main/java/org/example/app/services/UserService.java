@@ -22,6 +22,8 @@ public class UserService {
 
         User customerUser = new User(1, UserTypes.CUSTOMER, "customer1", "customer1", "1", "1");
         register(customerUser);
+
+        currentUser = null;
     }
 
     public List<User> getUsers() {
