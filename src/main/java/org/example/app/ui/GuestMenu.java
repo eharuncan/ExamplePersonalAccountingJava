@@ -81,7 +81,7 @@ public class GuestMenu {
                     if (userService.register(newUser, retypedPassword)) {
                         System.out.println("\nKullanıcı kaydı başarıyla gerçekleşti.");
                         common.menuSelector();
-                        break;
+                        break loops;
                     } else {
                         System.out.println("\nHata: kullanıcı kaydı oluşturulamadı.");
                     }

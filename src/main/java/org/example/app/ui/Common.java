@@ -95,6 +95,7 @@ public class Common {
                 System.out.println("Kullanıcı adı: " + userList.get(i).getName());
                 System.out.println("Kullanıcı soyadı: " + userList.get(i).getSurname());
                 System.out.println("Kullanıcı eposta adresi: " + userList.get(i).getEmail());
+                System.out.println("Kategoriler: " + userList.get(i).getExpenseCategoryList());
             }
         }
     }
