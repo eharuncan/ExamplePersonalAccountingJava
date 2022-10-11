@@ -29,10 +29,6 @@ public class ExpenseCategoryService {
                 .collect(Collectors.toList());
     }
 
-    public ExpenseCategory getExpenseCategoryByUserIdAndIndex(Integer userId, Integer index) {
-        return getExpenseCategoriesByUserId(userId).get(index);
-    }
-
     public ExpenseCategory getExpenseCategoryByUserIdAndExpenseCategoryId(Integer userId, Integer expenseCategoryId) {
         List<ExpenseCategory> expenseCategoryList = database.getExpenseCategoryList();
         return expenseCategoryList.stream()

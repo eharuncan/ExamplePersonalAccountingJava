@@ -88,10 +88,6 @@ public class UserService {
                 .get();
     }
 
-    public User getUserByIndex(Integer index) {
-        return database.getUserList().get(index);
-    }
-
     public boolean logout() {
         // Burada user adına tutulan oturum açma bilgileri silinir.
         currentUser = null;
@@ -102,11 +98,11 @@ public class UserService {
         return database.getUserList();
     }
 
-    public boolean deleteUserByIndex(Integer index) {
-        if (index == 0) {
+    public boolean deleteUserById(Integer userId) {
+        if (userId == 0) {
             return false;
         } else {
-            User foundUser = getUserByIndex(index);
+            User foundUser = getUserById(userId);
             database.getUserList().remove(foundUser);
             return true;
         }

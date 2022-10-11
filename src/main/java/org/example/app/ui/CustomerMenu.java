@@ -139,7 +139,7 @@ public class CustomerMenu {
                         common.showUserExpenseCategories(userService.getCurrentUser());
 
                         System.out.println("\nDüzenlemek istediğiniz kategori ID yi giriniz:");
-                        ExpenseCategory selectedExpenseCategory = expenseCategoryService.getExpenseCategoryByUserIdAndIndex(userService.getCurrentUser().getId(), Integer.parseInt(screenScanner.nextLine()) - 1);
+                        ExpenseCategory selectedExpenseCategory = expenseCategoryService.getExpenseCategoryByUserIdAndExpenseCategoryId(userService.getCurrentUser().getId(), Integer.parseInt(screenScanner.nextLine()) - 1);
 
                         ExpenseCategory editedExpenseCategory;
                         editedExpenseCategory = selectedExpenseCategory;
