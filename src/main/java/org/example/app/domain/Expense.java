@@ -3,13 +3,8 @@ package org.example.app.domain;
 import java.util.Date;
 
 public class Expense {
-    public Expense(Integer userId, Integer id, String name, Double amount, Date date, String category) {
-        this.userId = userId;
-        this.id = id;
-        this.name = name;
-        this.amount = amount;
-        this.date = date;
-        this.category = category;
+
+    public Expense() {
     }
 
     //Getters, Setters, Attributes
