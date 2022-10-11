@@ -2,14 +2,11 @@ package org.example.app.services;
 
 import org.example.app.domain.Expense;
 
-import org.example.app.domain.User;
 import org.example.db.Database;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
-import static org.example.app.App.userService;
 
 import static org.example.app.utils.Date.dateFormatter;
 
@@ -39,9 +36,9 @@ public class ExpenseService {
                 .get();
     }
 
-    public boolean addExpenseByUserId(Integer userId, Expense newExpense) {
+    public boolean addExpense(Integer userId, Expense newExpense) {
         if (validateExpense(newExpense)) {
-            newExpense.setUserId(userService.getCurrentUser().getId());
+            newExpense.setUserId(userId);
 
             int newExpenseId;
             List <Expense> expenseList = database.getExpenseList();
@@ -60,7 +57,7 @@ public class ExpenseService {
         }
     }
 
-    public boolean editExpenseByUserIdAndExpenseId(Integer userId, Integer expenseId, Expense editedExpense) {
+    public boolean editExpense(Integer userId, Integer expenseId, Expense editedExpense) {
         if (validateExpense(editedExpense)) {
             int index = getExpenses().indexOf(getExpenseByUserIdAndExpenseId(userId, expenseId));
             database.getExpenseList().set(index, editedExpense);
@@ -70,7 +67,7 @@ public class ExpenseService {
         }
     }
 
-    public boolean deleteExpenseByUserId(Integer userId, Integer expenseId) {
+    public boolean deleteExpense(Integer userId, Integer expenseId) {
         Expense foundExpense = getExpenseByUserIdAndExpenseId(userId, expenseId);
         database.getExpenseList().remove(foundExpense);
         return true;

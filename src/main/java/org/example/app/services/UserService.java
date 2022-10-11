@@ -25,6 +25,26 @@ public class UserService {
         database.getUserList().add(customerUser);
     }
 
+    public List<User> getUsers() {
+        return database.getUserList();
+    }
+
+    public User getUserById(Integer userId) {
+        List<User> userList = database.getUserList();
+        return userList.stream()
+                .filter(user -> Objects.equals(user.getId(), userId))
+                .findFirst()
+                .get();
+    }
+
+    public User getUserByEmailAndPassword(String email, String password) {
+        List<User> userList = database.getUserList();
+        return userList.stream()
+                .filter(user -> Objects.equals(user.getEmail(), email) && Objects.equals(user.getPassword(), password))
+                .findFirst()
+                .get();
+    }
+
     public boolean register(User user, String secondPassword) {
         if (checkPasswords(user.getPassword(), secondPassword)) {
             if (validateUser(user)) {
@@ -38,10 +58,10 @@ public class UserService {
                 }
                 user.setId(newUserId);
 
-                expenseCategoryService.addExpenseCategoryByUserId(newUserId,"Çocuk" );
-                expenseCategoryService.addExpenseCategoryByUserId(newUserId,"Güvenlik" );
-                expenseCategoryService.addExpenseCategoryByUserId(newUserId,"Kitap" );
-                expenseCategoryService.addExpenseCategoryByUserId(newUserId,"Sağlık" );
+                expenseCategoryService.addExpenseCategory(newUserId,"Çocuk" );
+                expenseCategoryService.addExpenseCategory(newUserId,"Güvenlik" );
+                expenseCategoryService.addExpenseCategory(newUserId,"Kitap" );
+                expenseCategoryService.addExpenseCategory(newUserId,"Sağlık" );
                 database.getUserList().add(user);
                 currentUser = user;
                 return true;
@@ -53,8 +73,14 @@ public class UserService {
         }
     }
 
-    public boolean checkPasswords(String firstPassword, String secondPassword) {
-        return Objects.equals(firstPassword, secondPassword);
+    public boolean deleteUser(Integer userId) {
+        if (userId == 0) {
+            return false;
+        } else {
+            User foundUser = getUserById(userId);
+            database.getUserList().remove(foundUser);
+            return true;
+        }
     }
 
     public boolean login(String email, String password) {
@@ -66,54 +92,10 @@ public class UserService {
         }
     }
 
-    public boolean checkUser(String email, String password) {
-        List<User> userList = database.getUserList();
-        return userList.stream()
-                .anyMatch(user -> Objects.equals(user.getEmail(), email) && Objects.equals(user.getPassword(), password));
-    }
-
-    public User getUserByEmailAndPassword(String email, String password) {
-        List<User> userList = database.getUserList();
-        return userList.stream()
-                .filter(user -> Objects.equals(user.getEmail(), email) && Objects.equals(user.getPassword(), password))
-                .findFirst()
-                .get();
-    }
-
-    public User getUserById(Integer userId) {
-        List<User> userList = database.getUserList();
-        return userList.stream()
-                .filter(user -> Objects.equals(user.getId(), userId))
-                .findFirst()
-                .get();
-    }
-
     public boolean logout() {
         // Burada user adına tutulan oturum açma bilgileri silinir.
         currentUser = null;
         return true;
-    }
-
-    public List<User> getUsers() {
-        return database.getUserList();
-    }
-
-    public boolean deleteUserById(Integer userId) {
-        if (userId == 0) {
-            return false;
-        } else {
-            User foundUser = getUserById(userId);
-            database.getUserList().remove(foundUser);
-            return true;
-        }
-    }
-
-    public User getCurrentUser() {
-        return currentUser;
-    }
-
-    public void setCurrentUser(User currentUser) {
-        this.currentUser = currentUser;
     }
 
     public boolean validateUser(User user) {
@@ -123,5 +105,22 @@ public class UserService {
 
     }
 
+    public boolean checkUser(String email, String password) {
+        List<User> userList = database.getUserList();
+        return userList.stream()
+                .anyMatch(user -> Objects.equals(user.getEmail(), email) && Objects.equals(user.getPassword(), password));
+    }
+
+    public boolean checkPasswords(String firstPassword, String secondPassword) {
+        return Objects.equals(firstPassword, secondPassword);
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
 }
 

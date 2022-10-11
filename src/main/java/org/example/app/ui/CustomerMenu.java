@@ -64,7 +64,7 @@ public class CustomerMenu {
                         int selectedExpenseCategoryId = (Integer.parseInt(screenScanner.nextLine())-1);
                         newExpense.setCategoryId(selectedExpenseCategoryId);
 
-                        if (expenseService.addExpenseByUserId(userService.getCurrentUser().getId(), newExpense)) {
+                        if (expenseService.addExpense(userService.getCurrentUser().getId(), newExpense)) {
                             System.out.println("\nHarcama başarıyla kaydedildi.");
                             common.backwardMenu();
                             break loops;
@@ -98,7 +98,7 @@ public class CustomerMenu {
                         int selectedExpenseCategoryId = (Integer.parseInt(screenScanner.nextLine())-1);
                         editedExpense.setCategoryId(selectedExpenseCategoryId);
 
-                        if (expenseService.editExpenseByUserIdAndExpenseId(userService.getCurrentUser().getId(), selectedExpense.getId(), editedExpense)) {
+                        if (expenseService.editExpense(userService.getCurrentUser().getId(), selectedExpense.getId(), editedExpense)) {
                             System.out.println("\nHarcama başarıyla düzenlendi.");
                             common.backwardMenu();
                             break loops;
@@ -110,7 +110,7 @@ public class CustomerMenu {
                     System.out.println("\nTüm Harcamalarının Listesi:");
                     common.showUserExpenses(userService.getCurrentUser());
                     System.out.println("\nSilmek istediğiniz Harcama ID yi giriniz:");
-                    if (expenseService.deleteExpenseByUserId(userService.getCurrentUser().getId(), Integer.parseInt(screenScanner.nextLine()) - 1)) {
+                    if (expenseService.deleteExpense(userService.getCurrentUser().getId(), Integer.parseInt(screenScanner.nextLine()) - 1)) {
                         System.out.println("\nHarcama başarıyla silindi.");
                         common.backwardMenu();
                         break;
@@ -126,7 +126,7 @@ public class CustomerMenu {
                     System.out.println("\nHarcama Kategorisi Adını giriniz:");
                     String newExpenseCategory = screenScanner.nextLine();
 
-                    if(expenseCategoryService.addExpenseCategoryByUserId(userService.getCurrentUser().getId(), newExpenseCategory)){
+                    if(expenseCategoryService.addExpenseCategory(userService.getCurrentUser().getId(), newExpenseCategory)){
                         System.out.println("\nHarcama Kategorisi başarıyla kaydedildi.");
                     }else{
                         System.out.println("\nHata: Harcama Kategorisi eklenemedi.");
@@ -147,7 +147,7 @@ public class CustomerMenu {
                         System.out.println("\nYeni Kategori Adını giriniz: (" + selectedExpenseCategory.getName() + ")");
                         editedExpenseCategory.setName(screenScanner.nextLine());
 
-                        if (expenseCategoryService.editExpenseCategoryByUserIdAndExpenseCategoryId(userService.getCurrentUser().getId(), selectedExpenseCategory.getId(), editedExpenseCategory)) {
+                        if (expenseCategoryService.editExpenseCategory(userService.getCurrentUser().getId(), selectedExpenseCategory.getId(), editedExpenseCategory)) {
                             System.out.println("\nHarcama başarıyla düzenlendi.");
                             common.backwardMenu();
                             break loops;
@@ -159,7 +159,7 @@ public class CustomerMenu {
                     System.out.println("\nTüm Harcama Kategorilerinin Listesi:");
                     common.showUserExpenseCategories(userService.getCurrentUser());
                     System.out.print("\nSilmek istediğiniz Kategori ID yi giriniz: ");
-                    if (expenseCategoryService.deleteExpenseCategoryByUserId(userService.getCurrentUser().getId(), Integer.parseInt(screenScanner.nextLine()) - 1)) {
+                    if (expenseCategoryService.deleteExpenseCategory(userService.getCurrentUser().getId(), Integer.parseInt(screenScanner.nextLine()) - 1)) {
                         System.out.println("\nHarcama başarıyla silindi.");
                         common.backwardMenu();
                         break;

@@ -1,6 +1,5 @@
 package org.example.app.services;
 
-import org.example.app.domain.Expense;
 import org.example.app.domain.ExpenseCategory;
 import org.example.db.Database;
 
@@ -37,7 +36,7 @@ public class ExpenseCategoryService {
                 .get();
     }
 
-    public boolean addExpenseCategoryByUserId(Integer userId, String expenseName) {
+    public boolean addExpenseCategory(Integer userId, String expenseName) {
         int newExpenseCategoryId;
         List <ExpenseCategory> expenseCategoryList = database.getExpenseCategoryList();
         if (expenseCategoryList.size() == 0){
@@ -52,7 +51,7 @@ public class ExpenseCategoryService {
         return true;
     }
 
-    public boolean editExpenseCategoryByUserIdAndExpenseCategoryId(Integer userId, Integer expenseCategoryId, ExpenseCategory editedExpenseCategory) {
+    public boolean editExpenseCategory(Integer userId, Integer expenseCategoryId, ExpenseCategory editedExpenseCategory) {
         if (validateExpenseCategory(editedExpenseCategory)) {
             int index = getExpenseCategories().indexOf(getExpenseCategoryByUserIdAndExpenseCategoryId(userId, expenseCategoryId));
             database.getExpenseCategoryList().set(index, editedExpenseCategory);
@@ -62,7 +61,7 @@ public class ExpenseCategoryService {
         }
     }
 
-    public boolean deleteExpenseCategoryByUserId(Integer userId, Integer expenseCategoryId) {
+    public boolean deleteExpenseCategory(Integer userId, Integer expenseCategoryId) {
         ExpenseCategory foundExpenseCategory = getExpenseCategoryByUserIdAndExpenseCategoryId(userId, expenseCategoryId);
         database.getExpenseCategoryList().remove(foundExpenseCategory);
         return true;
