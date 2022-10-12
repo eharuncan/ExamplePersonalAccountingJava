@@ -28,8 +28,7 @@ public class ExpenseCategoryService {
     }
 
     public ExpenseCategory getExpenseCategoryByUserIdAndExpenseCategoryId(Integer userId, Integer expenseCategoryId) {
-        List<ExpenseCategory> expenseCategoryList = expenseCategoryListDB;
-        return expenseCategoryList.stream()
+        return expenseCategoryListDB.stream()
                 .filter(expenseCategory -> Objects.equals(expenseCategory.getUserId(), userId) && Objects.equals(expenseCategory.getId(), expenseCategoryId))
                 .findFirst()
                 .get();
