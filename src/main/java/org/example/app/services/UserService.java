@@ -2,11 +2,8 @@ package org.example.app.services;
 
 import java.util.*;
 
-import org.example.app.domain.Expense;
 import org.example.app.domain.User;
 import org.example.app.enums.UserTypes;
-
-import org.example.db.Database;
 
 import static org.example.app.App.expenseCategoryService;
 
@@ -32,16 +29,14 @@ public class UserService {
     }
 
     public User getUserById(Integer userId) {
-        List<User> userList = userListDB;
-        return userList.stream()
+        return userListDB.stream()
                 .filter(user -> Objects.equals(user.getId(), userId))
                 .findFirst()
                 .get();
     }
 
     public User getUserByEmailAndPassword(String email, String password) {
-        List<User> userList = userListDB;
-        return userList.stream()
+        return userListDB.stream()
                 .filter(user -> Objects.equals(user.getEmail(), email) && Objects.equals(user.getPassword(), password))
                 .findFirst()
                 .get();
@@ -114,8 +109,7 @@ public class UserService {
     }
 
     public boolean checkUser(String email, String password) {
-        List<User> userList = userListDB;
-        return userList.stream()
+        return userListDB.stream()
                 .anyMatch(user -> Objects.equals(user.getEmail(), email) && Objects.equals(user.getPassword(), password));
     }
 

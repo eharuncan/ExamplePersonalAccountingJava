@@ -1,15 +1,11 @@
 package org.example.app.services;
 
 import org.example.app.domain.ExpenseCategory;
-import org.example.app.domain.User;
-import org.example.db.Database;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
-import static org.example.app.App.expenseCategoryService;
 
 public class ExpenseCategoryService {
 

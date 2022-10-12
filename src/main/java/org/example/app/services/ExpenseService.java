@@ -2,8 +2,6 @@ package org.example.app.services;
 
 import org.example.app.domain.Expense;
 
-import org.example.db.Database;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -29,8 +27,7 @@ public class ExpenseService {
     }
 
     public Expense getExpenseByUserIdAndExpenseId(Integer userId, Integer expenseId) {
-        List<Expense> expenseList = expenseListDB;
-        return expenseList.stream()
+        return expenseListDB.stream()
                 .filter(expense -> Objects.equals(expense.getUserId(), userId) && Objects.equals(expense.getId(), expenseId))
                 .findFirst()
                 .get();
