@@ -48,9 +48,9 @@ public class ExpenseCategoryService {
         return true;
     }
 
-    public boolean editExpenseCategory(Integer userId, Integer expenseCategoryId, ExpenseCategory editedExpenseCategory) {
+    public boolean editExpenseCategory(ExpenseCategory expenseCategory, ExpenseCategory editedExpenseCategory) {
         if (validateExpenseCategory(editedExpenseCategory)) {
-            int index = getExpenseCategories().indexOf(getExpenseCategoryByUserIdAndExpenseCategoryId(userId, expenseCategoryId));
+            int index = getExpenseCategories().indexOf(expenseCategory);
             expenseCategoryListDB.set(index, editedExpenseCategory);
             return true;
         } else {

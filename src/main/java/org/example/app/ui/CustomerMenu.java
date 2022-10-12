@@ -20,8 +20,8 @@ public class CustomerMenu {
         try {
             System.out.println("\nHoşgeldiniz, " + userService.getCurrentUser().getName());
             System.out.println("\nBugün toplam harcamanız: " + expenseService.getSumOfUserExpensesOfDay(userService.getCurrentUser().getId(), new java.util.Date()) + " TL");
-            System.out.println("\nBu Ay toplam harcamanız: " + expenseService.getSumOfUserExpensesOfMonth(userService.getCurrentUser().getId(), new java.util.Date()) + " TL");
-            System.out.println("\nBu Yıl toplam harcamanız: " + expenseService.getSumOfUserExpensesOfYear(userService.getCurrentUser().getId(), new java.util.Date()) + " TL");
+            System.out.println("Bu Ay toplam harcamanız: " + expenseService.getSumOfUserExpensesOfMonth(userService.getCurrentUser().getId(), new java.util.Date()) + " TL");
+            System.out.println("Bu Yıl toplam harcamanız: " + expenseService.getSumOfUserExpensesOfYear(userService.getCurrentUser().getId(), new java.util.Date()) + " TL");
             loops:
             while (true) {
                 common.menuHeader();
@@ -62,7 +62,7 @@ public class CustomerMenu {
 
                         editedUser.setPassword(common.changePasswords(selectedUser.getPassword()));
 
-                        if (userService.editUser(userService.getCurrentUser().getId(), editedUser)) {
+                        if (userService.editUser(userService.getCurrentUser(), editedUser)) {
                             System.out.println("\nProfilin başarıyla güncellendi.");
                             common.backwardMenu();
                             break loops;
@@ -132,7 +132,7 @@ public class CustomerMenu {
                         int selectedExpenseCategoryId = (Integer.parseInt(common.getStringInput(null)));
                         editedExpense.setCategoryId(selectedExpenseCategoryId);
 
-                        if (expenseService.editExpense(userService.getCurrentUser().getId(), selectedExpense.getId(), editedExpense)) {
+                        if (expenseService.editExpense(selectedExpense, editedExpense)) {
                             System.out.println("\nHarcama başarıyla düzenlendi.");
                             common.backwardMenu();
                             break loops;
@@ -181,7 +181,7 @@ public class CustomerMenu {
                         System.out.println("\nYeni Kategori Adını giriniz: (" + selectedExpenseCategory.getName() + ")");
                         editedExpenseCategory.setName(common.getStringInput(selectedExpenseCategory.getName()));
 
-                        if (expenseCategoryService.editExpenseCategory(userService.getCurrentUser().getId(), selectedExpenseCategory.getId(), editedExpenseCategory)) {
+                        if (expenseCategoryService.editExpenseCategory(selectedExpenseCategory, editedExpenseCategory)) {
                             System.out.println("\nHarcama başarıyla düzenlendi.");
                             common.backwardMenu();
                             break loops;

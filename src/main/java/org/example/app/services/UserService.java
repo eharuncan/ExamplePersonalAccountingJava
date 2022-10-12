@@ -66,9 +66,9 @@ public class UserService {
         }
     }
 
-    public boolean editUser(Integer userId, User editedUser) {
+    public boolean editUser(User user, User editedUser) {
         if (validateUser(editedUser)) {
-            int index = getUsers().indexOf(getUserById(userId));
+            int index = getUsers().indexOf(user);
             userListDB.set(index, editedUser);
             return true;
         } else {
