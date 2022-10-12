@@ -19,8 +19,9 @@ public class CustomerMenu {
     public void show() {
         try {
             System.out.println("\nHoşgeldiniz, " + userService.getCurrentUser().getName());
-            System.out.println("\nBugünkü toplam harcamanız: " + expenseService.getSumOfExpensesOfDateByUserId(userService.getCurrentUser().getId(), new java.util.Date()) + " TL");
-
+            System.out.println("\nBugün toplam harcamanız: " + expenseService.getSumOfUserExpensesOfDay(userService.getCurrentUser().getId(), new java.util.Date()) + " TL");
+            System.out.println("\nBu Ay toplam harcamanız: " + expenseService.getSumOfUserExpensesOfMonth(userService.getCurrentUser().getId(), new java.util.Date()) + " TL");
+            System.out.println("\nBu Yıl toplam harcamanız: " + expenseService.getSumOfUserExpensesOfYear(userService.getCurrentUser().getId(), new java.util.Date()) + " TL");
             loops:
             while (true) {
                 common.menuHeader();

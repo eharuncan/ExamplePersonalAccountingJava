@@ -2,6 +2,9 @@ package org.example.app.services;
 
 import org.example.app.domain.Expense;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -75,10 +78,52 @@ public class ExpenseService {
         return true;
     }
 
-    public Double getSumOfExpensesOfDateByUserId(Integer userId, java.util.Date date) {
+    public Double getSumOfUserExpensesOfDay(Integer userId, Date date) {
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Integer year = localDate.getYear();
+        Integer month = localDate.getMonthValue();
+        Integer day = localDate.getDayOfMonth();
+
         List <Expense> currentUsersExpenseList = getExpensesByUserId(userId);
         List <Expense> resultList = currentUsersExpenseList.stream()
-                .filter(expense -> Objects.equals(dateFormatter.format(expense.getDate()), dateFormatter.format(date)))
+                .filter(expense ->
+                        Objects.equals(expense.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear(), year)
+                                && Objects.equals(expense.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getMonthValue(), month)
+                        && Objects.equals(expense.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getDayOfMonth(), day)
+                )
+                .collect(Collectors.toList());
+        return resultList.stream()
+                .mapToDouble(Expense::getAmount)
+                .sum();
+    }
+
+    public Double getSumOfUserExpensesOfMonth(Integer userId, java.util.Date date) {
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Integer year = localDate.getYear();
+        Integer month = localDate.getMonthValue();
+        Integer day = localDate.getDayOfMonth();
+
+        List <Expense> currentUsersExpenseList = getExpensesByUserId(userId);
+        List <Expense> resultList = currentUsersExpenseList.stream()
+                .filter(expense ->
+                                Objects.equals(expense.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear(), year)
+                                        && Objects.equals(expense.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getMonthValue(), month)
+                )
+                .collect(Collectors.toList());
+        return resultList.stream()
+                .mapToDouble(Expense::getAmount)
+                .sum();
+    }
+
+    public Double getSumOfUserExpensesOfYear(Integer userId, java.util.Date date) {
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Integer year = localDate.getYear();
+
+        List <Expense> currentUsersExpenseList = getExpensesByUserId(userId);
+        List <Expense> resultList = currentUsersExpenseList.stream()
+                .filter(expense ->
+                        Objects.equals(expense.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear(), year)
+                )
                 .collect(Collectors.toList());
         return resultList.stream()
                 .mapToDouble(Expense::getAmount)
