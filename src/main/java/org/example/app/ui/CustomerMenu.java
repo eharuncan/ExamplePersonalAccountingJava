@@ -48,9 +48,7 @@ public class CustomerMenu {
                         System.out.println("\nProfil Bilgilerin:");
                         common.showUserProfile(userService.getCurrentUser());
 
-                        System.out.println("\nDüzenlemek istediğiniz harcama ID yi giriniz:");
                         User selectedUser = userService.getCurrentUser();
-
                         User editedUser;
                         editedUser = selectedUser;
 
