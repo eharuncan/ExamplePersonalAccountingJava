@@ -6,6 +6,7 @@ import org.example.app.domain.User;
 
 import org.example.app.enums.UserTypes;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -54,7 +55,7 @@ public class Common {
             System.out.println("\ng- Geri Dön");
             menuFooter();
 
-            String input = screenScanner.nextLine();
+            String input = getStringInput(null);
             if (Objects.equals(input, "g")) {
                 menuSelector();
                 break;
@@ -66,6 +67,45 @@ public class Common {
                 break;
             } else {
                 System.out.println("\nHata: Lütfen doğru seçeneği giriniz.");
+            }
+        }
+    }
+
+    public String getStringInput(String defaultValue) {
+        String input = screenScanner.nextLine();
+        if (defaultValue == null) {
+            return input;
+        } else {
+            if (Objects.equals(input, "")) {
+                return defaultValue;
+            } else {
+                return input;
+            }
+        }
+    }
+
+    public String getDoubleInput(Double defaultValue) {
+        String input = screenScanner.nextLine();
+        if (defaultValue == null) {
+            return input;
+        } else {
+            if (Objects.equals(input, "")) {
+                return defaultValue.toString();
+            } else {
+                return input;
+            }
+        }
+    }
+
+    public String getDateInput(Date defaultValue) {
+        String input = screenScanner.nextLine();
+        if (defaultValue == null) {
+            return input;
+        } else {
+            if (Objects.equals(input, "")) {
+                return defaultValue.toString();
+            } else {
+                return input;
             }
         }
     }
@@ -137,14 +177,14 @@ public class Common {
         return Objects.equals(firstPassword, secondPassword);
     }
 
-    public String changePasswords(){
+    public String changePasswords(String defaultPassword) {
         String typedPassword, retypedPassword;
         while (true) {
             System.out.println("\nŞifrenizi giriniz:");
-            typedPassword = screenScanner.nextLine();
+            typedPassword = getStringInput(defaultPassword);
 
             System.out.println("\nŞifrenizi tekrar giriniz:");
-            retypedPassword = screenScanner.nextLine();
+            retypedPassword = getStringInput(defaultPassword);
 
             if (checkPasswords(typedPassword, retypedPassword)) {
                 return typedPassword;

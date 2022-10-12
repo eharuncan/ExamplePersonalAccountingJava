@@ -4,8 +4,6 @@ import java.util.Objects;
 
 import static org.example.app.App.userService;
 
-import static org.example.app.utils.Screen.screenScanner;
-
 public class AdminMenu {
     private final Common common;
 
@@ -22,7 +20,7 @@ public class AdminMenu {
             System.out.println("2- Kullanıcı Sil");
             common.menuFooter();
 
-            String input = screenScanner.nextLine();
+            String input = common.getStringInput(null);
             if (Objects.equals(input, "1")) {
                 common.showUsers();
                 common.backwardMenu();
@@ -32,7 +30,7 @@ public class AdminMenu {
                 common.showUsers();
 
                 System.out.println("\nSilmek istediğiniz Kullanıcı ID yi giriniz:");
-                if (userService.deleteUser(Integer.parseInt(screenScanner.nextLine()))) {
+                if (userService.deleteUser(Integer.parseInt(common.getStringInput(null)))) {
                     System.out.println("\nKullanıcı başarıyla silindi");
                     common.backwardMenu();
                     break;
