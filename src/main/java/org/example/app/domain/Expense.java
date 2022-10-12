@@ -3,7 +3,6 @@ package org.example.app.domain;
 import java.util.Date;
 
 public class Expense {
-
     public Expense() {
     }
 

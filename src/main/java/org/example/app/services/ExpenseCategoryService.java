@@ -8,10 +8,9 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ExpenseCategoryService {
-
     private final List <ExpenseCategory> expenseCategoryListDB;
 
-    private final List<String> defaultExpenseCategoryList = new ArrayList<>();
+    private final String defaultExpenseCategories[] = new String[] {"Çocuk","Güvenlik","Kitap","Sağlık"};
 
     public List<ExpenseCategory> getExpenseCategories() {
         return expenseCategoryListDB;
@@ -66,10 +65,9 @@ public class ExpenseCategoryService {
     }
 
     public boolean addDefaultExpenseCategories(Integer userId){
-        addExpenseCategory(userId,"Çocuk" );
-        addExpenseCategory(userId,"Güvenlik" );
-        addExpenseCategory(userId,"Kitap" );
-        addExpenseCategory(userId,"Sağlık" );
+        for (String expenseCategory:defaultExpenseCategories) {
+            addExpenseCategory(userId,expenseCategory );
+        }
         return true;
     }
 

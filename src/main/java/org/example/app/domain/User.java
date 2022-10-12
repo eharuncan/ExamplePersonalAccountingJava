@@ -2,10 +2,7 @@ package org.example.app.domain;
 
 import org.example.app.enums.UserTypes;
 
-import java.util.List;
-
 public class User {
-
     public User() {
     }
 

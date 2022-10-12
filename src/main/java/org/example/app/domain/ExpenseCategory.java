@@ -1,7 +1,5 @@
 package org.example.app.domain;
 
-import java.util.Date;
-
 public class ExpenseCategory {
     public ExpenseCategory() {
     }
