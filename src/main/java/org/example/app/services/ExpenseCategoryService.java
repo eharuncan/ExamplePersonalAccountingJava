@@ -41,9 +41,9 @@ public class ExpenseCategoryService {
 
     public boolean addExpenseCategory(Integer userId, String expenseName) {
         int newExpenseCategoryId;
-        List <ExpenseCategory> expenseCategoryList = expenseCategoryListDB;
+        List <ExpenseCategory> expenseCategoryList = getExpenseCategoriesByUserId(userId);
         if (expenseCategoryList.size() == 0){
-            newExpenseCategoryId = 0;
+            newExpenseCategoryId = 1;
         }else {
             ExpenseCategory lastExpenseCategory =  expenseCategoryList.get(expenseCategoryList.size()-1);
             newExpenseCategoryId = lastExpenseCategory.getId() + 1;

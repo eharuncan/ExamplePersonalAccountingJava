@@ -18,7 +18,7 @@ public class UserService {
     public UserService(List <User> userListDB) {
         this.userListDB = userListDB;
 
-        User adminUser = new User(0, UserTypes.ADMIN, "admin", "admin", "admin@admin.com", "admin");
+        User adminUser = new User(0, UserTypes.ADMIN, "admin", "admin", "admin", "admin");
         register(adminUser);
 
         User customerUser = new User(1, UserTypes.CUSTOMER, "customer1", "customer1", "1", "1");
@@ -52,7 +52,7 @@ public class UserService {
             int newUserId;
             List<User> userList = userListDB;
             if (userList.size() == 0) {
-                newUserId = 0;
+                newUserId = 1;
             } else {
                 User lastUser = userList.get(userList.size() - 1);
                 newUserId = lastUser.getId() + 1;
@@ -82,7 +82,7 @@ public class UserService {
     }
 
     public boolean deleteUser(Integer userId) {
-        if (userId == 0) {
+        if (userId == 1) {
             return false;
         } else {
             User foundUser = getUserById(userId);

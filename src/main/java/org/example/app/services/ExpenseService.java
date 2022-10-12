@@ -43,7 +43,7 @@ public class ExpenseService {
             int newExpenseId;
             List <Expense> expenseList = expenseListDB;
             if (expenseList.size() == 0){
-                newExpenseId = 0;
+                newExpenseId = 1;
             }else {
                 Expense lastExpense =  expenseList.get(expenseList.size()-1);
                 newExpenseId = lastExpense.getId() + 1;

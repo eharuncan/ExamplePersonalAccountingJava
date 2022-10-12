@@ -151,7 +151,7 @@ public class Common {
         } else {
             int i;
             for (i = 0; i < expenseList.size(); i++) {
-                System.out.println("\nHarcama ID: " + (expenseList.get(i).getId() + 1));
+                System.out.println("\nHarcama ID: " + (expenseList.get(i).getId()));
                 System.out.println("Harcama adı: " + expenseList.get(i).getName());
                 System.out.println("Harcama miktarı: " + expenseList.get(i).getAmount());
                 System.out.println("Harcama tarihi: " + dateFormatter.format(expenseList.get(i).getDate()));
@@ -167,7 +167,7 @@ public class Common {
         } else {
             int i;
             for (i = 0; i < expenseCategoryList.size(); i++) {
-                System.out.println("\nKategori ID: " + (expenseCategoryList.get(i).getId() + 1));
+                System.out.println("\nKategori ID: " + (expenseCategoryList.get(i).getId()));
                 System.out.println("Kategori adı: " + expenseCategoryList.get(i).getName());
             }
         }
