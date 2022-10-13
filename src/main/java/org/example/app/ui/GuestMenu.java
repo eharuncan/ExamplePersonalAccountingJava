@@ -24,7 +24,7 @@ public class GuestMenu {
             System.out.println("2- Kaydol");
             common.menuFooter();
 
-            String input = common.getStringInput(null);
+            String input = common.getInput(null);
 
             if (Objects.equals(input, "1")) {
                 String email;
@@ -32,10 +32,10 @@ public class GuestMenu {
 
                 while (true) {
                     System.out.println("\nEposta adresinizi giriniz:");
-                    email = common.getStringInput(null);
+                    email = common.getInput(null);
 
                     System.out.println("\nŞifrenizi giriniz:");
-                    password = common.getStringInput(null);
+                    password = common.getInput(null);
 
                     if (userService.login(email, password)) {
                         System.out.println("\nBaşarıyla kullanıcı girişi yapıldı.");
@@ -54,13 +54,13 @@ public class GuestMenu {
                     newUser.setType(UserTypes.CUSTOMER);
 
                     System.out.println("\nAdınızı giriniz:");
-                    newUser.setName(common.getStringInput(null));
+                    newUser.setName(common.getInput(null));
 
                     System.out.println("\nSoyadınızı giriniz:");
-                    newUser.setSurname(common.getStringInput(null));
+                    newUser.setSurname(common.getInput(null));
 
                     System.out.println("\nEposta adresinizi giriniz:");
-                    newUser.setEmail(common.getStringInput(null));
+                    newUser.setEmail(common.getInput(null));
 
                     newUser.setPassword(common.changePasswords(null));
 

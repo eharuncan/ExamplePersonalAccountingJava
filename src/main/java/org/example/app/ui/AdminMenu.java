@@ -20,7 +20,7 @@ public class AdminMenu {
             System.out.println("2- Kullanıcı Sil");
             common.menuFooter();
 
-            String input = common.getStringInput(null);
+            String input = common.getInput(null);
             if (Objects.equals(input, "1")) {
                 common.showUsers();
                 common.backwardMenu();
@@ -30,7 +30,7 @@ public class AdminMenu {
                 common.showUsers();
 
                 System.out.println("\nSilmek istediğiniz Kullanıcı ID yi giriniz:");
-                if (userService.deleteUser(Integer.parseInt(common.getStringInput(null)))) {
+                if (userService.deleteUser(Integer.parseInt(common.getInput(null)))) {
                     System.out.println("\nKullanıcı başarıyla silindi");
                     common.backwardMenu();
                     break;
