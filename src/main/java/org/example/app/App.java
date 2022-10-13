@@ -26,11 +26,10 @@ public class App {
     }
 
     private static Database connectDatabase(){
-        Database database = new Database();
         String username = "admin";
         String password = "admin";
-        if(database.connect(username, password)){
-            return database;
+        if(Database.connect(username, password)){
+            return new Database();
         }else {
             return null;
         }

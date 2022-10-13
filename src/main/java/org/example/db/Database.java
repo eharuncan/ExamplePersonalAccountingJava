@@ -9,14 +9,17 @@ import java.util.List;
 import java.util.Objects;
 
 public class Database {
-    private Boolean connectStatus;
+    private static Boolean connectStatus = false;
+
+    private static final String username = "admin";
+    private static final String password = "admin";
 
     private List<User> userList = new ArrayList<>();
     private List<Expense> expenseList = new ArrayList<>();
     private List<ExpenseCategory> expenseCategoryList = new ArrayList<>();
 
-    public Boolean connect(String username, String password){
-        if (Objects.equals(username, "admin") && Objects.equals(password, "admin")){
+    public static Boolean connect(String username, String password){
+        if (Objects.equals(Database.username, username) && Objects.equals(Database.password, password)){
             connectStatus = true;
             return true;
         }
