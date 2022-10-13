@@ -10,6 +10,7 @@ import java.util.Objects;
 
 public class Database {
     private Boolean connectStatus;
+
     private List<User> userList = new ArrayList<>();
     private List<Expense> expenseList = new ArrayList<>();
     private List<ExpenseCategory> expenseCategoryList = new ArrayList<>();
