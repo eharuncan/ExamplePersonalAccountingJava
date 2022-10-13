@@ -14,57 +14,50 @@ public class Database {
     private static final String username = "admin";
     private static final String password = "admin";
 
-    private List<User> userList = new ArrayList<>();
-    private List<Expense> expenseList = new ArrayList<>();
-    private List<ExpenseCategory> expenseCategoryList = new ArrayList<>();
+    private static List<User> userList = new ArrayList<>();
+    private static List<Expense> expenseList = new ArrayList<>();
+    private static List<ExpenseCategory> expenseCategoryList = new ArrayList<>();
 
-    public static Boolean connect(String username, String password){
-        if (Objects.equals(Database.username, username) && Objects.equals(Database.password, password)){
+    public static Boolean connect(String username, String password) {
+        if (Objects.equals(Database.username, username) && Objects.equals(Database.password, password)) {
             connectStatus = true;
             return true;
-        }
-        else {
+        } else {
             connectStatus = false;
             return false;
         }
     }
 
     public List<User> getUserList() {
-        if (Boolean.TRUE.equals(connectStatus)){
+        if (connectStatus)
             return userList;
-        }else {
-            return null;
-        }
+        return null;
     }
+
     public void setUserList(List<User> userList) {
-        if (Boolean.TRUE.equals(connectStatus)){
-            this.userList = userList;
-        }
+        if (connectStatus)
+            Database.userList = userList;
     }
 
     public List<Expense> getExpenseList() {
-        if (Boolean.TRUE.equals(connectStatus)){
+        if (connectStatus)
             return expenseList;
-        }else {
-            return null;
-        }
+        return null;
     }
+
     public void setExpenseList(List<Expense> expenseList) {
-        if (Boolean.TRUE.equals(connectStatus)){
-            this.expenseList = expenseList;
-        }
+        if (connectStatus)
+            Database.expenseList = expenseList;
     }
 
     public List<ExpenseCategory> getExpenseCategoryList() {
-        if (Boolean.TRUE.equals(connectStatus)){
+        if (connectStatus)
             return expenseCategoryList;
-        }else {
-            return null;
-        }
+        return null;
     }
+
     public void setExpenseCategoryList(List<ExpenseCategory> expenseCategoryList) {
-        if (Boolean.TRUE.equals(connectStatus)){
-            this.expenseCategoryList = expenseCategoryList;
-        }
+        if (connectStatus)
+            Database.expenseCategoryList = expenseCategoryList;
     }
 }
