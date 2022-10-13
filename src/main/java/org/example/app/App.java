@@ -46,6 +46,7 @@ public class App {
         System.out.println("\nŞAHSİ MUHASEBEM - HARCAMALARINIZI TAKİP EDİN !");
         showMenus();
         System.out.println("\nUygulama başarıyla kapatıldı.");
+        exit(0);
     }
 
     private static void showMenus(){
