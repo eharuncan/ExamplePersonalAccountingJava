@@ -21,7 +21,7 @@ public class App {
             System.out.print("Hata: Database'e bağlanılamadı.");
             exit(0);
         }
-        initializeServices(database);
+        startServices(database);
         startUI();
     }
 
@@ -36,7 +36,7 @@ public class App {
         }
     }
 
-    private static void initializeServices(Database database){
+    private static void startServices(Database database){
         expenseCategoryService = new ExpenseCategoryService(database.getExpenseCategoryList());
         userService = new UserService(database.getUserList());
         expenseService = new ExpenseService(database.getExpenseList());
