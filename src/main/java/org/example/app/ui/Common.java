@@ -1,16 +1,16 @@
 package org.example.app.ui;
 
 import org.example.app.domain.Expense;
+import org.example.app.domain.ExpenseCategory;
 import org.example.app.domain.User;
 
 import org.example.app.enums.UserTypes;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import static org.example.app.App.expenseService;
-import static org.example.app.App.userService;
-
+import static org.example.app.App.*;
 import static org.example.app.utils.Date.dateFormatter;
 import static org.example.app.utils.Screen.screenScanner;
 
@@ -55,7 +55,7 @@ public class Common {
             System.out.println("\ng- Geri Dön");
             menuFooter();
 
-            String input = screenScanner.nextLine();
+            String input = getStringInput(null);
             if (Objects.equals(input, "g")) {
                 menuSelector();
                 break;
@@ -67,6 +67,45 @@ public class Common {
                 break;
             } else {
                 System.out.println("\nHata: Lütfen doğru seçeneği giriniz.");
+            }
+        }
+    }
+
+    public String getStringInput(String defaultValue) {
+        String input = screenScanner.nextLine();
+        if (defaultValue == null) {
+            return input;
+        } else {
+            if (Objects.equals(input, "")) {
+                return defaultValue;
+            } else {
+                return input;
+            }
+        }
+    }
+
+    public String getDoubleInput(Double defaultValue) {
+        String input = screenScanner.nextLine();
+        if (defaultValue == null) {
+            return input;
+        } else {
+            if (Objects.equals(input, "")) {
+                return defaultValue.toString();
+            } else {
+                return input;
+            }
+        }
+    }
+
+    public String getDateInput(Date defaultValue) {
+        String input = screenScanner.nextLine();
+        if (defaultValue == null) {
+            return input;
+        } else {
+            if (Objects.equals(input, "")) {
+                return defaultValue.toString();
+            } else {
+                return input;
             }
         }
     }
@@ -99,31 +138,58 @@ public class Common {
         }
     }
 
-    public void showUserExpenses(Integer userId) {
-        List<Expense> expenseList = expenseService.getExpensesByUserId(userId);
+    public void showUserProfile(User user) {
+        System.out.println("\nAdınız: " + user.getName());
+        System.out.println("Soyadınız: " + user.getSurname());
+        System.out.println("Eposta adresiniz : " + user.getEmail());
+    }
+
+    public void showUserExpenses(User user) {
+        List<Expense> expenseList = expenseService.getExpensesByUserId(user.getId());
         if (expenseList.size() == 0) {
             recordNotFound();
         } else {
             int i;
             for (i = 0; i < expenseList.size(); i++) {
-                System.out.println("\nHarcama ID: " + (expenseList.get(i).getId() + 1));
+                System.out.println("\nHarcama ID: " + (expenseList.get(i).getId()));
                 System.out.println("Harcama adı: " + expenseList.get(i).getName());
                 System.out.println("Harcama miktarı: " + expenseList.get(i).getAmount());
                 System.out.println("Harcama tarihi: " + dateFormatter.format(expenseList.get(i).getDate()));
-                System.out.println("Harcama kategorisi: " + expenseList.get(i).getCategory());
+                System.out.println("Harcama kategorisi: " + expenseCategoryService.getExpenseCategoryByUserIdAndExpenseCategoryId(user.getId(), expenseList.get(i).getCategoryId()).getName());
             }
         }
     }
 
-    public void showUserExpenseCategories(Integer userId) {
-        System.out.print("\n");
-        List<String> expenseCategoryList = userService.getUserById(userId).getExpenseCategoryList();
+    public void showUserExpenseCategories(User user) {
+        List<ExpenseCategory> expenseCategoryList = expenseCategoryService.getExpenseCategoriesByUserId(user.getId());
         if (expenseCategoryList.size() == 0) {
             recordNotFound();
         } else {
             int i;
             for (i = 0; i < expenseCategoryList.size(); i++) {
-                System.out.println("" + (i + 1) + "- " + expenseCategoryList.get(i));
+                System.out.println("\nKategori ID: " + (expenseCategoryList.get(i).getId()));
+                System.out.println("Kategori adı: " + expenseCategoryList.get(i).getName());
+            }
+        }
+    }
+
+    public boolean checkPasswords(String firstPassword, String secondPassword) {
+        return Objects.equals(firstPassword, secondPassword);
+    }
+
+    public String changePasswords(String defaultPassword) {
+        String typedPassword, retypedPassword;
+        while (true) {
+            System.out.println("\nŞifrenizi giriniz:");
+            typedPassword = getStringInput(defaultPassword);
+
+            System.out.println("\nŞifrenizi tekrar giriniz:");
+            retypedPassword = getStringInput(defaultPassword);
+
+            if (checkPasswords(typedPassword, retypedPassword)) {
+                return typedPassword;
+            } else {
+                System.out.println("\nHata: Şifreler Uyuşmuyor. Lütfen tekrar giriniz.");
             }
         }
     }
