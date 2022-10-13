@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 public class ExpenseCategoryService {
     private final List <ExpenseCategory> expenseCategoryListDB;
-
     private final String[] defaultExpenseCategories = new String[] {"Çocuk","Güvenlik","Kitap","Sağlık"};
 
     public List<ExpenseCategory> getExpenseCategories() {

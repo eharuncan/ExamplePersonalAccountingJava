@@ -9,10 +9,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class Database {
-    public Database(){
-        connectStatus = false; // Yanlışlıkla bir ekstra new leme işlemi yapılmışsa varolan connection kapatılır.
-    }
-
     private Boolean connectStatus;
     private List<User> userList = new ArrayList<>();
     private List<Expense> expenseList = new ArrayList<>();

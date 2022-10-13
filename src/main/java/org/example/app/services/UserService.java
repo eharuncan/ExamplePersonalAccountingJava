@@ -8,7 +8,6 @@ import org.example.app.enums.UserTypes;
 import static org.example.app.App.expenseCategoryService;
 
 public class UserService {
-
     private final List <User> userListDB;
     private static User currentUser;
 
