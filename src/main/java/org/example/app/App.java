@@ -18,7 +18,7 @@ public class App {
     public static void main(String[] args) {
         Database database = connectDatabase();
         if(database==null){
-            System.out.print("Database'e bağlanılamadı.");
+            System.out.print("Hata: Database'e bağlanılamadı.");
             exit(0);
         }
         initializeServices(database);
