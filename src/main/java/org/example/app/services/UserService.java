@@ -8,10 +8,10 @@ import org.example.app.enums.UserTypes;
 import static org.example.app.App.expenseCategoryService;
 
 public class UserService {
-    private final List <User> userListDB;
-    private static User currentUser;
+    private final List<User> userListDB;
+    private User currentUser;
 
-    public UserService(List <User> userListDB) {
+    public UserService(List<User> userListDB) {
         this.userListDB = userListDB;
 
         User adminUser = new User(0, UserTypes.ADMIN, "admin", "admin", "admin", "admin");

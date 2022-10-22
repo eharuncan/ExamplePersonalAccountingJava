@@ -7,7 +7,7 @@ import org.example.app.domain.User;
 import java.util.Objects;
 
 import static org.example.app.App.*;
-import static org.example.app.utils.Date.dateFormatter;
+import static org.example.app.utils.Utils.dateFormatter;
 
 public class CustomerMenu {
     private final Common common;

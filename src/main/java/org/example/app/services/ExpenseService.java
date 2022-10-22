@@ -98,7 +98,6 @@ public class ExpenseService {
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         Integer year = localDate.getYear();
         Integer month = localDate.getMonthValue();
-        Integer day = localDate.getDayOfMonth();
 
         List <Expense> currentUsersExpenseList = getExpensesByUserId(userId);
         List <Expense> resultList = currentUsersExpenseList.stream()

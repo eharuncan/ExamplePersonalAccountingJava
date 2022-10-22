@@ -11,9 +11,9 @@ import org.example.app.db.Database;
 import static java.lang.System.exit;
 
 public class App {
+    public static ExpenseCategoryService expenseCategoryService;
     public static UserService userService;
     public static ExpenseService expenseService;
-    public static ExpenseCategoryService expenseCategoryService;
 
     public static void main(String[] args) {
         Database database = connectDatabase();

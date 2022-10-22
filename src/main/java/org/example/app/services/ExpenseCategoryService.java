@@ -10,12 +10,12 @@ public class ExpenseCategoryService {
     private final List <ExpenseCategory> expenseCategoryListDB;
     private final String[] defaultExpenseCategories = new String[] {"Çocuk","Güvenlik","Kitap","Sağlık"};
 
-    public List<ExpenseCategory> getExpenseCategories() {
-        return expenseCategoryListDB;
-    }
-
     public ExpenseCategoryService(List <ExpenseCategory> expenseCategoryListDB) {
         this.expenseCategoryListDB = expenseCategoryListDB;
+    }
+
+    public List<ExpenseCategory> getExpenseCategories() {
+        return expenseCategoryListDB;
     }
 
     public List <ExpenseCategory> getExpenseCategoriesByUserId(Integer userId) {

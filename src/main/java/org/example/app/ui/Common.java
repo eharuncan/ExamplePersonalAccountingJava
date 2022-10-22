@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Objects;
 
 import static org.example.app.App.*;
-import static org.example.app.utils.Date.dateFormatter;
-import static org.example.app.utils.Screen.screenScanner;
+import static org.example.app.utils.Utils.dateFormatter;
+import static org.example.app.utils.Utils.screenScanner;
 
 public class Common {
     private final AdminMenu adminMenu;
