@@ -1,4 +1,4 @@
-package org.example.db;
+package org.example.app.db;
 
 import org.example.app.domain.Expense;
 import org.example.app.domain.ExpenseCategory;

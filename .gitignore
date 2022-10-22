@@ -26,3 +26,4 @@ replay_pid*
 # webstorm
 **/.idea/*
 !.idea/runConfigurations
+/PersonalAccounting-Desktop.iml

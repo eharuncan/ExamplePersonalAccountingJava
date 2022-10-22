@@ -6,7 +6,7 @@ import org.example.app.services.UserService;
 
 import org.example.app.ui.Common;
 
-import org.example.db.Database;
+import org.example.app.db.Database;
 
 import static java.lang.System.exit;
 
