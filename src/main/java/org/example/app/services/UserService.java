@@ -8,7 +8,6 @@ import org.example.app.enums.UserTypes;
 import static org.example.app.App.expenseCategoryService;
 
 public class UserService {
-
     private final List <User> userListDB;
     private static User currentUser;
 
@@ -116,7 +115,6 @@ public class UserService {
     public User getCurrentUser() {
         return currentUser;
     }
-
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }

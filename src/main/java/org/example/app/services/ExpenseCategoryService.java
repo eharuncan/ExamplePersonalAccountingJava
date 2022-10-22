@@ -2,15 +2,13 @@ package org.example.app.services;
 
 import org.example.app.domain.ExpenseCategory;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ExpenseCategoryService {
     private final List <ExpenseCategory> expenseCategoryListDB;
-
-    private final String defaultExpenseCategories[] = new String[] {"Çocuk","Güvenlik","Kitap","Sağlık"};
+    private final String[] defaultExpenseCategories = new String[] {"Çocuk","Güvenlik","Kitap","Sağlık"};
 
     public List<ExpenseCategory> getExpenseCategories() {
         return expenseCategoryListDB;
@@ -33,7 +31,7 @@ public class ExpenseCategoryService {
                 .get();
     }
 
-    public boolean addExpenseCategory(Integer userId, String expenseName) {
+    public boolean addExpenseCategory(Integer userId, String expenseCategoryName) {
         int newExpenseCategoryId;
         List <ExpenseCategory> expenseCategoryList = getExpenseCategoriesByUserId(userId);
         if (expenseCategoryList.size() == 0){
@@ -43,7 +41,7 @@ public class ExpenseCategoryService {
             newExpenseCategoryId = lastExpenseCategory.getId() + 1;
         }
 
-        ExpenseCategory expenseCategory = new ExpenseCategory(userId, newExpenseCategoryId, expenseName);
+        ExpenseCategory expenseCategory = new ExpenseCategory(userId, newExpenseCategoryId, expenseCategoryName);
         expenseCategoryListDB.add(expenseCategory);
         return true;
     }

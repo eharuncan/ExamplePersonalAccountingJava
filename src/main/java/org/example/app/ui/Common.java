@@ -6,7 +6,6 @@ import org.example.app.domain.User;
 
 import org.example.app.enums.UserTypes;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,7 +54,7 @@ public class Common {
             System.out.println("\ng- Geri Dön");
             menuFooter();
 
-            String input = getStringInput(null);
+            String input = getInput(null);
             if (Objects.equals(input, "g")) {
                 menuSelector();
                 break;
@@ -71,39 +70,13 @@ public class Common {
         }
     }
 
-    public String getStringInput(String defaultValue) {
+    public String getInput(Object defaultValue) {
         String input = screenScanner.nextLine();
         if (defaultValue == null) {
             return input;
         } else {
             if (Objects.equals(input, "")) {
-                return defaultValue;
-            } else {
-                return input;
-            }
-        }
-    }
-
-    public String getDoubleInput(Double defaultValue) {
-        String input = screenScanner.nextLine();
-        if (defaultValue == null) {
-            return input;
-        } else {
-            if (Objects.equals(input, "")) {
-                return defaultValue.toString();
-            } else {
-                return input;
-            }
-        }
-    }
-
-    public String getDateInput(Date defaultValue) {
-        String input = screenScanner.nextLine();
-        if (defaultValue == null) {
-            return input;
-        } else {
-            if (Objects.equals(input, "")) {
-                return defaultValue.toString();
+                return (String) defaultValue;
             } else {
                 return input;
             }
@@ -181,10 +154,10 @@ public class Common {
         String typedPassword, retypedPassword;
         while (true) {
             System.out.println("\nŞifrenizi giriniz:");
-            typedPassword = getStringInput(defaultPassword);
+            typedPassword = getInput(defaultPassword);
 
             System.out.println("\nŞifrenizi tekrar giriniz:");
-            retypedPassword = getStringInput(defaultPassword);
+            retypedPassword = getInput(defaultPassword);
 
             if (checkPasswords(typedPassword, retypedPassword)) {
                 return typedPassword;

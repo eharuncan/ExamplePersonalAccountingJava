@@ -10,7 +10,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ExpenseService {
-
     private final List <Expense> expenseListDB;
 
     public ExpenseService(List <Expense> expenseListDB) {
