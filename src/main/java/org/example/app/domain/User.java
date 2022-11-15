@@ -6,7 +6,7 @@ public class User {
     public User() {
     }
 
-    public User(Integer id, UserTypes type, String name, String surname, String email, String password) {
+    public User(Long id, UserTypes type, String name, String surname, String email, String password) {
         this.id = id;
         this.type = type;
         this.name = name;
@@ -16,25 +16,23 @@ public class User {
     }
 
     //Getters, Setters, Attributes
-    private Integer id;
+    private Long id;
     private UserTypes type;
     private String name;
     private String surname;
     private String email;
     private String password;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
-
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     public UserTypes getType() {
         return type;
     }
-
     public void setType(UserTypes type) {
         this.type = type;
     }
@@ -42,7 +40,6 @@ public class User {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -50,7 +47,6 @@ public class User {
     public String getSurname() {
         return surname;
     }
-
     public void setSurname(String surname) {
         this.surname = surname;
     }
@@ -58,7 +54,6 @@ public class User {
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -66,7 +61,6 @@ public class User {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }

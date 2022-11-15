@@ -95,7 +95,7 @@ public class CustomerMenu {
                         System.out.println("\nHarcama Kategorisini seçiniz: (İsteğe bağlı)");
                         common.showUserExpenseCategories(userService.getCurrentUser());
                         System.out.print("\nSeçiminiz: ");
-                        int selectedExpenseCategoryId = (Integer.parseInt(common.getInput(null)));
+                        long selectedExpenseCategoryId = (Long.parseLong(common.getInput(null)));
                         newExpense.setCategoryId(selectedExpenseCategoryId);
 
                         if (expenseService.addExpense(userService.getCurrentUser().getId(), newExpense)) {
@@ -112,7 +112,7 @@ public class CustomerMenu {
                         common.showUserExpenses(userService.getCurrentUser());
 
                         System.out.println("\nDüzenlemek istediğiniz harcama ID yi giriniz:");
-                        Expense selectedExpense = expenseService.getExpenseByUserIdAndExpenseId(userService.getCurrentUser().getId(), Integer.parseInt(common.getInput(null)));
+                        Expense selectedExpense = expenseService.getExpenseByUserIdAndExpenseId(userService.getCurrentUser().getId(), Long.parseLong(common.getInput(null)));
 
                         Expense editedExpense;
                         editedExpense = selectedExpense;
@@ -129,7 +129,7 @@ public class CustomerMenu {
                         System.out.println("\nYeni Harcama Kategorisi seçiniz: (" + selectedExpense.getCategoryId() + ")");
                         common.showUserExpenseCategories(userService.getCurrentUser());
                         System.out.print("\nSeçiminiz: ");
-                        int selectedExpenseCategoryId = (Integer.parseInt(common.getInput(null)));
+                        long selectedExpenseCategoryId = (Long.parseLong(common.getInput(null)));
                         editedExpense.setCategoryId(selectedExpenseCategoryId);
 
                         if (expenseService.editExpense(selectedExpense, editedExpense)) {
@@ -144,7 +144,7 @@ public class CustomerMenu {
                     System.out.println("\nTüm Harcamalarının Listesi:");
                     common.showUserExpenses(userService.getCurrentUser());
                     System.out.println("\nSilmek istediğiniz Harcama ID yi giriniz:");
-                    if (expenseService.deleteExpense(userService.getCurrentUser().getId(), Integer.parseInt(common.getInput(null)))) {
+                    if (expenseService.deleteExpense(userService.getCurrentUser().getId(), Long.parseLong(common.getInput(null)))) {
                         System.out.println("\nHarcama başarıyla silindi.");
                         common.backwardMenu();
                         break;
@@ -173,7 +173,7 @@ public class CustomerMenu {
                         common.showUserExpenseCategories(userService.getCurrentUser());
 
                         System.out.println("\nDüzenlemek istediğiniz kategori ID yi giriniz:");
-                        ExpenseCategory selectedExpenseCategory = expenseCategoryService.getExpenseCategoryByUserIdAndExpenseCategoryId(userService.getCurrentUser().getId(), Integer.parseInt(common.getInput(null)));
+                        ExpenseCategory selectedExpenseCategory = expenseCategoryService.getExpenseCategoryByUserIdAndExpenseCategoryId(userService.getCurrentUser().getId(), Long.parseLong(common.getInput(null)));
 
                         ExpenseCategory editedExpenseCategory;
                         editedExpenseCategory = selectedExpenseCategory;
@@ -193,7 +193,7 @@ public class CustomerMenu {
                     System.out.println("\nTüm Harcama Kategorilerinin Listesi:");
                     common.showUserExpenseCategories(userService.getCurrentUser());
                     System.out.print("\nSilmek istediğiniz Kategori ID yi giriniz: ");
-                    if (expenseCategoryService.deleteExpenseCategory(userService.getCurrentUser().getId(), Integer.parseInt(common.getInput(null)))) {
+                    if (expenseCategoryService.deleteExpenseCategory(userService.getCurrentUser().getId(), Long.parseLong(common.getInput(null)))) {
                         System.out.println("\nHarcama başarıyla silindi.");
                         common.backwardMenu();
                         break;

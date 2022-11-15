@@ -14,10 +14,10 @@ public class UserService {
     public UserService(List<User> userListDB) {
         this.userListDB = userListDB;
 
-        User adminUser = new User(0, UserTypes.ADMIN, "admin", "admin", "admin", "admin");
+        User adminUser = new User(0L, UserTypes.ADMIN, "admin", "admin", "admin", "admin");
         register(adminUser);
 
-        User customerUser = new User(1, UserTypes.CUSTOMER, "customer1", "customer1", "1", "1");
+        User customerUser = new User(1L, UserTypes.CUSTOMER, "customer1", "customer1", "1", "1");
         register(customerUser);
 
         currentUser = null;
@@ -27,7 +27,7 @@ public class UserService {
         return userListDB;
     }
 
-    public User getUserById(Integer userId) {
+    public User getUserById(Long userId) {
         return userListDB.stream()
                 .filter(user -> Objects.equals(user.getId(), userId))
                 .findFirst()
@@ -43,7 +43,7 @@ public class UserService {
 
     public boolean register(User user) {
         if (validateUser(user)) {
-            int newUserId;
+            long newUserId;
             List<User> userList = userListDB;
             if (userList.size() == 0) {
                 newUserId = 1;
@@ -75,7 +75,7 @@ public class UserService {
         }
     }
 
-    public boolean deleteUser(Integer userId) {
+    public boolean deleteUser(Long userId) {
         if (userId == 1) {
             return false;
         } else {

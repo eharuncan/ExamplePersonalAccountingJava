@@ -18,21 +18,21 @@ public class ExpenseCategoryService {
         return expenseCategoryListDB;
     }
 
-    public List <ExpenseCategory> getExpenseCategoriesByUserId(Integer userId) {
+    public List <ExpenseCategory> getExpenseCategoriesByUserId(Long userId) {
         return expenseCategoryListDB.stream()
                 .filter(expenseCategory -> Objects.equals(expenseCategory.getUserId(), userId))
                 .collect(Collectors.toList());
     }
 
-    public ExpenseCategory getExpenseCategoryByUserIdAndExpenseCategoryId(Integer userId, Integer expenseCategoryId) {
+    public ExpenseCategory getExpenseCategoryByUserIdAndExpenseCategoryId(Long userId, Long expenseCategoryId) {
         return expenseCategoryListDB.stream()
                 .filter(expenseCategory -> Objects.equals(expenseCategory.getUserId(), userId) && Objects.equals(expenseCategory.getId(), expenseCategoryId))
                 .findFirst()
                 .get();
     }
 
-    public boolean addExpenseCategory(Integer userId, String expenseCategoryName) {
-        int newExpenseCategoryId;
+    public boolean addExpenseCategory(Long userId, String expenseCategoryName) {
+        long newExpenseCategoryId;
         List <ExpenseCategory> expenseCategoryList = getExpenseCategoriesByUserId(userId);
         if (expenseCategoryList.size() == 0){
             newExpenseCategoryId = 1;
@@ -56,13 +56,13 @@ public class ExpenseCategoryService {
         }
     }
 
-    public boolean deleteExpenseCategory(Integer userId, Integer expenseCategoryId) {
+    public boolean deleteExpenseCategory(Long userId, Long expenseCategoryId) {
         ExpenseCategory foundExpenseCategory = getExpenseCategoryByUserIdAndExpenseCategoryId(userId, expenseCategoryId);
         expenseCategoryListDB.remove(foundExpenseCategory);
         return true;
     }
 
-    public boolean addDefaultExpenseCategories(Integer userId){
+    public boolean addDefaultExpenseCategories(Long userId){
         for (String expenseCategory:defaultExpenseCategories) {
             addExpenseCategory(userId,expenseCategory );
         }

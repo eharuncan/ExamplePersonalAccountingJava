@@ -30,7 +30,7 @@ public class AdminMenu {
                 common.showUsers();
 
                 System.out.println("\nSilmek istediğiniz Kullanıcı ID yi giriniz:");
-                if (userService.deleteUser(Integer.parseInt(common.getInput(null)))) {
+                if (userService.deleteUser(Long.parseLong(common.getInput(null)))) {
                     System.out.println("\nKullanıcı başarıyla silindi");
                     common.backwardMenu();
                     break;

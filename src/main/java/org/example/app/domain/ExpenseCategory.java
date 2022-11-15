@@ -4,30 +4,30 @@ public class ExpenseCategory {
     public ExpenseCategory() {
     }
 
-    public ExpenseCategory(Integer userId, Integer id, String name) {
+    public ExpenseCategory(Long userId, Long id, String name) {
         this.userId = userId;
         this.id = id;
         this.name = name;
     }
 
     //Getters, Setters, Attributes
-    private Integer userId;
-    private Integer id;
+    private Long userId;
+    private Long id;
     private String name;
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

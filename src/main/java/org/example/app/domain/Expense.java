@@ -6,7 +6,7 @@ public class Expense {
     public Expense() {
     }
 
-    public Expense(Integer userId, Integer id, String name, Double amount, Date date, Integer categoryId) {
+    public Expense(Long userId, Long id, String name, Double amount, Date date, Long categoryId) {
         this.userId = userId;
         this.id = id;
         this.name = name;
@@ -16,24 +16,24 @@ public class Expense {
     }
 
     //Getters, Setters, Attributes
-    private Integer userId;
-    private Integer id;
+    private Long userId;
+    private Long id;
     private String name;
     private Double amount;
     private Date date;
-    private Integer categoryId;
+    private Long categoryId;
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -58,10 +58,10 @@ public class Expense {
         this.date = date;
     }
 
-    public Integer getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 }
