@@ -7,10 +7,10 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ExpenseCategoryService {
-    private final List <ExpenseCategory> expenseCategoryListDB;
-    private final String[] defaultExpenseCategories = new String[] {"Çocuk","Güvenlik","Kitap","Sağlık"};
+    private final List<ExpenseCategory> expenseCategoryListDB;
+    private final String[] defaultExpenseCategories = new String[]{"Çocuk", "Güvenlik", "Kitap", "Sağlık"};
 
-    public ExpenseCategoryService(List <ExpenseCategory> expenseCategoryListDB) {
+    public ExpenseCategoryService(List<ExpenseCategory> expenseCategoryListDB) {
         this.expenseCategoryListDB = expenseCategoryListDB;
     }
 
@@ -18,7 +18,7 @@ public class ExpenseCategoryService {
         return expenseCategoryListDB;
     }
 
-    public List <ExpenseCategory> getExpenseCategoriesByUserId(Long userId) {
+    public List<ExpenseCategory> getExpenseCategoriesByUserId(Long userId) {
         return expenseCategoryListDB.stream()
                 .filter(expenseCategory -> Objects.equals(expenseCategory.getUserId(), userId))
                 .collect(Collectors.toList());
@@ -33,11 +33,11 @@ public class ExpenseCategoryService {
 
     public boolean addExpenseCategory(Long userId, String expenseCategoryName) {
         long newExpenseCategoryId;
-        List <ExpenseCategory> expenseCategoryList = getExpenseCategoriesByUserId(userId);
-        if (expenseCategoryList.size() == 0){
+        List<ExpenseCategory> expenseCategoryList = getExpenseCategoriesByUserId(userId);
+        if (expenseCategoryList.size() == 0) {
             newExpenseCategoryId = 1;
-        }else {
-            ExpenseCategory lastExpenseCategory =  expenseCategoryList.get(expenseCategoryList.size()-1);
+        } else {
+            ExpenseCategory lastExpenseCategory = expenseCategoryList.get(expenseCategoryList.size() - 1);
             newExpenseCategoryId = lastExpenseCategory.getId() + 1;
         }
 
@@ -46,14 +46,12 @@ public class ExpenseCategoryService {
         return true;
     }
 
-    public boolean editExpenseCategory(ExpenseCategory expenseCategory, ExpenseCategory editedExpenseCategory) {
-        if (validateExpenseCategory(editedExpenseCategory)) {
-            int index = getExpenseCategories().indexOf(expenseCategory);
-            expenseCategoryListDB.set(index, editedExpenseCategory);
-            return true;
-        } else {
-            return false;
-        }
+    public boolean editExpenseCategory(Long userId, Long id, String editedName) {
+        ExpenseCategory expenseCategory = getExpenseCategoryByUserIdAndExpenseCategoryId(userId, id);
+        int index = getExpenseCategories().indexOf(expenseCategory);
+        ExpenseCategory editedExpenseCategory = new ExpenseCategory(userId, id, editedName);
+        expenseCategoryListDB.set(index, editedExpenseCategory);
+        return true;
     }
 
     public boolean deleteExpenseCategory(Long userId, Long expenseCategoryId) {
@@ -62,15 +60,11 @@ public class ExpenseCategoryService {
         return true;
     }
 
-    public boolean addDefaultExpenseCategories(Long userId){
-        for (String expenseCategory:defaultExpenseCategories) {
-            addExpenseCategory(userId,expenseCategory );
+    public boolean addDefaultExpenseCategories(Long userId) {
+        for (String expenseCategory : defaultExpenseCategories) {
+            addExpenseCategory(userId, expenseCategory);
         }
         return true;
     }
 
-    public boolean validateExpenseCategory(ExpenseCategory expenseCategory) {
-        //todo: burası yazılacak
-        return true;
-    }
 }

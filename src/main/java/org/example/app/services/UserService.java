@@ -14,11 +14,8 @@ public class UserService {
     public UserService(List<User> userListDB) {
         this.userListDB = userListDB;
 
-        User adminUser = new User(0L, UserTypes.ADMIN, "admin", "admin", "admin", "admin");
-        register(adminUser);
-
-        User customerUser = new User(1L, UserTypes.CUSTOMER, "customer1", "customer1", "1", "1");
-        register(customerUser);
+        register("admin", "admin", "admin", "admin", "admin");
+        register("customer1", "customer1", "1", "1", "1");
 
         currentUser = null;
     }
@@ -41,8 +38,10 @@ public class UserService {
                 .get();
     }
 
-    public boolean register(User user) {
-        if (validateUser(user)) {
+    public boolean register(String name, String surname, String email, String password, String retypedPassword) {
+
+        if (checkPasswords(password, retypedPassword)) {
+
             long newUserId;
             List<User> userList = userListDB;
             if (userList.size() == 0) {
@@ -51,23 +50,33 @@ public class UserService {
                 User lastUser = userList.get(userList.size() - 1);
                 newUserId = lastUser.getId() + 1;
             }
-            user.setId(newUserId);
 
             if (!expenseCategoryService.addDefaultExpenseCategories(newUserId)) {
                 return false;
             }
 
-            userListDB.add(user);
-            currentUser = user;
+            UserTypes selectedUserType;
+            if (Objects.equals(name, "admin")) {
+                selectedUserType = UserTypes.ADMIN;
+            } else {
+                selectedUserType = UserTypes.CUSTOMER;
+            }
+
+            User newUser = new User(newUserId, selectedUserType, name, surname, email, password);
+            userListDB.add(newUser);
+            currentUser = newUser;
             return true;
-        } else {
+
+        }else {
             return false;
         }
+
     }
 
-    public boolean editUser(User user, User editedUser) {
-        if (validateUser(editedUser)) {
-            int index = getUsers().indexOf(user);
+    public boolean editUser(Long id, String editedName, String editedSurname, String editedEmail, String editedPassword, String retypedPassword) {
+        if (this.checkPasswords(editedPassword, retypedPassword)) {
+            User editedUser = new User(id, UserTypes.CUSTOMER, editedName, editedSurname, editedEmail, editedPassword);
+            int index = getUsers().indexOf(getUserById(id));
             userListDB.set(index, editedUser);
             return true;
         } else {
@@ -90,6 +99,7 @@ public class UserService {
             currentUser = getUserByEmailAndPassword(email, password);
             return true;
         } else {
+            System.out.println("\nHata: Sistemde bu bilgilere sahip bir kullanıcı bulunamadı.");
             return false;
         }
     }
@@ -100,11 +110,13 @@ public class UserService {
         return true;
     }
 
-    public boolean validateUser(User user) {
-
-        //todo: burası yazılacak
-        return true;
-
+    public boolean checkPasswords(String firstPassword, String secondPassword) {
+        if (Objects.equals(firstPassword, secondPassword)) {
+            return true;
+        } else {
+            System.out.println("\nHata: Şifreler Uyuşmuyor. Lütfen tekrar giriniz.");
+            return false;
+        }
     }
 
     public boolean checkUser(String email, String password) {
@@ -115,6 +127,7 @@ public class UserService {
     public User getCurrentUser() {
         return currentUser;
     }
+
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }

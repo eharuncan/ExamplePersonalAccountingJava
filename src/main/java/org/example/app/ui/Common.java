@@ -145,25 +145,4 @@ public class Common {
             }
         }
     }
-
-    public boolean checkPasswords(String firstPassword, String secondPassword) {
-        return Objects.equals(firstPassword, secondPassword);
-    }
-
-    public String changePasswords(String defaultPassword) {
-        String typedPassword, retypedPassword;
-        while (true) {
-            System.out.println("\nŞifrenizi giriniz:");
-            typedPassword = getInput(defaultPassword);
-
-            System.out.println("\nŞifrenizi tekrar giriniz:");
-            retypedPassword = getInput(defaultPassword);
-
-            if (checkPasswords(typedPassword, retypedPassword)) {
-                return typedPassword;
-            } else {
-                System.out.println("\nHata: Şifreler Uyuşmuyor. Lütfen tekrar giriniz.");
-            }
-        }
-    }
 }

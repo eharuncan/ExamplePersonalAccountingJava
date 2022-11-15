@@ -1,8 +1,5 @@
 package org.example.app.ui;
 
-import org.example.app.domain.User;
-import org.example.app.enums.UserTypes;
-
 import java.util.Objects;
 
 import static org.example.app.App.userService;
@@ -46,25 +43,23 @@ public class GuestMenu {
                     }
                 }
             } else if (Objects.equals(input, "2")) {
-                User newUser;
 
                 while (true) {
-                    newUser = new User();
-
-                    newUser.setType(UserTypes.CUSTOMER);
 
                     System.out.println("\nAdınızı giriniz:");
-                    newUser.setName(common.getInput(null));
+                    String name = (common.getInput(null));
 
                     System.out.println("\nSoyadınızı giriniz:");
-                    newUser.setSurname(common.getInput(null));
+                    String surname = (common.getInput(null));
 
                     System.out.println("\nEposta adresinizi giriniz:");
-                    newUser.setEmail(common.getInput(null));
+                    String email = (common.getInput(null));
 
-                    newUser.setPassword(common.changePasswords(null));
+                    String password = (common.getInput(null));
 
-                    if (userService.register(newUser)) {
+                    String retypedPassword = (common.getInput(null));
+
+                    if (userService.register(name, surname, email, password, retypedPassword)) {
                         System.out.println("\nKullanıcı kaydı başarıyla gerçekleşti.");
                         common.menuSelector();
                         break loops;
