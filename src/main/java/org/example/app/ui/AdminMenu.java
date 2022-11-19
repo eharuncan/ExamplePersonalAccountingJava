@@ -35,7 +35,7 @@ public class AdminMenu {
                 common.backwardMenu();
                 break;
             } else if (Objects.equals(input, "o")) {
-                common.logoutUser();
+                common.logoutUser(currentUser);
                 common.menuSelector();
                 break;
             } else if (Objects.equals(input, "ç")) {

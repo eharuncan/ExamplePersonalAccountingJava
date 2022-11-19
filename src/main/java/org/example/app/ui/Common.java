@@ -59,7 +59,7 @@ public class Common {
                 menuSelector();
                 break;
             } else if (Objects.equals(input, "o")) {
-                logoutUser();
+                logoutUser(currentUser);
                 menuSelector();
                 break;
             } else if (Objects.equals(input, "ç")) {
@@ -83,9 +83,19 @@ public class Common {
         }
     }
 
-    public void logoutUser() {
-        userService.logout();
-        System.out.println("\nOturum başarıyla kapatıldı.");
+    public User loginUser(User newUser) {
+        User loginUser = userService.login(newUser);
+        if (loginUser != null){
+            currentUser = loginUser;
+            return loginUser;
+        }else{
+            return null;
+        }
+    }
+
+    public void logoutUser(User user) {
+        userService.logout(user);
+        currentUser = null;
     }
 
     public void recordNotFound() {

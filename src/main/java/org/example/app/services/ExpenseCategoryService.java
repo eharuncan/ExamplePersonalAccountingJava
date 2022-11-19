@@ -7,32 +7,32 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ExpenseCategoryService {
-    private final List<ExpenseCategory> expenseCategoryListDB;
+    private final List<ExpenseCategory> expenseCategoryList;
     private final String[] defaultExpenseCategoryNames = new String[]{"Çocuk", "Güvenlik", "Kitap", "Sağlık"};
 
-    public ExpenseCategoryService(List<ExpenseCategory> expenseCategoryListDB) {
-        this.expenseCategoryListDB = expenseCategoryListDB;
+    public ExpenseCategoryService(List<ExpenseCategory> expenseCategoryList) {
+        this.expenseCategoryList = expenseCategoryList;
     }
 
     public List<ExpenseCategory> getExpenseCategories() {
-        return expenseCategoryListDB;
+        return expenseCategoryList;
     }
 
     public List<ExpenseCategory> getExpenseCategoriesOfUser(Long userId) {
-        return expenseCategoryListDB.stream()
+        return expenseCategoryList.stream()
                 .filter(expenseCategory -> Objects.equals(expenseCategory.getUserId(), userId))
                 .collect(Collectors.toList());
     }
 
     public ExpenseCategory getExpenseCategory(Long id) {
-        return expenseCategoryListDB.stream()
+        return expenseCategoryList.stream()
                 .filter(expenseCategory ->  Objects.equals(expenseCategory.getId(), id))
                 .findFirst()
                 .get();
     }
 
     public ExpenseCategory getExpenseCategoryOfUser(Long userId, Long id) {
-        return expenseCategoryListDB.stream()
+        return expenseCategoryList.stream()
                 .filter(expenseCategory -> Objects.equals(expenseCategory.getUserId(), userId) && Objects.equals(expenseCategory.getId(), id))
                 .findFirst()
                 .get();
@@ -46,20 +46,20 @@ public class ExpenseCategoryService {
             ExpenseCategory lastExpenseCategory = expenseCategoryList.get(expenseCategoryList.size() - 1);
             newExpenseCategory.setId(lastExpenseCategory.getId() + 1);
         }
-        expenseCategoryListDB.add(newExpenseCategory);
+        expenseCategoryList.add(newExpenseCategory);
         return newExpenseCategory;
     }
 
     public ExpenseCategory editExpenseCategory(ExpenseCategory newExpenseCategory, Long id) {
         ExpenseCategory expenseCategory = getExpenseCategoryOfUser(newExpenseCategory.getUserId(), id);
         int index = getExpenseCategories().indexOf(expenseCategory);
-        expenseCategoryListDB.set(index, newExpenseCategory);
+        expenseCategoryList.set(index, newExpenseCategory);
         return newExpenseCategory;
     }
 
     public void deleteExpenseCategory(Long id) {
         ExpenseCategory foundExpenseCategory = getExpenseCategory(id);
-        expenseCategoryListDB.remove(foundExpenseCategory);
+        expenseCategoryList.remove(foundExpenseCategory);
     }
 
     public void addDefaultExpenseCategoriesOfUser(Long userId) {

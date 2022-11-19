@@ -48,23 +48,26 @@ public class CustomerMenu {
                         System.out.println("\nProfil Bilgilerin:");
                         common.showUserProfile(currentUser);
 
-                        System.out.println("\nYeni Adınızı giriniz: (" + currentUser.getName() + ")");
+                        System.out.println("\nYeni adınızı giriniz: (" + currentUser.getName() + ")");
                         String editedName = (common.getInput(currentUser.getName()));
 
-                        System.out.println("\nYeni Soyadınızı giriniz: (" + currentUser.getSurname() + ")");
+                        System.out.println("\nYeni soyadınızı giriniz: (" + currentUser.getSurname() + ")");
                         String editedSurname = (common.getInput(currentUser.getSurname()));
 
-                        System.out.println("\nYeni E-Posta Adresinizi giriniz: (" + currentUser.getEmail() + ")");
+                        System.out.println("\nYeni e-posta adresinizi giriniz: (" + currentUser.getEmail() + ")");
                         String editedEmail = (common.getInput(currentUser.getEmail()));
 
+                        System.out.println("\nYeni şifrenizi giriniz:");
                         String editedPassword = (common.getInput(currentUser.getPassword()));
 
+                        System.out.println("\nYeni şifrenizi tekrar giriniz:");
                         String retypedPassword = (common.getInput(currentUser.getPassword()));
 
                         User newUser = new User(editedName, editedSurname, editedEmail, editedPassword);
 
                         if (common.checkPasswords(editedPassword, retypedPassword)) {
                             if (userService.editUser(newUser, currentUser.getId()) != null) {
+                                currentUser = newUser;
                                 System.out.println("\nProfilin başarıyla güncellendi.");
                                 common.backwardMenu();
                                 break loops;
@@ -194,7 +197,7 @@ public class CustomerMenu {
                     common.backwardMenu();
                     break;
                 } else if (Objects.equals(input, "o")) {
-                    common.logoutUser();
+                    common.logoutUser(currentUser);
                     common.menuSelector();
                     break;
                 } else if (Objects.equals(input, "ç")) {

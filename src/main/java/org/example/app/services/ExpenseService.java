@@ -10,51 +10,50 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ExpenseService {
-    private final List<Expense> expenseListDB;
+    private final List<Expense> expenseList;
 
-    public ExpenseService(List<Expense> expenseListDB) {
-        this.expenseListDB = expenseListDB;
+    public ExpenseService(List<Expense> expenseList) {
+        this.expenseList = expenseList;
     }
 
     public List<Expense> getExpenses() {
-        return expenseListDB;
+        return expenseList;
     }
 
     public List<Expense> getExpensesOfUser(Long userId) {
-        return expenseListDB.stream()
+        return expenseList.stream()
                 .filter(expense -> Objects.equals(expense.getUserId(), userId))
                 .collect(Collectors.toList());
     }
 
     public Expense getExpenseById(Long expenseId) {
-        return expenseListDB.stream()
+        return expenseList.stream()
                 .filter(expense -> Objects.equals(expense.getId(), expenseId))
                 .findFirst()
                 .get();
     }
 
     public Expense addExpenseOfUser(Expense newExpense) {
-        List<Expense> expenseList = expenseListDB;
         if (expenseList.size() == 0) {
             newExpense.setId(1L);
         } else {
             Expense lastExpense = expenseList.get(expenseList.size() - 1);
             newExpense.setId(lastExpense.getId() + 1);
         }
-        expenseListDB.add(newExpense);
+        expenseList.add(newExpense);
         return newExpense;
     }
 
     public Expense editExpenseOfUser(Expense newExpense, Long id) {
         Expense foundExpense = getExpenseById(id);
         int index = getExpenses().indexOf(foundExpense);
-        expenseListDB.set(index, newExpense);
+        expenseList.set(index, newExpense);
         return newExpense;
     }
 
     public void deleteExpenseOfUser(Long id) {
         Expense foundExpense = getExpenseById(id);
-        expenseListDB.remove(foundExpense);
+        expenseList.remove(foundExpense);
     }
 
     public Double getSumOfUserExpensesOfDay(Long userId, Date date) {

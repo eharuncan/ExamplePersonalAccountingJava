@@ -36,10 +36,14 @@ public class GuestMenu {
 
                     User newUser = new User("","", email, password);
 
-                    currentUser = userService.login(newUser);
-                    System.out.println("\nBaşarıyla kullanıcı girişi yapıldı.");
-                    common.menuSelector();
-                    break loops;
+                    if (common.loginUser(newUser) != null){
+                        System.out.println("\nBaşarıyla kullanıcı girişi yapıldı.");
+                        common.menuSelector();
+                        break loops;
+                    } else {
+                        System.out.println("\nHata: Kullanıcı girişi yapılamadı.");
+                    }
+
                 }
             } else if (Objects.equals(input, "2")) {
                 while (true) {
@@ -52,8 +56,10 @@ public class GuestMenu {
                     System.out.println("\nEposta adresinizi giriniz:");
                     String email = (common.getInput(null));
 
+                    System.out.println("\nŞifrenizi giriniz:");
                     String password = (common.getInput(null));
 
+                    System.out.println("\nŞifrenizi tekrar giriniz:");
                     String retypedPassword = (common.getInput(null));
 
                     User newUser = new User(name, surname, email, password );
@@ -66,7 +72,7 @@ public class GuestMenu {
                             common.menuSelector();
                             break loops;
                         } else {
-                            System.out.println("\nHata: kullanıcı kaydı oluşturulamadı.");
+                            System.out.println("\nHata: Kullanıcı kaydı oluşturulamadı.");
                         }
                     }
                 }
