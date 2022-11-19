@@ -5,9 +5,12 @@ import org.example.app.domain.User;
 import org.example.app.services.ExpenseCategoryService;
 import org.example.app.services.ExpenseService;
 import org.example.app.services.UserService;
-import org.example.app.ui.Common;
+import org.example.app.menus.CommonMenu;
+
+import java.util.Objects;
 
 import static java.lang.System.exit;
+import static org.example.app.utils.Utils.screenScanner;
 
 public class App {
     public static ExpenseCategoryService expenseCategoryService;
@@ -36,7 +39,44 @@ public class App {
     }
 
     private static void showMenus(){
-        Common common = new Common();
-        common.menuSelector();
+        CommonMenu commonMenu = new CommonMenu();
+        commonMenu.selector();
+    }
+
+    public static String getInput(Object defaultValue) {
+        String input = screenScanner.nextLine();
+        if (defaultValue == null) {
+            return input;
+        } else {
+            if (Objects.equals(input, "")) {
+                return (String) defaultValue;
+            } else {
+                return input;
+            }
+        }
+    }
+
+    public static User loginUser(User newUser) {
+        User loginUser = userService.login(newUser);
+        if (loginUser != null){
+            currentUser = loginUser;
+            return loginUser;
+        }else{
+            return null;
+        }
+    }
+
+    public static void logoutUser(User user) {
+        userService.logout(user);
+        currentUser = null;
+    }
+
+    public static boolean checkPasswords(String firstPassword, String secondPassword) {
+        if (Objects.equals(firstPassword, secondPassword)) {
+            return true;
+        } else {
+            System.out.println("\nHata: Şifreler Uyuşmuyor. Lütfen tekrar giriniz.");
+            return false;
+        }
     }
 }

@@ -1,4 +1,4 @@
-package org.example.app.ui;
+package org.example.app.menus;
 
 import org.example.app.domain.Expense;
 import org.example.app.domain.ExpenseCategory;
@@ -11,20 +11,19 @@ import java.util.Objects;
 
 import static org.example.app.App.*;
 import static org.example.app.utils.Utils.dateFormatter;
-import static org.example.app.utils.Utils.screenScanner;
 
-public class Common {
+public class CommonMenu {
     private final AdminMenu adminMenu;
     private final CustomerMenu customerMenu;
     private final GuestMenu guestMenu;
 
-    public Common() {
+    public CommonMenu() {
         this.adminMenu = new AdminMenu(this);
         this.customerMenu = new CustomerMenu(this);
         this.guestMenu = new GuestMenu(this);
     }
 
-    public void menuSelector() {
+    public void selector() {
         if (currentUser != null) {
             if (Objects.equals(currentUser.getType(), UserTypes.ADMIN)) {
                 adminMenu.show();
@@ -36,11 +35,11 @@ public class Common {
         }
     }
 
-    public void menuHeader() {
+    public void showHeader() {
         System.out.print("\n");
     }
 
-    public void menuFooter() {
+    public void showFooter() {
         System.out.print("\n");
         if (currentUser != null) {
             System.out.println("o- Oturumu Kapat");
@@ -49,18 +48,18 @@ public class Common {
         System.out.print("\nLütfen bir menü numarası giriniz: ");
     }
 
-    public void backwardMenu() {
+    public void showBackward() {
         while (true) {
             System.out.println("\ng- Geri Dön");
-            menuFooter();
+            showFooter();
 
             String input = getInput(null);
             if (Objects.equals(input, "g")) {
-                menuSelector();
+                selector();
                 break;
             } else if (Objects.equals(input, "o")) {
                 logoutUser(currentUser);
-                menuSelector();
+                selector();
                 break;
             } else if (Objects.equals(input, "ç")) {
                 break;
@@ -70,42 +69,14 @@ public class Common {
         }
     }
 
-    public String getInput(Object defaultValue) {
-        String input = screenScanner.nextLine();
-        if (defaultValue == null) {
-            return input;
-        } else {
-            if (Objects.equals(input, "")) {
-                return (String) defaultValue;
-            } else {
-                return input;
-            }
-        }
-    }
-
-    public User loginUser(User newUser) {
-        User loginUser = userService.login(newUser);
-        if (loginUser != null){
-            currentUser = loginUser;
-            return loginUser;
-        }else{
-            return null;
-        }
-    }
-
-    public void logoutUser(User user) {
-        userService.logout(user);
-        currentUser = null;
-    }
-
-    public void recordNotFound() {
+    public void showRecordNotFound() {
         System.out.println("\nHerhangi bir kayıt bulunamadı.");
     }
 
     public void showUsers() {
         List<User> userList = userService.getUsers();
         if (userList.size() == 0) {
-            recordNotFound();
+            showRecordNotFound();
         } else {
             int i;
             for (i = 0; i < userList.size(); i++) {
@@ -127,7 +98,7 @@ public class Common {
     public void showUserExpenses(User user) {
         List<Expense> expenseList = expenseService.getExpensesOfUser(user.getId());
         if (expenseList.size() == 0) {
-            recordNotFound();
+            showRecordNotFound();
         } else {
             int i;
             for (i = 0; i < expenseList.size(); i++) {
@@ -143,22 +114,13 @@ public class Common {
     public void showUserExpenseCategories(User user) {
         List<ExpenseCategory> expenseCategoryList = expenseCategoryService.getExpenseCategoriesOfUser(user.getId());
         if (expenseCategoryList.size() == 0) {
-            recordNotFound();
+            showRecordNotFound();
         } else {
             int i;
             for (i = 0; i < expenseCategoryList.size(); i++) {
                 System.out.println("\nKategori ID: " + (expenseCategoryList.get(i).getId()));
                 System.out.println("Kategori adı: " + expenseCategoryList.get(i).getName());
             }
-        }
-    }
-
-    public boolean checkPasswords(String firstPassword, String secondPassword) {
-        if (Objects.equals(firstPassword, secondPassword)) {
-            return true;
-        } else {
-            System.out.println("\nHata: Şifreler Uyuşmuyor. Lütfen tekrar giriniz.");
-            return false;
         }
     }
 }

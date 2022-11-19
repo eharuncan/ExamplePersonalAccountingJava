@@ -1,5 +1,6 @@
-package org.example.app.ui;
+package org.example.app.menus;
 
+import org.example.app.App;
 import org.example.app.domain.User;
 
 import java.util.Objects;
@@ -7,10 +8,10 @@ import java.util.Objects;
 import static org.example.app.App.*;
 
 public class GuestMenu {
-    private final Common common;
+    private final CommonMenu commonMenu;
 
-    public GuestMenu(Common common) {
-        this.common = common;
+    public GuestMenu(CommonMenu commonMenu) {
+        this.commonMenu = commonMenu;
     }
 
     public void show() {
@@ -18,27 +19,27 @@ public class GuestMenu {
 
         loops:
         while (true) {
-            common.menuHeader();
+            commonMenu.showHeader();
             System.out.println("1- Giriş Yap");
             System.out.println("2- Kaydol");
-            common.menuFooter();
+            commonMenu.showFooter();
 
-            String input = common.getInput(null);
+            String input = App.getInput(null);
             if (Objects.equals(input, "1")) {
                 String email;
                 String password;
                 while (true) {
                     System.out.println("\nEposta adresinizi giriniz:");
-                    email = common.getInput(null);
+                    email = App.getInput(null);
 
                     System.out.println("\nŞifrenizi giriniz:");
-                    password = common.getInput(null);
+                    password = App.getInput(null);
 
                     User newUser = new User("","", email, password);
 
-                    if (common.loginUser(newUser) != null){
+                    if (App.loginUser(newUser) != null){
                         System.out.println("\nBaşarıyla kullanıcı girişi yapıldı.");
-                        common.menuSelector();
+                        commonMenu.selector();
                         break loops;
                     } else {
                         System.out.println("\nHata: Kullanıcı girişi yapılamadı.");
@@ -48,28 +49,28 @@ public class GuestMenu {
             } else if (Objects.equals(input, "2")) {
                 while (true) {
                     System.out.println("\nAdınızı giriniz:");
-                    String name = (common.getInput(null));
+                    String name = (App.getInput(null));
 
                     System.out.println("\nSoyadınızı giriniz:");
-                    String surname = (common.getInput(null));
+                    String surname = (App.getInput(null));
 
                     System.out.println("\nEposta adresinizi giriniz:");
-                    String email = (common.getInput(null));
+                    String email = (App.getInput(null));
 
                     System.out.println("\nŞifrenizi giriniz:");
-                    String password = (common.getInput(null));
+                    String password = (App.getInput(null));
 
                     System.out.println("\nŞifrenizi tekrar giriniz:");
-                    String retypedPassword = (common.getInput(null));
+                    String retypedPassword = (App.getInput(null));
 
                     User newUser = new User(name, surname, email, password );
 
-                    if (common.checkPasswords(password, retypedPassword)) {
+                    if (App.checkPasswords(password, retypedPassword)) {
                         User registeredUser = userService.register(newUser);
                         if (registeredUser != null) {
                             currentUser = registeredUser;
                             System.out.println("\nKullanıcı kaydı başarıyla gerçekleşti.");
-                            common.menuSelector();
+                            commonMenu.selector();
                             break loops;
                         } else {
                             System.out.println("\nHata: Kullanıcı kaydı oluşturulamadı.");
