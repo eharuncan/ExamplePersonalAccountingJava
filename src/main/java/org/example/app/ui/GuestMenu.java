@@ -1,4 +1,4 @@
-package org.example.app.menus;
+package org.example.app.ui;
 
 import org.example.app.App;
 import org.example.app.domain.User;
@@ -8,38 +8,33 @@ import java.util.Objects;
 import static org.example.app.App.*;
 
 public class GuestMenu {
-    private final CommonMenu commonMenu;
 
-    public GuestMenu(CommonMenu commonMenu) {
-        this.commonMenu = commonMenu;
-    }
-
-    public void show() {
+    public static void show() {
         System.out.println("\nHoşgeldiniz...");
 
         loops:
         while (true) {
-            commonMenu.showHeader();
+            Ui.showHeader();
             System.out.println("1- Giriş Yap");
             System.out.println("2- Kaydol");
-            commonMenu.showFooter();
+            Ui.showFooter();
 
-            String input = App.getInput(null);
+            String input = Ui.getInput(null);
             if (Objects.equals(input, "1")) {
                 String email;
                 String password;
                 while (true) {
                     System.out.println("\nEposta adresinizi giriniz:");
-                    email = App.getInput(null);
+                    email = Ui.getInput(null);
 
                     System.out.println("\nŞifrenizi giriniz:");
-                    password = App.getInput(null);
+                    password = Ui.getInput(null);
 
                     User newUser = new User("","", email, password);
 
                     if (App.loginUser(newUser) != null){
                         System.out.println("\nBaşarıyla kullanıcı girişi yapıldı.");
-                        commonMenu.selector();
+                        Ui.showMenu();
                         break loops;
                     } else {
                         System.out.println("\nHata: Kullanıcı girişi yapılamadı.");
@@ -49,19 +44,19 @@ public class GuestMenu {
             } else if (Objects.equals(input, "2")) {
                 while (true) {
                     System.out.println("\nAdınızı giriniz:");
-                    String name = (App.getInput(null));
+                    String name = (Ui.getInput(null));
 
                     System.out.println("\nSoyadınızı giriniz:");
-                    String surname = (App.getInput(null));
+                    String surname = (Ui.getInput(null));
 
                     System.out.println("\nEposta adresinizi giriniz:");
-                    String email = (App.getInput(null));
+                    String email = (Ui.getInput(null));
 
                     System.out.println("\nŞifrenizi giriniz:");
-                    String password = (App.getInput(null));
+                    String password = (Ui.getInput(null));
 
                     System.out.println("\nŞifrenizi tekrar giriniz:");
-                    String retypedPassword = (App.getInput(null));
+                    String retypedPassword = (Ui.getInput(null));
 
                     User newUser = new User(name, surname, email, password );
 
@@ -70,7 +65,7 @@ public class GuestMenu {
                         if (registeredUser != null) {
                             currentUser = registeredUser;
                             System.out.println("\nKullanıcı kaydı başarıyla gerçekleşti.");
-                            commonMenu.selector();
+                            Ui.showMenu();
                             break loops;
                         } else {
                             System.out.println("\nHata: Kullanıcı kaydı oluşturulamadı.");

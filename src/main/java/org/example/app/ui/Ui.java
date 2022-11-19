@@ -1,4 +1,4 @@
-package org.example.app.menus;
+package org.example.app.ui;
 
 import org.example.app.domain.Expense;
 import org.example.app.domain.ExpenseCategory;
@@ -11,35 +11,46 @@ import java.util.Objects;
 
 import static org.example.app.App.*;
 import static org.example.app.utils.Utils.dateFormatter;
+import static org.example.app.utils.Utils.screenScanner;
 
-public class CommonMenu {
-    private final AdminMenu adminMenu;
-    private final CustomerMenu customerMenu;
-    private final GuestMenu guestMenu;
+public class Ui {
 
-    public CommonMenu() {
-        this.adminMenu = new AdminMenu(this);
-        this.customerMenu = new CustomerMenu(this);
-        this.guestMenu = new GuestMenu(this);
+    public static void show(){
+        System.out.println("\nŞAHSİ MUHASEBEM - HARCAMALARINIZI TAKİP EDİN !");
+        showMenu();
+        System.out.println("\nUygulama başarıyla kapatıldı.");
     }
 
-    public void selector() {
-        if (currentUser != null) {
-            if (Objects.equals(currentUser.getType(), UserTypes.ADMIN)) {
-                adminMenu.show();
-            } else if (Objects.equals(currentUser.getType(), UserTypes.CUSTOMER)) {
-                customerMenu.show();
-            }
+    public static String getInput(Object defaultValue) {
+        String input = screenScanner.nextLine();
+        if (defaultValue == null) {
+            return input;
         } else {
-            guestMenu.show();
+            if (Objects.equals(input, "")) {
+                return (String) defaultValue;
+            } else {
+                return input;
+            }
         }
     }
 
-    public void showHeader() {
+    public static void showMenu() {
+        if (currentUser != null) {
+            if (Objects.equals(currentUser.getType(), UserTypes.ADMIN)) {
+                AdminMenu.show();
+            } else if (Objects.equals(currentUser.getType(), UserTypes.CUSTOMER)) {
+                CustomerMenu.show();
+            }
+        } else {
+            GuestMenu.show();
+        }
+    }
+
+    public static void showHeader() {
         System.out.print("\n");
     }
 
-    public void showFooter() {
+    public static void showFooter() {
         System.out.print("\n");
         if (currentUser != null) {
             System.out.println("o- Oturumu Kapat");
@@ -48,18 +59,18 @@ public class CommonMenu {
         System.out.print("\nLütfen bir menü numarası giriniz: ");
     }
 
-    public void showBackward() {
+    public static void showBackward() {
         while (true) {
             System.out.println("\ng- Geri Dön");
             showFooter();
 
             String input = getInput(null);
             if (Objects.equals(input, "g")) {
-                selector();
+                showMenu();
                 break;
             } else if (Objects.equals(input, "o")) {
                 logoutUser(currentUser);
-                selector();
+                showMenu();
                 break;
             } else if (Objects.equals(input, "ç")) {
                 break;
@@ -69,11 +80,11 @@ public class CommonMenu {
         }
     }
 
-    public void showRecordNotFound() {
+    public static void showRecordNotFound() {
         System.out.println("\nHerhangi bir kayıt bulunamadı.");
     }
 
-    public void showUsers() {
+    public static void showUsers() {
         List<User> userList = userService.getUsers();
         if (userList.size() == 0) {
             showRecordNotFound();
@@ -89,13 +100,13 @@ public class CommonMenu {
         }
     }
 
-    public void showUserProfile(User user) {
+    public static void showUserProfile(User user) {
         System.out.println("\nAdınız: " + user.getName());
         System.out.println("Soyadınız: " + user.getSurname());
         System.out.println("Eposta adresiniz : " + user.getEmail());
     }
 
-    public void showUserExpenses(User user) {
+    public static void showUserExpenses(User user) {
         List<Expense> expenseList = expenseService.getExpensesOfUser(user.getId());
         if (expenseList.size() == 0) {
             showRecordNotFound();
@@ -111,7 +122,7 @@ public class CommonMenu {
         }
     }
 
-    public void showUserExpenseCategories(User user) {
+    public static void showUserExpenseCategories(User user) {
         List<ExpenseCategory> expenseCategoryList = expenseCategoryService.getExpenseCategoriesOfUser(user.getId());
         if (expenseCategoryList.size() == 0) {
             showRecordNotFound();

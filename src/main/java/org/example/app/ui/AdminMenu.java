@@ -1,4 +1,4 @@
-package org.example.app.menus;
+package org.example.app.ui;
 
 import org.example.app.App;
 
@@ -7,38 +7,33 @@ import java.util.Objects;
 import static org.example.app.App.*;
 
 public class AdminMenu {
-    private final CommonMenu commonMenu;
 
-    public AdminMenu(CommonMenu commonMenu) {
-        this.commonMenu = commonMenu;
-    }
-
-    public void show() {
+    public static void show() {
         System.out.println("\nSistem yönetimine hoşgeldiniz, " + currentUser.getName());
 
         while (true) {
-            commonMenu.showHeader();
+            Ui.showHeader();
             System.out.println("1- Kullanıcılar");
             System.out.println("2- Kullanıcı Sil");
-            commonMenu.showFooter();
+            Ui.showFooter();
 
-            String input = App.getInput(null);
+            String input = Ui.getInput(null);
             if (Objects.equals(input, "1")) {
-                commonMenu.showUsers();
-                commonMenu.showBackward();
+                Ui.showUsers();
+                Ui.showBackward();
                 break;
             } else if (Objects.equals(input, "2")) {
                 System.out.println("\nTüm Kullanıcıların Listesi:");
-                commonMenu.showUsers();
+                Ui.showUsers();
 
                 System.out.println("\nSilmek istediğiniz Kullanıcı ID yi giriniz:");
-                userService.deleteUser(Long.parseLong(App.getInput(null)));
+                userService.deleteUser(Long.parseLong(Ui.getInput(null)));
                 System.out.println("\nKullanıcı başarıyla silindi");
-                commonMenu.showBackward();
+                Ui.showBackward();
                 break;
             } else if (Objects.equals(input, "o")) {
                 App.logoutUser(currentUser);
-                commonMenu.selector();
+                Ui.showMenu();
                 break;
             } else if (Objects.equals(input, "ç")) {
                 break;

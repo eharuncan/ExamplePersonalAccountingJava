@@ -5,12 +5,11 @@ import org.example.app.domain.User;
 import org.example.app.services.ExpenseCategoryService;
 import org.example.app.services.ExpenseService;
 import org.example.app.services.UserService;
-import org.example.app.menus.CommonMenu;
+import org.example.app.ui.Ui;
 
 import java.util.Objects;
 
 import static java.lang.System.exit;
-import static org.example.app.utils.Utils.screenScanner;
 
 public class App {
     public static ExpenseCategoryService expenseCategoryService;
@@ -21,39 +20,14 @@ public class App {
 
     public static void main(String[] args) {
         Database database = new Database();
-        startServices(database);
-        startUi();
-    }
 
-    private static void startServices(Database database){
         expenseCategoryService = new ExpenseCategoryService(database.getExpenseCategoryList());
         userService = new UserService(database.getUserList());
         expenseService = new ExpenseService(database.getExpenseList());
-    }
 
-    private static void startUi(){
-        System.out.println("\nŞAHSİ MUHASEBEM - HARCAMALARINIZI TAKİP EDİN !");
-        showMenus();
-        System.out.println("\nUygulama başarıyla kapatıldı.");
+        Ui.show();
+
         exit(0);
-    }
-
-    private static void showMenus(){
-        CommonMenu commonMenu = new CommonMenu();
-        commonMenu.selector();
-    }
-
-    public static String getInput(Object defaultValue) {
-        String input = screenScanner.nextLine();
-        if (defaultValue == null) {
-            return input;
-        } else {
-            if (Objects.equals(input, "")) {
-                return (String) defaultValue;
-            } else {
-                return input;
-            }
-        }
     }
 
     public static User loginUser(User newUser) {
