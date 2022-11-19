@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class ExpenseCategoryService {
     private final List<ExpenseCategory> expenseCategoryListDB;
-    private final String[] defaultExpenseCategories = new String[]{"Çocuk", "Güvenlik", "Kitap", "Sağlık"};
+    private final String[] defaultExpenseCategoryNames = new String[]{"Çocuk", "Güvenlik", "Kitap", "Sağlık"};
 
     public ExpenseCategoryService(List<ExpenseCategory> expenseCategoryListDB) {
         this.expenseCategoryListDB = expenseCategoryListDB;
@@ -18,53 +18,56 @@ public class ExpenseCategoryService {
         return expenseCategoryListDB;
     }
 
-    public List<ExpenseCategory> getExpenseCategoriesByUserId(Long userId) {
+    public List<ExpenseCategory> getExpenseCategoriesOfUser(Long userId) {
         return expenseCategoryListDB.stream()
                 .filter(expenseCategory -> Objects.equals(expenseCategory.getUserId(), userId))
                 .collect(Collectors.toList());
     }
 
-    public ExpenseCategory getExpenseCategoryByUserIdAndExpenseCategoryId(Long userId, Long expenseCategoryId) {
+    public ExpenseCategory getExpenseCategory(Long id) {
         return expenseCategoryListDB.stream()
-                .filter(expenseCategory -> Objects.equals(expenseCategory.getUserId(), userId) && Objects.equals(expenseCategory.getId(), expenseCategoryId))
+                .filter(expenseCategory ->  Objects.equals(expenseCategory.getId(), id))
                 .findFirst()
                 .get();
     }
 
-    public boolean addExpenseCategory(Long userId, String expenseCategoryName) {
-        long newExpenseCategoryId;
-        List<ExpenseCategory> expenseCategoryList = getExpenseCategoriesByUserId(userId);
+    public ExpenseCategory getExpenseCategoryOfUser(Long userId, Long id) {
+        return expenseCategoryListDB.stream()
+                .filter(expenseCategory -> Objects.equals(expenseCategory.getUserId(), userId) && Objects.equals(expenseCategory.getId(), id))
+                .findFirst()
+                .get();
+    }
+
+    public ExpenseCategory addExpenseCategory(ExpenseCategory newExpenseCategory) {
+        List<ExpenseCategory> expenseCategoryList = getExpenseCategoriesOfUser(newExpenseCategory.getUserId());
         if (expenseCategoryList.size() == 0) {
-            newExpenseCategoryId = 1;
+            newExpenseCategory.setId(1L);
         } else {
             ExpenseCategory lastExpenseCategory = expenseCategoryList.get(expenseCategoryList.size() - 1);
-            newExpenseCategoryId = lastExpenseCategory.getId() + 1;
+            newExpenseCategory.setId(lastExpenseCategory.getId() + 1);
         }
-
-        ExpenseCategory expenseCategory = new ExpenseCategory(userId, newExpenseCategoryId, expenseCategoryName);
-        expenseCategoryListDB.add(expenseCategory);
-        return true;
+        expenseCategoryListDB.add(newExpenseCategory);
+        return newExpenseCategory;
     }
 
-    public boolean editExpenseCategory(Long userId, Long id, String editedName) {
-        ExpenseCategory expenseCategory = getExpenseCategoryByUserIdAndExpenseCategoryId(userId, id);
+    public ExpenseCategory editExpenseCategory(ExpenseCategory newExpenseCategory, Long id) {
+        ExpenseCategory expenseCategory = getExpenseCategoryOfUser(newExpenseCategory.getUserId(), id);
         int index = getExpenseCategories().indexOf(expenseCategory);
-        ExpenseCategory editedExpenseCategory = new ExpenseCategory(userId, id, editedName);
-        expenseCategoryListDB.set(index, editedExpenseCategory);
-        return true;
+        expenseCategoryListDB.set(index, newExpenseCategory);
+        return newExpenseCategory;
     }
 
-    public boolean deleteExpenseCategory(Long userId, Long expenseCategoryId) {
-        ExpenseCategory foundExpenseCategory = getExpenseCategoryByUserIdAndExpenseCategoryId(userId, expenseCategoryId);
+    public void deleteExpenseCategory(Long id) {
+        ExpenseCategory foundExpenseCategory = getExpenseCategory(id);
         expenseCategoryListDB.remove(foundExpenseCategory);
-        return true;
     }
 
-    public boolean addDefaultExpenseCategories(Long userId) {
-        for (String expenseCategory : defaultExpenseCategories) {
-            addExpenseCategory(userId, expenseCategory);
+    public void addDefaultExpenseCategoriesOfUser(Long userId) {
+        ExpenseCategory newExpenseCategory;
+        for (String defaultExpenseCategoryName : defaultExpenseCategoryNames) {
+            newExpenseCategory = new ExpenseCategory(userId, defaultExpenseCategoryName);
+            addExpenseCategory(newExpenseCategory);
         }
-        return true;
     }
 
 }

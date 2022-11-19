@@ -25,10 +25,10 @@ public class Common {
     }
 
     public void menuSelector() {
-        if (userService.getCurrentUser() != null) {
-            if (Objects.equals(userService.getCurrentUser().getType(), UserTypes.ADMIN)) {
+        if (currentUser != null) {
+            if (Objects.equals(currentUser.getType(), UserTypes.ADMIN)) {
                 adminMenu.show();
-            } else if (Objects.equals(userService.getCurrentUser().getType(), UserTypes.CUSTOMER)) {
+            } else if (Objects.equals(currentUser.getType(), UserTypes.CUSTOMER)) {
                 customerMenu.show();
             }
         } else {
@@ -42,7 +42,7 @@ public class Common {
 
     public void menuFooter() {
         System.out.print("\n");
-        if (userService.getCurrentUser() != null) {
+        if (currentUser != null) {
             System.out.println("o- Oturumu Kapat");
         }
         System.out.println("ç- Çıkış Yap");
@@ -84,11 +84,8 @@ public class Common {
     }
 
     public void logoutUser() {
-        if (userService.logout()) {
-            System.out.println("\nOturum başarıyla kapatıldı.");
-        } else {
-            System.out.println("\nHata: Oturum kapatılamadı.");
-        }
+        userService.logout();
+        System.out.println("\nOturum başarıyla kapatıldı.");
     }
 
     public void recordNotFound() {
@@ -118,7 +115,7 @@ public class Common {
     }
 
     public void showUserExpenses(User user) {
-        List<Expense> expenseList = expenseService.getExpensesByUserId(user.getId());
+        List<Expense> expenseList = expenseService.getExpensesOfUser(user.getId());
         if (expenseList.size() == 0) {
             recordNotFound();
         } else {
@@ -128,13 +125,13 @@ public class Common {
                 System.out.println("Harcama adı: " + expenseList.get(i).getName());
                 System.out.println("Harcama miktarı: " + expenseList.get(i).getAmount());
                 System.out.println("Harcama tarihi: " + dateFormatter.format(expenseList.get(i).getDate()));
-                System.out.println("Harcama kategorisi: " + expenseCategoryService.getExpenseCategoryByUserIdAndExpenseCategoryId(user.getId(), expenseList.get(i).getCategoryId()).getName());
+                System.out.println("Harcama kategorisi: " + expenseCategoryService.getExpenseCategoryOfUser(user.getId(), expenseList.get(i).getCategoryId()).getName());
             }
         }
     }
 
     public void showUserExpenseCategories(User user) {
-        List<ExpenseCategory> expenseCategoryList = expenseCategoryService.getExpenseCategoriesByUserId(user.getId());
+        List<ExpenseCategory> expenseCategoryList = expenseCategoryService.getExpenseCategoriesOfUser(user.getId());
         if (expenseCategoryList.size() == 0) {
             recordNotFound();
         } else {
@@ -143,6 +140,15 @@ public class Common {
                 System.out.println("\nKategori ID: " + (expenseCategoryList.get(i).getId()));
                 System.out.println("Kategori adı: " + expenseCategoryList.get(i).getName());
             }
+        }
+    }
+
+    public boolean checkPasswords(String firstPassword, String secondPassword) {
+        if (Objects.equals(firstPassword, secondPassword)) {
+            return true;
+        } else {
+            System.out.println("\nHata: Şifreler Uyuşmuyor. Lütfen tekrar giriniz.");
+            return false;
         }
     }
 }

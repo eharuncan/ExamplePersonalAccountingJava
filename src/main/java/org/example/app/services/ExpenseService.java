@@ -20,47 +20,41 @@ public class ExpenseService {
         return expenseListDB;
     }
 
-    public List<Expense> getExpensesByUserId(Long userId) {
+    public List<Expense> getExpensesOfUser(Long userId) {
         return expenseListDB.stream()
                 .filter(expense -> Objects.equals(expense.getUserId(), userId))
                 .collect(Collectors.toList());
     }
 
-    public Expense getExpenseByUserIdAndExpenseId(Long userId, Long expenseId) {
+    public Expense getExpenseById(Long expenseId) {
         return expenseListDB.stream()
-                .filter(expense -> Objects.equals(expense.getUserId(), userId) && Objects.equals(expense.getId(), expenseId))
+                .filter(expense -> Objects.equals(expense.getId(), expenseId))
                 .findFirst()
                 .get();
     }
 
-    public boolean addExpense(Long userId, String name, Double amount, Date date, Long categoryId) {
-        long newExpenseId;
+    public Expense addExpenseOfUser(Expense newExpense) {
         List<Expense> expenseList = expenseListDB;
         if (expenseList.size() == 0) {
-            newExpenseId = 1;
+            newExpense.setId(1L);
         } else {
             Expense lastExpense = expenseList.get(expenseList.size() - 1);
-            newExpenseId = lastExpense.getId() + 1;
+            newExpense.setId(lastExpense.getId() + 1);
         }
-        Expense newExpense = new Expense(userId, newExpenseId, name, amount, date, categoryId);
-
         expenseListDB.add(newExpense);
-        return true;
-
+        return newExpense;
     }
 
-    public boolean editExpense(Long userId, Long id, String editedName, Double editedAmount, Date editedDate, Long editedCategoryId) {
-        Expense expense = getExpenseByUserIdAndExpenseId(userId, id);
-        int index = getExpenses().indexOf(expense);
-        Expense editedExpense = new Expense(userId, id, editedName, editedAmount, editedDate, editedCategoryId);
-        expenseListDB.set(index, editedExpense);
-        return true;
+    public Expense editExpenseOfUser(Expense newExpense, Long id) {
+        Expense foundExpense = getExpenseById(id);
+        int index = getExpenses().indexOf(foundExpense);
+        expenseListDB.set(index, newExpense);
+        return newExpense;
     }
 
-    public boolean deleteExpense(Long userId, Long expenseId) {
-        Expense foundExpense = getExpenseByUserIdAndExpenseId(userId, expenseId);
+    public void deleteExpenseOfUser(Long id) {
+        Expense foundExpense = getExpenseById(id);
         expenseListDB.remove(foundExpense);
-        return true;
     }
 
     public Double getSumOfUserExpensesOfDay(Long userId, Date date) {
@@ -68,8 +62,7 @@ public class ExpenseService {
         int year = localDate.getYear();
         int month = localDate.getMonthValue();
         int day = localDate.getDayOfMonth();
-
-        List<Expense> currentUsersExpenseList = getExpensesByUserId(userId);
+        List<Expense> currentUsersExpenseList = getExpensesOfUser(userId);
         List<Expense> resultList = currentUsersExpenseList.stream()
                 .filter(expense ->
                         Objects.equals(expense.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear(), year)
@@ -86,8 +79,7 @@ public class ExpenseService {
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int year = localDate.getYear();
         int month = localDate.getMonthValue();
-
-        List<Expense> currentUsersExpenseList = getExpensesByUserId(userId);
+        List<Expense> currentUsersExpenseList = getExpensesOfUser(userId);
         List<Expense> resultList = currentUsersExpenseList.stream()
                 .filter(expense ->
                         Objects.equals(expense.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear(), year)
@@ -102,8 +94,7 @@ public class ExpenseService {
     public Double getSumOfUserExpensesOfYear(Long userId, java.util.Date date) {
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int year = localDate.getYear();
-
-        List<Expense> currentUsersExpenseList = getExpensesByUserId(userId);
+        List<Expense> currentUsersExpenseList = getExpensesOfUser(userId);
         List<Expense> resultList = currentUsersExpenseList.stream()
                 .filter(expense ->
                         Objects.equals(expense.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear(), year)

@@ -2,7 +2,7 @@ package org.example.app.ui;
 
 import java.util.Objects;
 
-import static org.example.app.App.userService;
+import static org.example.app.App.*;
 
 public class AdminMenu {
     private final Common common;
@@ -12,7 +12,7 @@ public class AdminMenu {
     }
 
     public void show() {
-        System.out.println("\nSistem yönetimine hoşgeldiniz, " + userService.getCurrentUser().getName());
+        System.out.println("\nSistem yönetimine hoşgeldiniz, " + currentUser.getName());
 
         while (true) {
             common.menuHeader();
@@ -30,13 +30,10 @@ public class AdminMenu {
                 common.showUsers();
 
                 System.out.println("\nSilmek istediğiniz Kullanıcı ID yi giriniz:");
-                if (userService.deleteUser(Long.parseLong(common.getInput(null)))) {
-                    System.out.println("\nKullanıcı başarıyla silindi");
-                    common.backwardMenu();
-                    break;
-                } else {
-                    System.out.println("\nHata: Kullanıcı silinemedi.");
-                }
+                userService.deleteUser(Long.parseLong(common.getInput(null)));
+                System.out.println("\nKullanıcı başarıyla silindi");
+                common.backwardMenu();
+                break;
             } else if (Objects.equals(input, "o")) {
                 common.logoutUser();
                 common.menuSelector();

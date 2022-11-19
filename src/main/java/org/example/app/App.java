@@ -1,5 +1,6 @@
 package org.example.app;
 
+import org.example.app.domain.User;
 import org.example.app.services.ExpenseCategoryService;
 import org.example.app.services.ExpenseService;
 import org.example.app.services.UserService;
@@ -14,6 +15,8 @@ public class App {
     public static ExpenseCategoryService expenseCategoryService;
     public static UserService userService;
     public static ExpenseService expenseService;
+
+    public static User currentUser;
 
     public static void main(String[] args) {
         Database database = connectDatabase();

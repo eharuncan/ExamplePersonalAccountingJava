@@ -3,12 +3,16 @@ package org.example.app.domain;
 import java.util.Date;
 
 public class Expense {
-    public Expense() {
-    }
 
-    public Expense(Long userId, Long id, String name, Double amount, Date date, Long categoryId) {
+    private Long id;
+    private Long userId;
+    private String name;
+    private Double amount;
+    private Date date;
+    private Long categoryId;
+
+    public Expense(Long userId, String name, Double amount, Date date, Long categoryId) {
         this.userId = userId;
-        this.id = id;
         this.name = name;
         this.amount = amount;
         this.date = date;
@@ -16,12 +20,6 @@ public class Expense {
     }
 
     //Getters, Setters, Attributes
-    private Long userId;
-    private Long id;
-    private String name;
-    private Double amount;
-    private Date date;
-    private Long categoryId;
 
     public Long getUserId() {
         return userId;

@@ -9,15 +9,11 @@ import static org.example.app.App.expenseCategoryService;
 
 public class UserService {
     private final List<User> userListDB;
-    private User currentUser;
 
     public UserService(List<User> userListDB) {
         this.userListDB = userListDB;
-
-        register("admin", "admin", "admin", "admin", "admin");
-        register("customer1", "customer1", "1", "1", "1");
-
-        currentUser = null;
+        register(new User("admin", "admin", "admin", "admin"));
+        register(new User("customer1", "customer1", "1", "1"));
     }
 
     public List<User> getUsers() {
@@ -38,98 +34,46 @@ public class UserService {
                 .get();
     }
 
-    public boolean register(String name, String surname, String email, String password, String retypedPassword) {
-
-        if (checkPasswords(password, retypedPassword)) {
-
-            long newUserId;
-            List<User> userList = userListDB;
-            if (userList.size() == 0) {
-                newUserId = 1;
-            } else {
-                User lastUser = userList.get(userList.size() - 1);
-                newUserId = lastUser.getId() + 1;
-            }
-
-            if (!expenseCategoryService.addDefaultExpenseCategories(newUserId)) {
-                return false;
-            }
-
-            UserTypes selectedUserType;
-            if (Objects.equals(name, "admin")) {
-                selectedUserType = UserTypes.ADMIN;
-            } else {
-                selectedUserType = UserTypes.CUSTOMER;
-            }
-
-            User newUser = new User(newUserId, selectedUserType, name, surname, email, password);
-            userListDB.add(newUser);
-            currentUser = newUser;
-            return true;
-
-        }else {
-            return false;
+    public User register(User newUser) {
+        List<User> userList = userListDB;
+        if (userList.size() == 0) {
+            newUser.setId(1L);
+        } else {
+            User lastUser = userList.get(userList.size() - 1);
+            newUser.setId(lastUser.getId() + 1);
         }
-
+        if (Objects.equals(newUser.getName(), "admin")) {
+            newUser.setType(UserTypes.ADMIN);
+        } else {
+            newUser.setType(UserTypes.CUSTOMER);
+        }
+        userListDB.add(newUser);
+        if (newUser.getType() == UserTypes.CUSTOMER) {
+            expenseCategoryService.addDefaultExpenseCategoriesOfUser(newUser.getId());
+        }
+        return newUser;
     }
 
-    public boolean editUser(Long id, String editedName, String editedSurname, String editedEmail, String editedPassword, String retypedPassword) {
-        if (this.checkPasswords(editedPassword, retypedPassword)) {
-            User editedUser = new User(id, UserTypes.CUSTOMER, editedName, editedSurname, editedEmail, editedPassword);
-            int index = getUsers().indexOf(getUserById(id));
-            userListDB.set(index, editedUser);
-            return true;
-        } else {
-            return false;
-        }
+    public User editUser(User newUser, Long id) {
+        int index = getUsers().indexOf(getUserById(id));
+        userListDB.set(index, newUser);
+        return newUser;
     }
 
-    public boolean deleteUser(Long userId) {
-        if (userId == 1) {
-            return false;
-        } else {
+    public void deleteUser(Long userId) {
+        if (userId != 1) {
             User foundUser = getUserById(userId);
             userListDB.remove(foundUser);
-            return true;
         }
     }
 
-    public boolean login(String email, String password) {
-        if (checkUser(email, password)) {
-            currentUser = getUserByEmailAndPassword(email, password);
-            return true;
-        } else {
-            System.out.println("\nHata: Sistemde bu bilgilere sahip bir kullanıcı bulunamadı.");
-            return false;
-        }
+    public User login(User newUser) {
+        return getUserByEmailAndPassword(newUser.getEmail(), newUser.getPassword());
     }
 
-    public boolean logout() {
-        // Burada user adına tutulan oturum açma bilgileri silinir.
-        currentUser = null;
-        return true;
+    public void logout() {
+
     }
 
-    public boolean checkPasswords(String firstPassword, String secondPassword) {
-        if (Objects.equals(firstPassword, secondPassword)) {
-            return true;
-        } else {
-            System.out.println("\nHata: Şifreler Uyuşmuyor. Lütfen tekrar giriniz.");
-            return false;
-        }
-    }
-
-    public boolean checkUser(String email, String password) {
-        return userListDB.stream()
-                .anyMatch(user -> Objects.equals(user.getEmail(), email) && Objects.equals(user.getPassword(), password));
-    }
-
-    public User getCurrentUser() {
-        return currentUser;
-    }
-
-    public void setCurrentUser(User currentUser) {
-        this.currentUser = currentUser;
-    }
 }
 

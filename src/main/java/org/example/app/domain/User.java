@@ -3,12 +3,15 @@ package org.example.app.domain;
 import org.example.app.enums.UserTypes;
 
 public class User {
-    public User() {
-    }
 
-    public User(Long id, UserTypes type, String name, String surname, String email, String password) {
-        this.id = id;
-        this.type = type;
+    private Long id;
+    private UserTypes type;
+    private String name;
+    private String surname;
+    private String email;
+    private String password;
+
+    public User(String name, String surname, String email, String password) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -16,12 +19,6 @@ public class User {
     }
 
     //Getters, Setters, Attributes
-    private Long id;
-    private UserTypes type;
-    private String name;
-    private String surname;
-    private String email;
-    private String password;
 
     public Long getId() {
         return id;
