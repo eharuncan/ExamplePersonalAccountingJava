@@ -4,6 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 public final class Utils {
-    public static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
-    public static final Scanner screenScanner = new Scanner(System.in);
+    public static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("dd.MM.yyyy");
+    public static final Scanner SCREEN_SCANNER = new Scanner(System.in);
 }

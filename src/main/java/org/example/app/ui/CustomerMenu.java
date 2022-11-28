@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Objects;
 
 import static org.example.app.App.*;
-import static org.example.app.utils.Utils.dateFormatter;
+import static org.example.app.utils.Utils.DATE_FORMATTER;
 
 public class CustomerMenu {
 
@@ -85,9 +85,9 @@ public class CustomerMenu {
                         System.out.println("\nHarcama Miktarını giriniz: Örneğin: " + 100.0);
                         Double amount = (Double.parseDouble(Ui.getInput(null)));
 
-                        String formattedDate = dateFormatter.format(new java.util.Date());
+                        String formattedDate = DATE_FORMATTER.format(new java.util.Date());
                         System.out.println("\nHarcama Tarihini giriniz: Örneğin: " + formattedDate + " Bugünü seçmek için boş bırakınız.");
-                        Date date = (dateFormatter.parse(Ui.getInput(formattedDate)));
+                        Date date = (DATE_FORMATTER.parse(Ui.getInput(formattedDate)));
 
                         System.out.println("\nHarcama Kategorisini seçiniz: (İsteğe bağlı)");
                         Ui.showUserExpenseCategories(currentUser);
@@ -119,8 +119,8 @@ public class CustomerMenu {
                         System.out.println("\nYeni Harcama Miktarını giriniz: (" + Ui.getInput(expenseService.getExpenseById(selectedExpenseId).getAmount()) + ")");
                         Double editedAmount = (Double.parseDouble(Ui.getInput(Ui.getInput(expenseService.getExpenseById(selectedExpenseId).getAmount()))));
 
-                        System.out.println("\nYeni Harcama Tarihini giriniz: (" + dateFormatter.format(Ui.getInput(expenseService.getExpenseById(selectedExpenseId).getDate())) + ")");
-                        Date editedDate = (dateFormatter.parse(Ui.getInput(Ui.getInput(expenseService.getExpenseById(selectedExpenseId).getDate()))));
+                        System.out.println("\nYeni Harcama Tarihini giriniz: (" + DATE_FORMATTER.format(Ui.getInput(expenseService.getExpenseById(selectedExpenseId).getDate())) + ")");
+                        Date editedDate = (DATE_FORMATTER.parse(Ui.getInput(Ui.getInput(expenseService.getExpenseById(selectedExpenseId).getDate()))));
 
                         System.out.println("\nYeni Harcama Kategorisi seçiniz: (" + Ui.getInput(expenseService.getExpenseById(selectedExpenseId).getCategoryId()) + ")");
                         Ui.showUserExpenseCategories(currentUser);

@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Objects;
 
 import static org.example.app.App.*;
-import static org.example.app.utils.Utils.dateFormatter;
-import static org.example.app.utils.Utils.screenScanner;
+import static org.example.app.utils.Utils.DATE_FORMATTER;
+import static org.example.app.utils.Utils.SCREEN_SCANNER;
 
 public class Ui {
 
@@ -22,7 +22,7 @@ public class Ui {
     }
 
     public static String getInput(Object defaultValue) {
-        String input = screenScanner.nextLine();
+        String input = SCREEN_SCANNER.nextLine();
         if (defaultValue == null) {
             return input;
         } else {
@@ -116,7 +116,7 @@ public class Ui {
                 System.out.println("\nHarcama ID: " + (expenseList.get(i).getId()));
                 System.out.println("Harcama adı: " + expenseList.get(i).getName());
                 System.out.println("Harcama miktarı: " + expenseList.get(i).getAmount());
-                System.out.println("Harcama tarihi: " + dateFormatter.format(expenseList.get(i).getDate()));
+                System.out.println("Harcama tarihi: " + DATE_FORMATTER.format(expenseList.get(i).getDate()));
                 System.out.println("Harcama kategorisi: " + expenseCategoryService.getExpenseCategoryOfUser(user.getId(), expenseList.get(i).getCategoryId()).getName());
             }
         }
