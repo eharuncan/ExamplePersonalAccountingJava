@@ -1,4 +1,4 @@
-# example-personal-accounting-desktop
+# example-personal-accounting-desktop-app
 An Example Console App 
 
 includes OOP Principles
